@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>แบบฝึกหัด (Quiz) | OCI Foundations Study</title>
+<meta name="description" content="ฝึกทำโจทย์ 1Z0-1085-26 ตามโดเมน/objective/ความยาก — เฉลยทันทีพร้อมคำอธิบาย  bookmark ข้อและทบทวนเฉพาะข้อที่ตอบผิด">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html" aria-current="page">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › แบบฝึกหัด</nav>
+<div class="quiz-shell">
+
+  <h1>แบบฝึกหัด <span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)"><span id="quiz-bank-count">0</span> ข้อในคลัง</span></h1>
+
+  <section id="quiz-setup" aria-label="ตั้งค่าชุดฝึก">
+    <div class="table-wrap"><table>
+      <thead><tr><th>มิติ</th><th>เลือก</th></tr></thead>
+      <tbody>
+        <tr><td>โดเมน</td><td><div id="filter-domain" role="group" aria-label="เลือกโดเมน"></div></td></tr>
+        <tr><td>Objective</td><td><div id="filter-objective" role="group" aria-label="เลือก objective"></div></td></tr>
+        <tr><td>ความยาก</td><td><div id="filter-difficulty" role="group" aria-label="เลือกความยาก"></div></td></tr>
+        <tr><td>ชนิดคำตอบ</td><td><div id="filter-type" role="group" aria-label="เลือกชนิดคำตอบ"></div></td></tr>
+        <tr><td>จำนวนข้อ</td><td><div id="filter-count" role="group" aria-label="เลือกจำนวนข้อ"></div></td></tr>
+      </tbody>
+    </table></div>
+    <p id="pool-size" style="color:var(--muted);font-size:.9rem"></p>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-primary" id="start-quiz" type="button">เริ่มทำข้อสอบ</button>
+      <button class="btn" id="start-wrong-only" type="button" title="ทำเฉพาะข้อที่เคยตอบผิดในเครื่องนี้">ทบทวนเฉพาะข้อที่ตอบผิด</button>
+      <button class="btn" id="start-bookmarked" type="button" title="ทำเฉพาะข้อที่ bookmark ไว้">ทบทวนข้อที่ bookmark ไว้</button>
+    </div>
+  </section>
+
+  <section id="quiz-session" hidden aria-label="ทำข้อสอบ">
+    <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.25rem">
+      <span id="session-progress" style="font-variant-numeric:tabular-nums;color:var(--muted)"></span>
+      <span class="badge" id="session-domain"></span>
+      <button class="btn btn-sm bookmark-btn" id="toggle-bookmark" type="button" aria-pressed="false" aria-label="bookmark ข้อนี้">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        <span id="bookmark-label">bookmark</span>
+      </button>
+    </div>
+    <div class="progress" aria-hidden="true"><span id="session-bar"></span></div>
+
+    <h2 id="question-text" style="border:none;padding-top:.5rem;margin-bottom:.25rem"></h2>
+    <p id="question-hint" style="color:var(--muted);font-size:.85rem;margin-top:0"></p>
+    <div id="options-box" role="group" aria-label="ตัวเลือก"></div>
+
+    <div id="explain-box" class="quiz-explain" hidden></div>
+    <div id="wrongwhy-box" class="callout callout-trap" hidden style="margin-top:.5rem"><span class="callout-title">ทำไมข้ออื่นผิด</span><br><span id="wrongwhy-text"></span></div>
+    <p id="ref-box" hidden style="font-size:.85rem;margin-top:.4rem">แหล่งอ้างอิง: <a id="ref-link" href="#" target="_blank" rel="noopener">docs.oracle.com</a></p>
+
+    <div style="display:flex;gap:.5rem;margin-top:.75rem;flex-wrap:wrap">
+      <button class="btn" id="check-answer" type="button">ตรวจคำตอบ</button>
+      <button class="btn btn-primary" id="next-question" type="button" hidden>ข้อถัดไป →</button>
+      <button class="btn btn-ghost" id="quit-session" type="button">ออก</button>
+    </div>
+  </section>
+
+  <section id="quiz-summary" hidden aria-label="สรุปผล">
+    <h2 style="border:none">สรุปผลรอบนี้</h2>
+    <div class="stat-row">
+      <div class="stat"><b id="sum-score">0/0</b><span>ตอบถูก</span></div>
+      <div class="stat"><b id="sum-pct">0%</b><span>ความแม่นยำ</span></div>
+      <div class="stat"><b id="sum-bookmarked">0</b><span>bookmark ไว้</span></div>
+    </div>
+    <div id="sum-domains"></div>
+    <div class="callout callout-tip" id="sum-advice"></div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-primary" id="retry-wrong" type="button">ทบทวนเฉพาะข้อที่ผิดรอบนี้</button>
+      <button class="btn" id="retry-all" type="button">ทำใหม่อีกครั้ง</button>
+      <a class="btn" href="exam.html">ไปจำลองสอบ →</a>
+    </div>
+  </section>
+
+</div>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ข้อสอบเขียนขึ้นเอง ไม่ใช่ข้อสอบจริงของ Oracle · เฉลยอ้างอิงจากเอกสารทางการ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/quiz-data.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DATA = window.QUIZ_DATA || [];
+  var OBJ_PAGE = {
+    '1.1': 'd1-getting-started.html#d11', '1.2': 'd1-getting-started.html#d12',
+    '2.1': 'd2a-compute-cloud-native.html', '2.2': 'd2b-networking.html', '2.3': 'd2c-storage-database.html',
+    '3.1': 'd3a-shared-security-services.html#shared-model', '3.2': 'd3a-shared-security-services.html#cloud-guard', '3.3': 'd3b-iam.html',
+    '4.1': 'd4-governance-cost.html#pricing', '4.2': 'd4-governance-cost.html#budgets'
+  };
+  var DOMAIN_NAME = { '1': 'D1 · Getting Started', '2': 'D2 · Core Services', '3': 'D3 · Security', '4': 'D4 · Governance & Cost' };
+  var DIFF_TH = { recall: 'จำศัพท์', understand: 'เข้าใจแนวคิด', scenario: 'สถานการณ์ตัดสินใจ' };
+
+  var state = { pool: [], index: 0, selected: [], answered: false, results: [], wrongIds: [] };
+
+  function $(id) { return document.getElementById(id); }
+  function shuffle(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  /* ---------- filter UI ---------- */
+  var filters = { domain: 'all', objective: 'all', difficulty: 'all', type: 'all', count: 10 };
+
+  function buildChips(containerId, items, current, onPick) {
+    var box = $(containerId);
+    box.innerHTML = '';
+    items.forEach(function (item) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-sm' + (item.value === current ? ' btn-primary' : '');
+      btn.textContent = item.label;
+      btn.setAttribute('aria-pressed', item.value === current ? 'true' : 'false');
+      btn.addEventListener('click', function () { onPick(item.value); });
+      box.appendChild(btn);
+    });
+  }
+
+  function objectivesForDomain(domain) {
+    var seen = {};
+    DATA.forEach(function (q) {
+      if (domain === 'all' || q.domain === domain) seen[q.objective] = true;
+    });
+    return Object.keys(seen).sort();
+  }
+
+  function refreshFilters() {
+    buildChips('filter-domain', [
+      { value: 'all', label: 'ทั้งหมด' },
+      { value: '1', label: 'D1 · Getting Started' },
+      { value: '2', label: 'D2 · Core Services' },
+      { value: '3', label: 'D3 · Security' },
+      { value: '4', label: 'D4 · Governance & Cost' }
+    ], filters.domain, function (v) { filters.domain = v; filters.objective = 'all'; refreshFilters(); updatePoolSize(); });
+
+    var objs = objectivesForDomain(filters.domain);
+    buildChips('filter-objective', [{ value: 'all', label: 'ทั้งหมด' }].concat(objs.map(function (o) { return { value: o, label: o }; })),
+      filters.objective, function (v) { filters.objective = v; refreshFilters(); updatePoolSize(); });
+
+    buildChips('filter-difficulty', [
+      { value: 'all', label: 'ทั้งหมด' },
+      { value: 'recall', label: DIFF_TH.recall },
+      { value: 'understand', label: DIFF_TH.understand },
+      { value: 'scenario', label: DIFF_TH.scenario }
+    ], filters.difficulty, function (v) { filters.difficulty = v; refreshFilters(); updatePoolSize(); });
+
+    buildChips('filter-type', [
+      { value: 'all', label: 'ทั้งหมด' },
+      { value: 'single', label: 'เลือกข้อเดียว' },
+      { value: 'multi', label: 'เลือกหลายข้อ' }
+    ], filters.type, function (v) { filters.type = v; refreshFilters(); updatePoolSize(); });
+
+    buildChips('filter-count', [
+      { value: 10, label: '10 ข้อ' }, { value: 20, label: '20 ข้อ' }, { value: 40, label: '40 ข้อ' }, { value: 'all', label: 'ทั้งหมด' }
+    ], filters.count, function (v) { filters.count = v; refreshFilters(); updatePoolSize(); });
+  }
+
+  function filteredPool() {
+    return DATA.filter(function (q) {
+      if (filters.domain !== 'all' && q.domain !== filters.domain) return false;
+      if (filters.objective !== 'all' && q.objective !== filters.objective) return false;
+      if (filters.difficulty !== 'all' && q.difficulty !== filters.difficulty) return false;
+      if (filters.type !== 'all' && q.type !== filters.type) return false;
+      return true;
+    });
+  }
+  function updatePoolSize() {
+    var n = filteredPool().length;
+    $('pool-size').textContent = 'คลังที่ตรงเงื่อนไข: ' + n + ' ข้อ' + (filters.count !== 'all' ? ' (รอบนี้จะสุ่ม ' + Math.min(filters.count, n) + ' ข้อ)' : '');
+  }
+
+  /* ---------- session ---------- */
+  function startSession(qs) {
+    state.pool = shuffle(qs);
+    state.index = 0;
+    state.selected = [];
+    state.answered = false;
+    state.results = [];
+    state.wrongIds = [];
+    $('quiz-setup').hidden = true;
+    $('quiz-summary').hidden = true;
+    $('quiz-session').hidden = false;
+    renderQuestion();
+  }
+
+  function renderQuestion() {
+    var q = state.pool[state.index];
+    $('session-progress').textContent = 'ข้อ ' + (state.index + 1) + ' / ' + state.pool.length;
+    $('session-bar').style.width = Math.round((state.index / state.pool.length) * 100) + '%';
+    var badge = $('session-domain');
+    badge.textContent = DOMAIN_NAME[q.domain] + ' · ' + q.objective + ' · ' + DIFF_TH[q.difficulty] + (q.type === 'multi' ? ' · เลือกหลายข้อ' : '');
+    badge.className = 'badge badge-d' + q.domain;
+    $('question-text').textContent = q.question;
+    $('question-hint').textContent = q.type === 'multi' ? 'เลือกคำตอบที่ถูกต้องทุกข้อ' : 'เลือกคำตอบหนึ่งข้อ';
+    var optionsBox = $('options-box');
+    optionsBox.innerHTML = '';
+    state.selected = [];
+    state.answered = false;
+    var keys = ['A', 'B', 'C', 'D', 'E', 'F'];
+    q.options.forEach(function (opt, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'quiz-option';
+      btn.innerHTML = '<span class="option-key"></span><span class="option-text"></span>';
+      btn.querySelector('.option-key').textContent = keys[i] || String(i + 1);
+      btn.querySelector('.option-text').textContent = opt;
+      btn.addEventListener('click', function () { onPickOption(i, btn); });
+      optionsBox.appendChild(btn);
+    });
+    $('explain-box').hidden = true;
+    $('wrongwhy-box').hidden = true;
+    $('ref-box').hidden = true;
+    $('check-answer').hidden = false;
+    $('next-question').hidden = true;
+    updateBookmarkUI();
+  }
+
+  function onPickOption(i) {
+    if (state.answered) return;
+    var q = state.pool[state.index];
+    if (q.type === 'single') state.selected = [i];
+    else {
+      var at = state.selected.indexOf(i);
+      if (at >= 0) state.selected.splice(at, 1); else state.selected.push(i);
+      state.selected.sort();
+    }
+    var buttons = $('options-box').querySelectorAll('.quiz-option');
+    buttons.forEach(function (b, idx) { b.classList.toggle('selected', state.selected.indexOf(idx) >= 0); });
+  }
+
+  function sameSet(a, b) {
+    if (a.length !== b.length) return false;
+    var sa = a.slice().sort(), sb = b.slice().sort();
+    return sa.every(function (v, i) { return v === sb[i]; });
+  }
+
+  function checkAnswer() {
+    var q = state.pool[state.index];
+    if (!state.selected.length) { window.ociToast('กรุณาเลือกคำตอบก่อน'); return; }
+    state.answered = true;
+    var ok = sameSet(state.selected, q.answer.slice());
+    state.results.push({ id: q.id, domain: q.domain, objective: q.objective, ok: ok });
+    if (!ok) state.wrongIds.push(q.id);
+    window.OCIStudy.recordQuizResult(q.domain, ok ? 1 : 0, 1);
+    try {
+      var stored = JSON.parse(window.localStorage.getItem('oci-study-wrong-ids') || '[]');
+      if (!ok && stored.indexOf(q.id) < 0) stored.push(q.id);
+      if (ok) { var ix = stored.indexOf(q.id); if (ix >= 0) stored.splice(ix, 1); }
+      window.localStorage.setItem('oci-study-wrong-ids', JSON.stringify(stored));
+    } catch (e) { /* localStorage ใช้ไม่ได้ — ข้ามการบันทึก wrong-ids */ }
+
+    var buttons = $('options-box').querySelectorAll('.quiz-option');
+    buttons.forEach(function (b, idx) {
+      b.disabled = true;
+      if (q.answer.indexOf(idx) >= 0) b.classList.add('correct');
+      else if (state.selected.indexOf(idx) >= 0) b.classList.add('wrong');
+    });
+    var explain = $('explain-box');
+    explain.hidden = false;
+    explain.classList.toggle('incorrect', !ok);
+    explain.innerHTML = '';
+    var strong = document.createElement('strong');
+    strong.textContent = ok ? 'ถูกต้อง! ' : 'ยังไม่ถูก — ';
+    explain.appendChild(strong);
+    explain.appendChild(document.createTextNode(q.explanation));
+
+    var ww = $('wrongwhy-box');
+    if (q.wrongWhy) { ww.hidden = false; $('wrongwhy-text').textContent = q.wrongWhy; }
+    var ref = $('ref-box');
+    if (q.refLink) { ref.hidden = false; $('ref-link').href = q.refLink; }
+    $('check-answer').hidden = true;
+    $('next-question').hidden = false;
+    $('session-bar').style.width = Math.round(((state.index + 1) / state.pool.length) * 100) + '%';
+  }
+
+  function nextOrFinish() {
+    state.index++;
+    if (state.index < state.pool.length) renderQuestion();
+    else showSummary();
+  }
+
+  function updateBookmarkUI() {
+    var q = state.pool[state.index];
+    var bookmarked = window.OCIStudy.getBookmarks().indexOf(q.id) >= 0;
+    $('toggle-bookmark').setAttribute('aria-pressed', bookmarked ? 'true' : 'false');
+    $('bookmark-label').textContent = bookmarked ? 'bookmarked' : 'bookmark';
+    $('toggle-bookmark').classList.toggle('btn-primary', bookmarked);
+  }
+
+  function toggleBookmark() {
+    var q = state.pool[state.index];
+    window.OCIStudy.toggleBookmark(q.id);
+    updateBookmarkUI();
+  }
+
+  function showSummary() {
+    $('quiz-session').hidden = true;
+    $('quiz-summary').hidden = false;
+    var total = state.results.length;
+    var correct = state.results.filter(function (r) { return r.ok; }).length;
+    $('sum-score').textContent = correct + '/' + total;
+    $('sum-pct').textContent = total ? Math.round((100 * correct) / total) + '%' : '0%';
+    $('sum-bookmarked').textContent = window.OCIStudy.getBookmarks().length;
+
+    var byDomain = {};
+    state.results.forEach(function (r) {
+      if (!byDomain[r.domain]) byDomain[r.domain] = { ok: 0, total: 0, objectives: {} };
+      byDomain[r.domain].total++;
+      if (r.ok) byDomain[r.domain].ok++;
+      var o = byDomain[r.domain].objectives[r.objective] = byDomain[r.domain].objectives[r.objective] || { ok: 0, total: 0 };
+      o.total++; if (r.ok) o.ok++;
+    });
+    var box = $('sum-domains');
+    box.innerHTML = '';
+    var weakest = null, weakestPct = 101;
+    Object.keys(byDomain).sort().forEach(function (d) {
+      var s = byDomain[d];
+      var pct = Math.round((100 * s.ok) / s.total);
+      if (pct < weakestPct) { weakestPct = pct; weakest = d; }
+      var div = document.createElement('div');
+      div.style.cssText = 'margin:.35rem 0';
+      div.innerHTML = '<div style="display:flex;justify-content:space-between;font-size:.9rem;margin-bottom:.15rem"><span>' + DOMAIN_NAME[d] + '</span><span>' + s.ok + '/' + s.total + ' · ' + pct + '%</span></div><div class="progress"><span style="width:' + pct + '%;background:var(--d' + d + ')"></span></div>';
+      var linkRow = document.createElement('div');
+      linkRow.style.cssText = 'font-size:.8rem;margin-top:.15rem';
+      Object.keys(s.objectives).sort().forEach(function (obj) {
+        var o = s.objectives[obj];
+        if (o.ok < o.total && OBJ_PAGE[obj]) {
+          var a = document.createElement('a');
+          a.href = OBJ_PAGE[obj];
+          a.textContent = '→ ทบทวน objective ' + obj;
+          a.style.marginRight = '.75rem';
+          linkRow.appendChild(a);
+        }
+      });
+      div.appendChild(linkRow);
+      box.appendChild(div);
+    });
+    $('sum-advice').innerHTML = weakest === null
+      ? '<strong>เยี่ยม!</strong> รอบนี้สมบูรณ์แบบ — ลองเพิ่มความยากเป็น "สถานการณ์ตัดสินใจ" ดูครับ'
+      : '<strong>จุดที่ควรเก็บเพิ่ม:</strong> ' + DOMAIN_NAME[weakest] + ' (' + weakestPct + '%) — กลับไปอ่านหน้าโดเมนนั้นก่อนสอบจำลองรอบหน้า';
+    $('retry-wrong').disabled = state.wrongIds.length === 0;
+    $('retry-wrong').textContent = state.wrongIds.length ? 'ทบทวนข้อที่ผิดรอบนี้ (' + state.wrongIds.length + ' ข้อ)' : 'รอบนี้ไม่มีข้อผิด';
+  }
+
+  /* ---------- wire up ---------- */
+  $('quiz-bank-count').textContent = DATA.length;
+  $('start-quiz').addEventListener('click', function () {
+    var pool = filteredPool();
+    if (!pool.length) { window.ociToast('ไม่มีข้อที่ตรงเงื่อนไข'); return; }
+    startSession(filters.count === 'all' ? pool : shuffle(pool).slice(0, filters.count));
+  });
+  $('start-wrong-only').addEventListener('click', function () {
+    var wrong = window.OCIStudy.getQuizStats ? null : null;
+    var stored = [];
+    try { stored = JSON.parse(window.localStorage.getItem('oci-study-wrong-ids') || '[]'); } catch (e) { stored = []; }
+    var pool = DATA.filter(function (q) { return stored.indexOf(q.id) >= 0; });
+    if (!pool.length) { window.ociToast('ยังไม่มีข้อผิดที่บันทึกไว้ — ลองทำแบบฝึกหัดก่อน'); return; }
+    startSession(pool);
+  });
+  $('start-bookmarked').addEventListener('click', function () {
+    var bm = window.OCIStudy.getBookmarks();
+    var pool = DATA.filter(function (q) { return bm.indexOf(q.id) >= 0; });
+    if (!pool.length) { window.ociToast('ยังไม่มีข้อที่ bookmark ไว้'); return; }
+    startSession(pool);
+  });
+  $('check-answer').addEventListener('click', checkAnswer);
+  $('next-question').addEventListener('click', nextOrFinish);
+  $('toggle-bookmark').addEventListener('click', toggleBookmark);
+  $('quit-session').addEventListener('click', function () {
+    $('quiz-session').hidden = true;
+    $('quiz-setup').hidden = false;
+    refreshFilters(); updatePoolSize();
+  });
+  $('retry-all').addEventListener('click', function () {
+    $('quiz-summary').hidden = true;
+    $('quiz-setup').hidden = false;
+    refreshFilters(); updatePoolSize();
+  });
+  $('retry-wrong').addEventListener('click', function () {
+    var pool = DATA.filter(function (q) { return state.wrongIds.indexOf(q.id) >= 0; });
+    if (pool.length) startSession(pool);
+  });
+
+  /* persist wrong ids for review mode */
+  var origRecord = window.OCIStudy.recordQuizResult;
+  window.OCIStudy.recordQuizResult = function (domain, correct, total) {
+    origRecord(domain, correct, total);
+  };
+
+  refreshFilters();
+  updatePoolSize();
+})();
+</script>
+</body>
+</html>
