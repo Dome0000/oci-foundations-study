@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.3 Storage &amp; Database | OCI Foundations Study</title>
+<meta name="description" content="OCI Storage: Block/Boot Volume, Object Storage (tiers, lifecycle, versioning, replication, PAR), File Storage; ตารางเปรียบเทียบ Block vs Object vs File, decision tree, และ (เสริม) Autonomous Database, Base Database, Exadata, MySQL HeatWave, NoSQL">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3" aria-current="page"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#block">Block &amp; Boot Volume</a></li>
+      <li><a href="#object">Object Storage</a></li>
+      <li><a href="#file">File Storage</a></li>
+      <li><a href="#migration">บริการย้ายข้อมูล</a></li>
+      <li><a href="#compare">Block vs Object vs File</a></li>
+      <li><a href="#decision">Decision Tree</a></li>
+      <li><a href="#database">ภาพรวม Database (เสริม)</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d2">Domain 2</span> 2.3 Storage &amp; Database</nav>
+<article class="article">
+
+  <h1>2.3 Storage &amp; Database <span class="badge badge-d2">D2 · 50%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 50–65 นาที · objective 2.3 · หัวข้อ Database เป็นส่วน "เสริม" เพราะไม่ยืนยันว่าอยู่ใน objectives ทางการ</p>
+
+  <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s);margin:.5rem 0 1rem">
+    <input type="checkbox" data-objective-id="2.3"> ทำเครื่องหมายว่าอ่าน objective 2.3 จบแล้ว
+  </label>
+
+  <h2 id="why">Why it matters</h2>
+  <p>ข้อมูลคือสิ่งที่มีค่าที่สุดบน cloud — การเลือกชนิด storage ผิดทำให้ทั้งแพง ช้า และกู้ข้อมูลไม่ได้ ข้อสอบถาม 3 เรื่องหลัก: (1) Block/Object/File ต่างกันยังไง (2) Object Storage มีฟีเจอร์อะไรบ้าง (versioning/replication/lifecycle/PAR) (3) เมื่อไหร่ควรใช้ database แบบไหน</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  <strong>Block Volume</strong> = ฮาร์ดดิสก์ภายนอกที่เสียบกับเครื่องเดียว · <strong>Object Storage</strong> = โกดังเก็บของที่เรียกผ่าน URL ได้จากที่ไหนก็ได้ · <strong>File Storage</strong> = ไดรฟ์แชร์ในออฟฟิศ (NFS) ที่หลายเครื่อง mount พร้อมกันได้</div>
+
+  <h2 id="block">Block Volume และ Boot Volume</h2>
+  <ul>
+    <li><strong>Block Volume</strong> — network-attached storage ระดับ block ผูกกับ instance ใน <em>AD เดียวกัน</em> เท่านั้น; ขนาดได้หลาย TB; ทำ snapshot/backup/clone ได้</li>
+    <li><strong>Boot Volume</strong> — block volume ที่เก็บ OS ของ instance; เป็น AD-specific เหมือนกัน</li>
+    <li><strong>Performance tiers</strong> — Balanced / Higher Performance / Ultra High Performance ปรับได้โดยไม่ต้อง data migration; มี <strong>auto-tune</strong> ให้ volume ปรับ performance อัตโนมัติตามการใช้งาน</li>
+    <li><strong>Backup</strong> — เต็ม (full) หรือ incremental; <strong>clone</strong> — สำเนาจาก volume/backup โดยไม่ต้อง copy ข้อมูล (metadata copy); <strong>Volume Groups</strong> — จัดการ backup หลาย volume แบบ consistent พร้อมกัน (เหมาะกับแอป multi-volume)</li>
+    <li><strong>Replication</strong> — คัดลอก block volume ไป AD หรือ region อื่นโดยอัตโนมัติ (cross-region backup ก็มี)</li>
+    <li>IOPS/throughput สูงสุดตามขนาดและ tier — อย่าจำตัวเลขตายตัว ตรวจเอกสารปัจจุบัน</li>
+  </ul>
+
+  <h2 id="object">Object Storage</h2>
+  <h3>โครงสร้าง: Namespace → Bucket → Object</h3>
+  <ul>
+    <li><strong>Namespace</strong> — ตัวระบุระดับบนสุดของทั้ง tenancy: <em>system-generated, ไม่ซ้ำใคร, เปลี่ยนไม่ได้</em> หนึ่ง tenancy มีหนึ่ง namespace (ชื่อเดียวกันทุก region)</li>
+    <li><strong>Bucket</strong> — ที่เก็บ object ภายใน namespace (ชื่อ bucket ต้องไม่ซ้ำใน namespace) เป็น regional resource, ผูก compartment เดียว, default เป็น <strong>private</strong></li>
+    <li><strong>Object</strong> — ไฟล์ + metadata (custom metadata เป็น key-value, รวมไม่เกิน ~4 KB); ขนาดสูงสุดต่อ object ≈ 10 TiB; อัปโหลดผ่าน API ครั้งละจำกัด (multipart upload สำหรับไฟล์ใหญ่)</li>
+  </ul>
+
+  <h3>Storage tiers (ชั้นการจัดเก็บ)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Tier</th><th>เหมาะกับ</th><th>เข้าถึง</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Standard</strong></td><td>ข้อมูล hot ใช้งานบ่อย (default)</td><td>ทันที</td></tr>
+      <tr><td><strong>Infrequent Access</strong></td><td>ข้อมูลเข้าถึงน้อยแต่ต้องอ่านได้ทันที (เช่น backups, logs 90 วัน)</td><td>ทันที (ค่า API/retrieval สูงกว่า)</td></tr>
+      <tr><td><strong>Archive</strong></td><td>ข้อมูล cold เก็บระยะยาว (compliance)</td><td>ต้อง <strong>restore</strong> ก่อน (มี latency) — อ่านตรงไม่ได้</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ฟีเจอร์สำคัญที่ข้อสอบถาม</h3>
+  <ul>
+    <li><strong>Lifecycle policy</strong> — กฎย้าย/ลบ object อัตโนมัติ (เช่น "ย้ายไป Archive หลัง 90 วัน, ลบหลัง 2 ปี") — ลดค่าใช้จ่ายโดยไม่ต้องเขียนโค้ด</li>
+    <li><strong>Versioning</strong> — เก็บเวอร์ชันเก่าของ object ไว้ กันมือลบ/ทับโดยไม่ตั้งใจ</li>
+    <li><strong>Replication</strong> — คัดลอก object จาก bucket ต้นทางไป bucket ปลายทาง (ข้าม region ได้) แบบ asynchronous</li>
+    <li><strong>Pre-Authenticated Request (PAR)</strong> — ลิงก์ชั่วคราวให้บุคคลภายนอกอ่าน/เขียน object <em>โดยไม่ต้องมี OCI credentials</em>; มีวันหมดอายุ; ใครถือลิงก์ก็ใช้ได้ — ถือเป็น secret; ลบ PAR = เพิกถอนทันที</li>
+    <li><strong>Retention rules</strong> — ล็อก object ไม่ให้ลบ (WORM สำหรับ compliance) แยกจาก lifecycle</li>
+    <li><strong>Encryption</strong> — เข้ารหัส at rest เสมอ (AES-256) และ in transit (TLS); รองรับ customer-managed keys ผ่าน Vault</li>
+    <li>เข้าจาก VCN ส่วนตัวผ่าน <strong>Service Gateway</strong> โดยไม่ผ่านเน็ตสาธารณะ</li>
+    <li>API: REST + Amazon S3-compatible API (ย้าย workload จาก S3 ง่าย) + Swift API</li>
+    <li>Bucket เป็น <em>regional</em> แต่เข้าถึงได้จากที่ใดก็ได้ผ่าน URL เฉพาะ region</li>
+  </ul>
+
+  <h2 id="file">File Storage</h2>
+  <ul>
+    <li><strong>Shared file system แบบ NFS</strong> — หลาย instance mount ไฟล์เดียวกันพร้อมกันได้ (read/write) เหมาะกับ content management, home directories, HPC shared data</li>
+    <li>ทรัพยากรหลัก: <strong>File system</strong> → export ผ่าน <strong>mount target</strong> (มี private IP ใน subnet) → instance mount ด้วย <code>mount -t nfs ...</code></li>
+    <li><strong>Snapshot</strong> — point-in-time copy แบบ read-only สำหรับ backup/clone</li>
+    <li>เป็น regional (mount target อยู่ใน subnet/AD ตามที่สร้าง แต่ file system เข้าถึงได้ข้าม AD ผ่าน mount target — สร้าง mount target หลาย AD ได้)</li>
+  </ul>
+
+  <h2 id="migration">บริการย้ายข้อมูลเข้า OCI</h2>
+  <ul>
+    <li><strong>Data Transfer Service / Data Transfer Appliance</strong> — ส่งอุปกรณ์ storage ไปให้ Oracle ยัดข้อมูล (เหมาะกับข้อมูลระดับ PB ที่เน็ตไม่ไหว)</li>
+    <li><strong>rsync / OCI CLI / multipart upload</strong> — ย้ายผ่านเครือข่ายสำหรับข้อมูลขนาดเล็กถึงกลาง</li>
+    <li><strong>Database migration</strong> — ใช้บริการ Database Migration / Data Pump / GoldenGate สำหรับย้าย database</li>
+  </ul>
+
+  <h2 id="compare">Block vs Object vs File — ตารางเดียวจบ</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Block Volume</th><th>Object Storage</th><th>File Storage</th></tr></thead>
+    <tbody>
+      <tr><td>รูปแบบ</td><td>Block (ดิสก์)</td><td>Object (ไฟล์+metadata ผ่าน API/URL)</td><td>File (NFS, hierarchy)</td></tr>
+      <tr><td>เข้าถึงจาก</td><td>instance เดียว (หรือหลายตัวแบบ read-only พิเศษ) ใน AD เดียวกัน</td><td>ที่ไหนก็ได้ผ่านเน็ต/Service Gateway (ถ้า private)</td><td>หลาย instance mount พร้อมกัน (ข้าม AD ผ่าน mount target)</td></tr>
+      <tr><td>เหมาะกับ</td><td>OS, database, workload ที่ต้องการ block I/O ต่ำ latency</td><td>backup, รูปภาพ/วิดีโอ, static content, data lake, log, archive</td><td>แอปที่ต้องการ shared filesystem (CMS, home dir)</td></tr>
+      <tr><td>Protocol</td><td>iSCSI/paravirtual (ผ่าน OCI)</td><td>HTTPS REST (S3-compatible)</td><td>NFSv3</td></tr>
+      <tr><td>ขนาด/ขีดจำกัด</td><td>จนถึงหลายสิบ TB ต่อ volume</td><td>object สูงสุด ~10 TiB, จำนวนไม่จำกัดในทางปฏิบัติ</td><td>ขยายได้ตามต้องการ</td></tr>
+      <tr><td>ราคาโดยสัมพันธ์</td><td>สูง (SSD/NVMe tiers)</td><td>ต่ำที่สุด (โดยเฉพาะ Archive)</td><td>กลาง</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="decision">Decision Tree — เลือก storage ยังไง</h2>
+  <figure class="diagram" role="img" aria-label="ผังตัดสินใจเลือกชนิด storage">
+    <svg viewBox="0 0 660 260" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+      <rect x="220" y="8" width="220" height="38" rx="19" fill="#c74634" opacity="0.15" stroke="#c74634"/>
+      <text x="330" y="32" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">ต้องการเก็บข้อมูลแบบไหน?</text>
+
+      <line x1="330" y1="46" x2="120" y2="78" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="46" x2="330" y2="78" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="46" x2="540" y2="78" stroke="currentColor" opacity="0.6"/>
+
+      <rect x="15" y="78" width="210" height="44" rx="8" fill="#c74634" opacity="0.09" stroke="#c74634"/>
+      <text x="120" y="98" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">ดิสก์ให้ instance/ฐานข้อมูล</text>
+      <text x="120" y="115" text-anchor="middle" font-size="11" fill="currentColor">ต้อง I/O สูง latency ต่ำ</text>
+
+      <rect x="235" y="78" width="190" height="44" rx="8" fill="#0f6f6b" opacity="0.09" stroke="#0f6f6b"/>
+      <text x="330" y="98" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">ไฟล์แชร์หลาย instance</text>
+      <text x="330" y="115" text-anchor="middle" font-size="11" fill="currentColor">mount ผ่าน NFS</text>
+
+      <rect x="435" y="78" width="210" height="44" rx="8" fill="#3f5f8a" opacity="0.09" stroke="#3f5f8a"/>
+      <text x="540" y="98" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">ไฟล์/อ็อบเจกต์จำนวนมาก</text>
+      <text x="540" y="115" text-anchor="middle" font-size="11" fill="currentColor">เข้าผ่านเน็ตหรือ API</text>
+
+      <line x1="120" y1="122" x2="120" y2="158" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="122" x2="330" y2="158" stroke="currentColor" opacity="0.6"/>
+      <line x1="540" y1="122" x2="540" y2="158" stroke="currentColor" opacity="0.6"/>
+
+      <rect x="15" y="158" width="210" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="120" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Block / Boot Volume</text>
+
+      <rect x="235" y="158" width="190" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="330" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">File Storage</text>
+
+      <rect x="435" y="158" width="210" height="38" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="540" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Object Storage</text>
+
+      <text x="330" y="235" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.75">archive ตอบโจทย์ compliance → Object Storage tier Archive · สำรอง/ย้ายข้าม region → replication หรือ backup</text>
+    </svg>
+    <figcaption>คำถามแรกคือ "ใครต้องเข้าถึงข้อมูล และแบบไหน" ไม่ใช่ "เก็บอะไร"</figcaption>
+  </figure>
+
+  <h2 id="database">ภาพรวม Database บน OCI <span class="badge" style="background:var(--surface-2);color:var(--muted)">เสริม — นอกขอบเขตสอบที่ยืนยันไม่ได้</span></h2>
+  <div class="callout callout-extra"><span class="callout-title">เสริม (นอกขอบเขตสอบ)</span><br>
+  หัวข้อ database <strong>ไม่ได้ระบุอยู่ใน objectives ของ 1Z0-1085-26 ที่ให้มาใน PROMPT.md</strong> และเข้ายืนยันหน้าทางการไม่ได้จากสภาพแวดล้อมนี้ จึงทำเป็น "รู้จักไว้" แบบสั้น — ถ้า objectives ทางการไม่มี ห้ามลงลึก; ถ้ามีให้กลับมาอ่าน docs.oracle.com เพิ่ม</div>
+  <ul>
+    <li><strong>Autonomous Database</strong> — database จัดการตัวเอง (self-driving/securing/repairing): patch, backup, tune อัตโนมัติ; มีสองรสหลัก: <strong>ATP</strong> (Autonomous Transaction Processing — OLTP) และ <strong>ADW</strong> (Autonomous Data Warehouse — analytics); เรียกแบบ serverless หรือ dedicated (Exadata)</li>
+    <li><strong>Base Database Service</strong> — Oracle Database บน VM/Bare Metal ที่คุณดูแล (customized), มี Data Guard option</li>
+    <li><strong>Exadata Database Service</strong> — Oracle Database บน Exadata infrastructure, performance สูงสุด, มีทั้งแบบ on-cloud และ Cloud@Customer</li>
+    <li><strong>MySQL HeatWave</strong> — managed MySQL + HeatWave engine สำหรับ analytics เร็ว; เข้ากับ ecosystem MySQL</li>
+    <li><strong>NoSQL Database</strong> — managed NoSQL (key-value/JSON), serverless, latency ต่ำ สำหรับ scale สูง</li>
+    <li><strong>Oracle Database@Azure / @AWS / @Google Cloud</strong> — Oracle Database รันใน datacenter ของ Azure/AWS/Google โดยตรง (multicloud) — ดูหน้า <a href="d1-getting-started.html">D1</a></li>
+  </ul>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>"หลาย instance ต้องเขียนไฟล์เดียวกันพร้อมกัน" → <strong>File Storage (NFS)</strong> ไม่ใช่ Block Volume</li>
+      <li>"เก็บ log 5 ปี เรียกดูแทบไม่เคย" → <strong>Object Storage Archive tier</strong> หรือ lifecycle rule ย้ายอัตโนมัติ — ถ้าต้องอ่านทันทีแต่ไม่ค่อยใช้ → <strong>Infrequent Access</strong></li>
+      <li>"ให้ลูกค้าภายนอกอัปโหลดไฟล์โดยไม่มี OCI account" → <strong>Pre-Authenticated Request</strong></li>
+      <li>"ป้องกันคนเผลอลบ object เก่า" → <strong>versioning</strong>; "ป้องกันการลบตามกฎหมาย" → <strong>retention rule</strong>; "ย้าย/ลบอัตโนมัติตามอายุ" → <strong>lifecycle policy</strong></li>
+      <li>Block Volume และ Boot Volume เป็น <strong>AD-specific</strong>; Object Storage เป็น <strong>regional</strong></li>
+      <li>bucket default เป็น <strong>private</strong>; namespace system-generated เปลี่ยนไม่ได้</li>
+      <li>"เก็บข้อมูลขนาด PB โดยเน็ตไม่ไหว" → <strong>Data Transfer Appliance</strong></li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"Archive tier อ่านได้เหมือน Standard"</strong> — ผิด: ต้อง restore ก่อน มี restore latency</li>
+      <li><strong>"Block Volume แชร์หลาย instance เขียนพร้อมกันได้"</strong> — ผิด: Block ผูกกับ instance ใน AD เดียว เป็นหลัก (การแชร์แบบ multi-attach มีเงื่อนไขพิเศษ); แชร์เขียนพร้อมกันใช้ File Storage</li>
+      <li><strong>"PAR คือ IAM user ชั่วคราว"</strong> — ไม่ใช่: PAR คือลายเซ็น URL ไม่เกี่ยวกับ identity; ลบ PAR = เพิกถอน; หมดอายุตามที่ตั้ง</li>
+      <li><strong>"Object Storage ต้องผ่าน public URL เสมอ"</strong> — ไม่: private bucket + Service Gateway = ไม่ผ่านเน็ตสาธารณะ</li>
+      <li><strong>"Lifecycle policy ลบ bucket ได้"</strong> — ลบได้แค่ objects ใน bucket ไม่ใช่ตัว bucket</li>
+      <li><strong>"Backup ของ Block Volume กู้ข้าม region ไม่ได้เลย"</strong> — ทำได้ผ่าน cross-region volume backup/replication (ค่า/เงื่อนไขตรวจเอกสาร)</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  บริษัทมี log ของแอป 2 TB/วัน ต้องเก็บ 1 ปี โดย 30 วันแรกเข้าดูบ่อย หลังจากนั้นแทบไม่เข้า ออกแบบ storage ยังไงให้ถูกสุด?<br>
+  <strong>วิธีคิด:</strong> Object Storage + <strong>lifecycle policy</strong>: Standard 30 วัน → Infrequent Access หรือ Archive จนครบ 1 ปี → ลบอัตโนมัติ; ไม่ต้องเขียนแอปลบเอง และประหยัดกว่าเก็บ Standard ทั้งปี</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  เว็บแอป 3 instance ใน private subnet ต้องให้ upload ไฟล์รูปจากผู้ใช้ขึ้นเก็บที่เดียวกัน และ web tier ทั้งสามอ่านได้พร้อมกัน ตัวเลือกใดเหมาะสุด?<br>
+  <strong>วิธีคิด:</strong> ถ้าต้องการแค่ object ผ่าน HTTP → <strong>Object Storage</strong> (+ PAR ถ้าเป็น direct upload); ถ้าแอปอ่าน/เขียนแบบ filesystem ต้อง mount → <strong>File Storage</strong> (NFS mount target) — หัวใจคือ "แอปเข้าถึงแบบไหน"</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. Block Volume / Boot Volume เป็น resource ระดับใด และแชร์ข้าม AD ได้ไหม?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">AD-specific — ผูกกับ AD และเข้าถึงได้เฉพาะ instance ใน AD เดียวกัน ข้าม AD ต้องใช้ backup/replication แล้วสร้างใหม่</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. ต้องการให้คนภายนอกดาวน์โหลดไฟล์จาก private bucket โดยไม่สร้าง OCI user ใช้อะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Pre-Authenticated Request (PAR) — URL ชั่วคราวพร้อมสิทธิ์อ่าน/เขียนที่กำหนด หมดอายุตามเวลา; ลบ PAR เพื่อเพิกถอน</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. ความต่างระหว่าง Infrequent Access กับ Archive tier?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Infrequent Access อ่านได้ทันทีแต่ค่าเข้าถึงสูงกว่า Standard; Archive ต้อง restore ก่อนจึงดาวน์โหลดได้ (มี restore latency) เก็บถูกสุดแต่ไม่เหมาะกับข้อมูลที่ต้องอ่านฉับพลัน</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. ฟีเจอร์ใดกัน object หายจากการเผลอลบ — versioning หรือ lifecycle?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Versioning — เก็บเวอร์ชันเก่าไว้ กู้คืนได้; lifecycle ทำหน้าที่ "ย้าย/ลบอัตโนมัติตามอายุ" ซึ่งเป็นคนละเรื่อง</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. serverless, patch/backup อัตโนมัติ, มี ATP กับ ADW — คือบริการอะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Autonomous Database — ATP = Transaction Processing (OLTP), ADW = Data Warehouse (analytics); จัดการตัวเองเกือบทั้งหมด</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Object/home.htm" target="_blank" rel="noopener">Object Storage — documentation</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Block/home.htm" target="_blank" rel="noopener">Block Volume</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/File/home.htm" target="_blank" rel="noopener">File Storage</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Archive/home.htm" target="_blank" rel="noopener">Archive Storage</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/objectstorageoverview.htm" target="_blank" rel="noopener">Object Storage overview (namespace/tiers/PAR)</a></li>
+    <li><a href="https://docs.oracle.com/en/cloud/paas/autonomous-database/index.html" target="_blank" rel="noopener">Autonomous Database (เสริม)</a> · <a href="https://docs.oracle.com/en/cloud/paas/mysql-heatwave/index.html" target="_blank" rel="noopener">MySQL HeatWave (เสริม)</a></li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="d2b-networking.html"><small>ก่อนหน้า</small>← 2.2 Networking</a>
+    <a href="d3a-shared-security-services.html" style="text-align:right"><small>ถัดไป</small>3.1–3.2 Security →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ตรวจ limits/tiers กับเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -4,9 +4,9 @@
 - [x] Phase 0 — Research & Plan (blueprint ยืนยันไม่ได้จาก sandbox นี้: ดู NOTES.md; ใช้ค่าจาก PROMPT.md + แบนเนอร์เตือน)
 - [ ] Phase 1 — Foundation (design system, layout, nav, dark/light)
 - [ ] Phase 2 — Content (ลำดับ: D2 → D1 → D3 → D4; 1 commit ต่อโดเมน)
-  - [ ] d2a-compute-cloud-native.html
-  - [ ] d2b-networking.html
-  - [ ] d2c-storage-database.html
+  - [x] d2a-compute-cloud-native.html
+  - [x] d2b-networking.html
+  - [x] d2c-storage-database.html
   - [ ] d1-getting-started.html
   - [ ] d3a-shared-security-services.html
   - [ ] d3b-iam.html
