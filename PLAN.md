@@ -2,25 +2,25 @@
 
 ## สถานะโดยรวม
 - [x] Phase 0 — Research & Plan (blueprint ยืนยันไม่ได้จาก sandbox นี้: ดู NOTES.md; ใช้ค่าจาก PROMPT.md + แบนเนอร์เตือน)
-- [ ] Phase 1 — Foundation (design system, layout, nav, dark/light)
-- [ ] Phase 2 — Content (ลำดับ: D2 → D1 → D3 → D4; 1 commit ต่อโดเมน)
+- [x] Phase 1 — Foundation (design system, layout, nav, dark/light)
+- [x] Phase 2 — Content (ลำดับ: D2 → D1 → D3 → D4; 1 commit ต่อโดเมน)
   - [x] d2a-compute-cloud-native.html
   - [x] d2b-networking.html
   - [x] d2c-storage-database.html
-  - [ ] d1-getting-started.html
-  - [ ] d3a-shared-security-services.html
-  - [ ] d3b-iam.html
-  - [ ] d4-governance-cost.html
-  - [ ] cheatsheet.html
-  - [ ] glossary.html
-- [ ] Phase 3 — Interactive (quiz, exam, flashcards, progress, search)
-  - [ ] assets/js/quiz-data.js (≥150 ข้อ, เป้าหมาย 22/75/38/15)
-  - [ ] assets/js/flashcard-data.js (≥200 ใบ)
-  - [ ] assets/js/glossary-data.js
-  - [ ] assets/js/search-index.js (สร้างด้วย tools/build_search_index.py)
-  - [ ] quiz.html / exam.html / flashcards.html
-- [ ] Phase 4 — QA (validate_data.py, check_links.py, responsive 3 ขนาด, print, flow test)
-- [ ] README.md / SOURCES.md / NOTES.md ครบ
+  - [x] d1-getting-started.html
+  - [x] d3a-shared-security-services.html
+  - [x] d3b-iam.html
+  - [x] d4-governance-cost.html
+  - [x] cheatsheet.html
+  - [x] glossary.html
+- [x] Phase 3 — Interactive (quiz, exam, flashcards, progress, search)
+  - [x] assets/js/quiz-data.js (≥150 ข้อ, เป้าหมาย 22/75/38/15)
+  - [x] assets/js/flashcard-data.js (≥200 ใบ)
+  - [x] assets/js/glossary-data.js
+  - [x] assets/js/search-index.js (สร้างด้วย tools/build_search_index.py)
+  - [x] quiz.html / exam.html / flashcards.html
+- [x] Phase 4 — QA (validate_data/check_links/build_search_index ผ่าน; headless Edge เปิดทุกหน้าได้, 1280/768px ตรวจแล้ว; cheatsheet print PDF สร้างได้) (validate_data.py, check_links.py, responsive 3 ขนาด, print, flow test)
+- [x] README.md / SOURCES.md / NOTES.md ครบ
 - [ ] Final summary (ไฟล์ที่สร้าง, จำนวนข้อ ต่อโดเมน, รายการที่ผู้ใช้ต้องตรวจกับ Oracle)
 
 ## โครงเว็บ (site map)

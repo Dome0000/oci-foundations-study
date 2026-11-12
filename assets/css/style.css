@@ -122,6 +122,11 @@ body {
   line-height: 1.75;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;   /* ภาษาไทยไม่มีเว้นวรรค ต้องอนุญาตให้ตัดคำ */
+}
+.article p, .article li, .article td, .article h1, .article h2, .article h3, .callout, .banner-warn, .breadcrumb, .check-q, .footer {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 :focus-visible {
@@ -506,7 +511,7 @@ tr:last-child td { border-bottom: none; }
 
 .stat-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
   gap: .75rem;
   margin: 1rem 0;
 }
