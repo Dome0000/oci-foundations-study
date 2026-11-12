@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.3 IAM | OCI Foundations Study</title>
+<meta name="description" content="OCI Identity and Access Management: tenancy, compartments, users/groups/dynamic groups, identity domains, MFA/SSO/federation, API keys, instance principals, policy syntax (verbs inspect/read/use/manage), conditions, tags — พร้อมแบบฝึกอ่าน-เขียน policy 12 ข้อ">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3" aria-current="page"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#building-blocks">Tenancy, Compartments, Groups</a></li>
+      <li><a href="#identity-domains">Identity Domains &amp; MFA/SSO</a></li>
+      <li><a href="#credentials">Credentials: API Keys / Auth Tokens</a></li>
+      <li><a href="#principals">Instance &amp; Resource Principals</a></li>
+      <li><a href="#policy-syntax">Policy Syntax &amp; Verbs</a></li>
+      <li><a href="#policy-exercises">แบบฝึก Policy 12 ข้อ</a></li>
+      <li><a href="#conditions">Conditions</a></li>
+      <li><a href="#tags">Tags</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d3">Domain 3</span> 3.3 IAM</nav>
+<article class="article">
+
+  <h1>3.3 Identity and Access Management (IAM) <span class="badge badge-d3">D3 · 25%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 60–75 นาที · objective 3.3 — หัวข้อที่ข้อสอบถามลึกที่สุดของ D3 โดยเฉพาะ policy syntax</p>
+
+  <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s);margin:.5rem 0 1rem">
+    <input type="checkbox" data-objective-id="3.3"> ทำเครื่องหมายว่าอ่าน objective 3.3 จบแล้ว
+  </label>
+
+  <h2 id="why">Why it matters</h2>
+  <p>IAM คือ "ใครทำอะไรกับอะไรได้บ้าง" — ทุกการกระทำใน OCI ถูกตรวจสอบกับ policy ก่อนเสมอ ข้อสอบชอบให้ policy มาแล้วถามว่า "ใครทำได้/ไม่ได้" ถ้าอ่าน policy ไม่ออกตอบไม่ได้เลย</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  IAM คือระบบกุญแจของอาคาร: <strong>user</strong> = คน, <strong>group</strong> = แผนก, <strong>compartment</strong> = ห้องแต่ละห้อง (ซ้อนกันได้), <strong>policy</strong> = ป้ายบนประตูว่า "แผนกบัญชีเข้าได้ห้องเก็บเงิน" · <strong>dynamic group</strong> = กลุ่มที่สมาชิกเป็น <em>เครื่อง/บริการ</em> ไม่ใช่คน (เช่น "instance ใน compartment นี้ทุกตัวเป็นกลุ่มเดียวกัน")</div>
+
+  <h2 id="building-blocks">Tenancy, Compartments, Users, Groups</h2>
+  <ul>
+    <li><strong>Tenancy</strong> — บัญชี/องค์กรระดับบนสุดของคุณใน OCI (ทุกทรัพยากรอยู่ใน tenancy เดียว); สร้างตอนสมัครและใช้ OCID อ้างอิง</li>
+    <li><strong>Compartment</strong> — โฟลเดอร์จัดกลุ่มทรัพยากร ซ้อนกันได้ (tree hierarchy) ใช้แยก:
+      <ul>
+        <li>ต้นทุน (ดู Cost Analysis แยก compartment)</li>
+        <li>สิทธิ์เข้าถึง (policy ระบุ compartment ได้)</li>
+        <li>quotas และ limits</li>
+      </ul>
+      ระดับบนสุดคือ <strong>root compartment</strong> (ชื่อเดียวกับ tenancy); ทุก compartment อยู่ใน root; compartment หนึ่งอยู่ได้ parent เดียว</li>
+    <li><strong>Policies สืบทอดลงล่าง</strong>: policy ที่เขียนบน parent compartment ให้สิทธิ์ใน child compartments ทั้งหมด (เหมือน folder permission)</li>
+    <li><strong>User</strong> — คนหนึ่งคน (มี credentials, อยู่ใน identity domain)</li>
+    <li><strong>Group</strong> — กลุ่มของ users; <em>ให้ policy กับ group ไม่ใช่กับ user รายตัว</em> เพราะจัดการง่ายกว่า</li>
+    <li><strong>Dynamic Group</strong> — กลุ่มของ <em>ทรัพยากร</em> (instances, functions, ฯลฯ) ที่ match rule เช่น <code>instance.compartment.id = 'ocid1...'</code> — ให้สิทธิ์กับทรัพยากร โดยไม่ต้องฝัง credential ในโค้ด</li>
+    <li><strong>Network Sources</strong> — กำหนดช่วง IP/CIDR ที่อนุญาตให้เข้าถึง (ใช้เป็น condition ใน policy ได้)</li>
+  </ul>
+
+  <h2 id="identity-domains">Identity Domains, MFA, SSO, Federation</h2>
+  <ul>
+    <li><strong>Identity Domain</strong> — directory แยก logical ภายใน tenancy (เช่น แยก domain ต่อ business unit) เก็บ users/groups/apps; tenancy ใหม่มี default identity domain ให้แล้ว 1 ตัว</li>
+    <li>IAM ปัจจุบันคือ "IAM with identity domains" — รวม identity + federation + OAuth/OIDC ไว้ในตัวเดียว</li>
+    <li><strong>MFA</strong> — ผูกกับ user แต่ละคน; บังคับได้ระดับ tenancy/identity domain (แนะนำให้บังคับทุกคน); factor: TOTP app, security key (FIDO2)</li>
+    <li><strong>SSO / Federation</strong> — ถ้าองค์กรมี IdP อยู่แล้ว (เช่น Azure AD, Okta, ADFS) เชื่อมผ่าน <strong>SAML 2.0</strong> หรือ <strong>OpenID Connect</strong> (+SCIM สำหรับ provision user อัตโนมัติ) แล้วให้คน sign in ด้วยบัญชีองค์กร ไม่ต้องสร้าง user ใน OCI ซ้ำ</li>
+    <li><strong>Identity Provider (IdP)</strong> หนึ่งตัวใช้ token ที่ออกให้ — กำหนด group mapping ระหว่างกลุ่มใน IdP กับกลุ่มใน OCI ได้</li>
+  </ul>
+
+  <h2 id="credentials">Credentials — API Keys และ Auth Tokens</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ชนิด</th><th>ใช้ทำอะไร</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>API keys (request signing)</strong></td><td>เรียก OCI API จาก SDK/CLI — คู่ key (public/private) อัป public key ใน user profile</td><td>ไม่หมดอายุเอง (จัดการเอง); แนะนำ rotation</td></tr>
+      <tr><td><strong>Auth tokens</strong></td><td>ใช้กับบริการที่ไม่รองรับ API signing (เช่น เข้า Object Storage ผ่าน S3-compatible API, เข้า UI บางอย่าง)</td><td>เป็น legacy; ใช้กับ S3 API/Swift เป็นหลัก</td></tr>
+      <tr><td><strong>Customer secret keys</strong></td><td>S3-compatible access แบบเดียวกับ AWS access keys</td><td>คู่ access key + secret</td></tr>
+      <tr><td><strong>OAuth 2.0 tokens</strong></td><td>สำหรับ apps/clients (เช่น เข้า REST API แทน user)</td><td>ผ่าน identity domain</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="principals">Instance Principals และ Resource Principals</h2>
+  <ul>
+    <li><strong>Instance principals</strong> — ให้ <em>compute instance</em> เรียก OCI API แทนตัวมันเอง โดยไม่ต้องฝัง API key ในเครื่อง: instance อยู่ใน <strong>dynamic group</strong> → dynamic group ได้ policy → instance เรียก API ด้วย identity ของตัวเอง</li>
+    <li><strong>Resource principals</strong> — หลักเดียวกัน แต่ใช้กับทรัพยากรอื่น (Functions, Resource Manager, ฯลฯ)</li>
+    <li>เคสคลาสสิก: "instance ต้องอ่าน secrets จาก Vault" → dynamic group ของ instance + policy <code>allow dynamic-group &lt;name&gt; to read secret-family in compartment &lt;x&gt;</code></li>
+  </ul>
+
+  <h2 id="policy-syntax">Policy Syntax — อ่านให้แตกก่อน</h2>
+  <pre><code>Allow &lt;subject&gt; to &lt;verb&gt; &lt;resource-type&gt; in &lt;location&gt; where &lt;conditions&gt;</code></pre>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ส่วน</th><th>ความหมาย</th><th>ตัวอย่าง</th></tr></thead>
+    <tbody>
+      <tr><td><strong>subject</strong></td><td>ใครได้รับสิทธิ์ — <code>group &lt;name&gt;</code>, <code>dynamic-group &lt;name&gt;</code>, <code>any-user</code>, <code>service &lt;name&gt;</code></td><td><code>group DBAdmins</code></td></tr>
+      <tr><td><strong>verb</strong></td><td>ระดับสิทธิ์ — ลำดับจากน้อยไปมาก: <code>inspect</code> → <code>read</code> → <code>use</code> → <code>manage</code></td><td><code>manage</code></td></tr>
+      <tr><td><strong>resource-type</strong></td><td>อะไร — ชื่อ resource family หรือ type เฉพาะ (เช่น <code>instance-family</code>, <code>volume</code>, <code>bucket</code>, <code>object-family</code>, <code>vcn-family</code>, <code>secret-family</code>, <code>database-family</code>)</td><td><code>instance-family</code></td></tr>
+      <tr><td><strong>location</strong></td><td>ที่ไหน — <code>tenancy</code>, <code>compartment &lt;name&gt;</code>, <code>compartment id &lt;ocid&gt;</code></td><td><code>compartment Production</code></td></tr>
+      <tr><td><strong>where</strong> (optional)</td><td>เงื่อนไขเพิ่มเติม — tag-based, network source, region, request attribute</td><td><code>where request.region = 'ap-singapore-1'</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Verbs — จำแค่นี้</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Verb</th><th>ทำอะไรได้</th><th>คิดง่าย ๆ</th></tr></thead>
+    <tbody>
+      <tr><td><code>inspect</code></td><td>ดู metadata/list ทรัพยากร (ไม่เห็นเนื้อหา)</td><td>"เห็นว่ามี"</td></tr>
+      <tr><td><code>read</code></td><td>inspect + ดูเนื้อหา/ค่าจริง (get)</td><td>"อ่านได้"</td></tr>
+      <tr><td><code>use</code></td><td>read + ใช้งานทรัพยากร (start/stop, attach, change state) แต่สร้าง/ลบไม่ได้</td><td>"ใช้เป็น"</td></tr>
+      <tr><td><code>manage</code></td><td>ทุกอย่าง รวม create/update/delete</td><td>"ทำได้ทุกอย่าง"</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Compartment inheritance:</strong> policy ที่เขียนบน parent มีผลกับ child compartments ทั้งหมด — เขียนบน root (tenancy) → ครอบทั้ง tenancy</p>
+
+  <h2 id="policy-exercises">แบบฝึกอ่าน-เขียน Policy (12 ข้อ)</h2>
+
+  <h3>A. อ่าน policy แล้วบอกว่าทำอะไรได้ (1–6)</h3>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. <code>Allow group Auditors to inspect all-resources in tenancy</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">กลุ่ม Auditors เห็น metadata/list ของทุกทรัพยากรทั้ง tenancy แต่ดูเนื้อหาไม่ได้ (inspect ไม่ใช่ read)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. <code>Allow group Developers to use instance-family in compartment Dev</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">Developers ใช้งาน instance ใน compartment Dev ได้ — start/stop/attach ฯลฯ แต่สร้างหรือลบ instance ไม่ได้ เพราะ use &lt; manage</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. <code>Allow group DBA to manage database-family in compartment Production</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">DBA จัดการฐานข้อมูลทุกอย่างใน compartment Production (สร้าง/แก้/ลบ/backups)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. <code>Allow dynamic-group AppServers to read secret-family in compartment Prod</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">instance/ทรัพยากรใน dynamic group AppServers อ่าน Vault secrets ใน compartment Prod ได้ — ใช้ตอนแอปต้องดึงรหัสผ่าน DB โดยไม่ฝังในโค้ด</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. <code>Allow group NetOps to manage vcn-family in tenancy where request.region = 'ap-singapore-1'</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">NetOps จัดการ VCN ทั้ง tenancy ได้ <em>แต่เฉพาะ region ap-singapore-1</em> — เงื่อนไข where จำกัด region</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>6. <code>Allow group Interns to read bucket in compartment Staging_bucket</code></span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">Interns อ่าน metadata+เนื้อหา object ใน bucket ชื่อ Staging_bucket ได้ แต่เขียน/ลบ/สร้างไม่ได้</div></div>
+
+  <h3>B. เขียน policy ให้โจทย์ (7–12)</h3>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>7. ให้กลุ่ม BackupAdmins จัดการ backup ของ block volume ใน compartment Production เท่านั้น</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a"><code>Allow group BackupAdmins to manage volume-family in compartment Production</code> (volume-family รวม backup) — ถ้าต้องการเจาะจง: <code>manage volume-backup-family</code> ก็ได้ขึ้นกับ resource-type ที่มีในปัจจุบัน</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>8. ให้ CI/CD pipeline (dynamic group <code>CICD</code>) deploy ไป OKE ได้ทั้ง tenancy</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a"><code>Allow dynamic-group CICD to manage cluster-family in tenancy</code> — หรือจำกัด compartment ตามที่ pipeline deploy จริง</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>9. ให้กลุ่ม Finance ดูค่าใช้จ่ายและรายงานต้นทุนได้ แต่แก้ config ไม่ได้</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">สิทธิ์อ่าน cost reports: <code>Allow group Finance to read usage-report in tenancy</code> — ตรวจ resource-type ปัจจุบันใน docs (cost/usage reports)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>10. อนุญาตเฉพาะคำขอจากเครือข่ายสำนักงาน (network source <code>corpnet</code>) ให้จัดการ security lists</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a"><code>Allow group SecOps to manage security-lists in tenancy where request.networkSource.name='corpnet'</code></div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>11. ให้กลุ่ม Developers สร้าง VM ได้ แต่ลบไม่ได้ ใน compartment Dev</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a">OCI ไม่มี verb "create-without-delete" แยก — ใช้ <code>use instance-family</code> (ใช้ได้แต่สร้างไม่ได้) หรือใช้ <code>manage</code> + จำกัด delete ด้วย condition เช่น <code>where request.permission != 'INSTANCE_DELETE'</code> (ถ้ามี permission นั้นในเอกสารปัจจุบัน — ตรวจสอบ verb/condition ที่รองรับก่อนใช้จริง)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>12. ให้ทุกคนใน tenancy เห็นชื่อทรัพยากรได้แต่ห้ามแตะต้อง (auditor แบบ read-only ทั่วโลก)</span><span class="check-toggle-hint">เฉลย</span></button>
+    <div class="check-a"><code>Allow group Auditors to inspect all-resources in tenancy</code></div></div>
+
+  <h2 id="conditions">Conditions (where) — ตัวอย่างที่พบบ่อย</h2>
+  <ul>
+    <li><code>request.region = '&lt;region-name&gt;'</code> — จำกัด region</li>
+    <li><code>request.networkSource.name = '&lt;name&gt;'</code> — จำกัดแหล่งเครือข่าย</li>
+    <li><code>target.resource.id = '&lt;ocid&gt;'</code> — จำกัดเฉพาะทรัพยากรตัวเดียว</li>
+    <li><code>request.permission = '&lt;PERMISSION_NAME&gt;'</code> — จำกัด permission เฉพาะตัว</li>
+    <li><code>target.compartment.id = '&lt;ocid&gt;'</code> — จำกัด compartment เป้าหมาย</li>
+    <li><em>Tag-based:</em> <code>target.resource.tag.&lt;namespace&gt;.&lt;key&gt; = '&lt;value&gt;'</code> — ให้สิทธิ์เฉพาะทรัพยากรที่ติด tag ตรงเงื่อนไข (ใช้ defined tags)</li>
+  </ul>
+
+  <h2 id="tags">Tags — Free-form และ Defined</h2>
+  <ul>
+    <li><strong>Free-form tags</strong> — คีย์-ค่าวางเองอิสระ (เช่น <code>team=platform</code>) ง่าย แต่อย่านำไปใช้กับ policy/cost allocation ถ้าต้องการมาตรฐาน</li>
+    <li><strong>Defined tags</strong> — ประกาศใน <strong>tag namespace</strong> ก่อน (เช่น namespace <code>Operations</code>, key <code>CostCenter</code>) — มี type (string/list) ใช้ใน <strong>policy conditions</strong> และ <strong>cost allocation/showback</strong> ได้ถูกต้อง</li>
+    <li><strong>Tag defaults</strong> — ตั้งให้ทรัพยากรใน compartment ติด tag อัตโนมัติตอนสร้าง (เช่น cost-tracking tag)</li>
+    <li><strong>Cost-tracking tags</strong> — tag ที่ใช้แยกต้นทุนใน Cost Analysis / Budgets (ดูหน้า <a href="d4-governance-cost.html">D4</a>)</li>
+  </ul>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>อ่าน policy แล้วตอบ "ทำอะไรได้บ้าง" — ดู <strong>subject + verb + resource-type + location</strong> ทีละชิ้น</li>
+      <li><strong>manage &gt; use &gt; read &gt; inspect</strong> — manage รวม create/delete ด้วย</li>
+      <li>policy ที่ parent compartment มีผลกับ child compartments</li>
+      <li>instance ต้องเรียก OCI API โดยไม่มี key → <strong>instance principals + dynamic group + policy</strong></li>
+      <li>ให้สิทธิ์กับ "กลุ่ม" เสมอ ไม่ใช่รายคน</li>
+      <li>cost-tracking / policy ที่ต้องการมาตรฐาน → <strong>defined tags</strong>; ใช้ใน where → defined tags เท่านั้น</li>
+      <li>federation: SAML 2.0 / OIDC + SCIM; ผู้ใช้ sign in ด้วย IdP องค์กร</li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"แจก manage ให้ทุกคนเพราะขี้เกียจ"</strong> — ผิดหลัก least privilege; ใช้ verb ต่ำสุดที่ทำงานได้</li>
+      <li><strong>"policy ต้องเขียนใน compartment ที่จะใช้ทรัพยากร"</strong> — ไม่: เขียนที่ไหนก็ได้ที่เข้าถึง compartment ปลายทางได้; ผลของ policy ขยายลง child ได้</li>
+      <li><strong>"dynamic group = กลุ่ม user พิเศษ"</strong> — ไม่: dynamic group คือกลุ่มของ <em>ทรัพยากร</em> (instance/function) ไม่ใช่คน</li>
+      <li><strong>"instance principals คือการฝัง API key"</strong> — ตรงข้าม: คือการ <em>เลิกฝัง</em> API key โดยใช้ identity ของ instance</li>
+      <li><strong>"free-form tags ใช้ใน policy condition ได้"</strong> — ไม่: policy conditions ใช้ <strong>defined tags</strong> เท่านั้น</li>
+      <li><strong>"read กับ inspect เหมือนกัน"</strong> — inspect เห็นแค่ metadata/list; read เห็นเนื้อหาด้วย</li>
+      <li><strong>"root compartment policy ไม่สืบทอด"</strong> — สืบทอดทั้ง tenancy</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  ทีม platform ต้องการให้ทุก instance ใน compartment <code>Apps</code> อ่านรหัสผ่านฐานข้อมูลจาก Vault ได้โดยไม่ฝังในโค้ด เขียน policy อย่างไร?<br>
+  <strong>วิธีคิด:</strong> (1) สร้าง dynamic group เช่น <code>instance.compartment.id = '&lt;ocid ของ Apps&gt;'</code> (2) เขียน <code>Allow dynamic-group AppInstances to read secret-family in compartment Apps</code> — ไม่ต้องสร้าง user/api key ใด ๆ เพิ่ม</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ผู้ตรวจบัญชีภายนอกต้องเข้า Console ดูว่ามีทรัพยากรอะไรบ้างในทุก compartment โดยห้ามเห็นข้อมูลจริงและห้ามแก้ไขใด ๆ — ออกแบบ IAM?<br>
+  <strong>วิธีคิด:</strong> สร้าง user ให้ auditor (หรือ federate ผ่าน IdP), ใส่กลุ่ม <code>Auditors</code>, เขียน <code>Allow group Auditors to inspect all-resources in tenancy</code> — inspect = เห็น metadata/list เท่านั้น ไม่เห็นเนื้อหา แก้ไขไม่ได้</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. verbs 4 ระดับ เรียงจากน้อยไปมาก?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">inspect → read → use → manage</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. policy บน parent compartment มีผลกับ child compartments ไหม?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">มี — สืบทอดลงทั้งหมด (เหมือน folder permission)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. instance ต้องเรียก OCI API โดยไม่ฝัง API key ใช้กลไกใด?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Instance principals — dynamic group ของ instance + policy ที่ให้ dynamic group นั้น</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. tags แบบไหนใช้ใน policy condition ได้?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Defined tags (ต้องประกาศใน tag namespace ก่อน) — free-form ใช้ใน where ไม่ได้</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. เขียน policy ให้กลุ่ม NetOps จัดการ VCN ได้เฉพาะ region ap-singapore-1</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a"><code>Allow group NetOps to manage vcn-family in tenancy where request.region = 'ap-singapore-1'</code></div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Identity/home.htm" target="_blank" rel="noopener">IAM with identity domains — documentation</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policies.htm" target="_blank" rel="noopener">How policies work (syntax, verbs)</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policyreference.htm" target="_blank" rel="noopener">Policy reference (resource-types, conditions)</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/compartments.htm" target="_blank" rel="noopener">Compartments</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingDynamicGroups.htm" target="_blank" rel="noopener">Dynamic groups</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/instance-principal.htm" target="_blank" rel="noopener">Instance principals</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Tagging/home.htm" target="_blank" rel="noopener">Tagging (free-form / defined / tag defaults)</a></li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="d3a-shared-security-services.html"><small>ก่อนหน้า</small>← 3.1–3.2 Security</a>
+    <a href="d4-governance-cost.html" style="text-align:right"><small>ถัดไป</small>4.1–4.2 Governance &amp; Cost →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · resource-types/permissions ปัจจุบันตรวจสอบกับเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
