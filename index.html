@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCI Foundations Study — 1Z0-1085-26 (1Z0-1085) | เตรียมสอบภาษาไทย</title>
+<meta name="description" content="คู่มือเตรียมสอบ Oracle Cloud Infrastructure 2026 Foundations Associate (1Z0-1085-26) ภาษาไทย ครบวงจร: อ่านเนื้อหา ทำแบบฝึกหัด จำลองสอบ ดูจุดอ่อนตามโดเมน">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol>
+      <li><a href="index.html" aria-current="page">ภาพรวมข้อสอบ</a></li>
+    </ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started <small>(15%)</small></a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ 40 ข้อ / 60 นาที</a></li>
+      <li><a href="flashcards.html">Flashcards (Leitner)</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet (พิมพ์ได้)</a></li>
+      <li><a href="glossary.html">Glossary A–Z</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+  <article class="article">
+    <nav class="breadcrumb" aria-label="breadcrumb">หน้าแรก</nav>
+
+    <div class="banner-warn" role="alert">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:0 0 auto;margin-top:.1rem"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span><strong>ตรวจสอบรายละเอียดข้อสอบกับหน้าทางการของ Oracle ก่อนสอบ</strong> — ข้อมูลรหัสสอบ จำนวนข้อ เวลา คะแนนผ่าน และน้ำหนักโดเมนในเว็บนี้รวบรวมจากแหล่งสาธารณะและยังไม่ได้รับการยืนยันกับ Oracle University จากสภาพแวดล้อมที่สร้างเว็บนี้ ดูรายละเอียดใน <a href="SOURCES.md">SOURCES.md</a> และ <a href="NOTES.md">NOTES.md</a></span>
+    </div>
+
+    <h1>Oracle Cloud Infrastructure <br>2026 Foundations Associate (1Z0-1085-26)</h1>
+    <p>คู่มือภาษาไทยสำหรับมือใหม่ที่ไม่มีพื้นฐาน cloud แต่ต้องการสอบผ่านจริง — อ่านเนื้อหา → ทำแบบฝึกหัด → จำลองสอบ → ดูจุดอ่อนตามโดเมน → กลับไปทบทวน</p>
+
+    <div class="stat-row" aria-label="ข้อมูลข้อสอบ">
+      <div class="stat"><b>40</b><span>ข้อ (บางข้อเลือกได้หลายคำตอบ)</span></div>
+      <div class="stat"><b>60<span style="font-size:.6em"> นาที</span></b><span>เวลาทำข้อสอบ</span></div>
+      <div class="stat"><b>65%</b><span>คะแนนผ่าน</span></div>
+      <div class="stat"><b>4</b><span>โดเมนหลัก</span></div>
+    </div>
+
+    <h2 id="domains">โดเมนและน้ำหนัก (ตามข้อมูลที่ให้มา — ยังไม่ยืนยันทางการ)</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>โดเมน</th><th>หัวข้อ</th><th>น้ำหนัก</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-d1">D1</span> Getting Started with OCI</td><td>1.1 OCI Distributed Cloud · 1.2 Regions &amp; Availability Domains</td><td>15% (~6 ข้อ)</td></tr>
+          <tr><td><span class="badge badge-d2">D2</span> Core OCI Services</td><td>2.1 Compute &amp; Cloud Native · 2.2 Networking · 2.3 Storage</td><td>50% (~20 ข้อ)</td></tr>
+          <tr><td><span class="badge badge-d3">D3</span> Security Services</td><td>3.1 Shared Security Model · 3.2 Security Services · 3.3 IAM</td><td>25% (~10 ข้อ)</td></tr>
+          <tr><td><span class="badge badge-d4">D4</span> Governance &amp; Administration</td><td>4.1 Pricing Model · 4.2 Cost Management</td><td>10% (~4 ข้อ)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="progress">ความคืบหน้าของคุณ <span style="font-size:.55em;color:var(--muted);font-weight:400">(เก็บในเครื่องนี้เท่านั้น)</span></h2>
+    <p style="margin:.2rem 0 .6rem;font-size:.9rem;color:var(--muted)">ติ๊กเมื่ออ่านจบแต่ละ objective — ความคืบหน้าถูกบันทึกอัตโนมัติในเบราว์เซอร์</p>
+
+    <div class="table-wrap" aria-label="ความคืบหน้าตามโดเมน">
+      <table>
+        <thead><tr><th>โดเมน</th><th>แถบความคืบหน้า</th><th>ติ๊ก objectives</th></tr></thead>
+        <tbody>
+          <tr data-progress-block>
+            <td><span class="badge badge-d1">D1</span></td>
+            <td><div class="domain-strip strip-d1" aria-hidden="true"><span data-progress-for="1" data-total="2"></span></div><small data-progress-label>0/2 objectives</small></td>
+            <td>
+              <label class="objective-check"><input type="checkbox" data-objective-id="1.1"> 1.1 OCI Distributed Cloud</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="1.2"> 1.2 Regions &amp; Availability Domains</label>
+            </td>
+          </tr>
+          <tr data-progress-block>
+            <td><span class="badge badge-d2">D2</span></td>
+            <td><div class="domain-strip strip-d2" aria-hidden="true"><span data-progress-for="2" data-total="3"></span></div><small data-progress-label>0/3 objectives</small></td>
+            <td>
+              <label class="objective-check"><input type="checkbox" data-objective-id="2.1"> 2.1 Compute</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="2.2"> 2.2 Networking</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="2.3"> 2.3 Storage</label>
+            </td>
+          </tr>
+          <tr data-progress-block>
+            <td><span class="badge badge-d3">D3</span></td>
+            <td><div class="domain-strip strip-d3" aria-hidden="true"><span data-progress-for="3" data-total="3"></span></div><small data-progress-label>0/3 objectives</small></td>
+            <td>
+              <label class="objective-check"><input type="checkbox" data-objective-id="3.1"> 3.1 Shared Security Model</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="3.2"> 3.2 Security Services</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="3.3"> 3.3 IAM</label>
+            </td>
+          </tr>
+          <tr data-progress-block>
+            <td><span class="badge badge-d4">D4</span></td>
+            <td><div class="domain-strip strip-d4" aria-hidden="true"><span data-progress-for="4" data-total="2"></span></div><small data-progress-label>0/2 objectives</small></td>
+            <td>
+              <label class="objective-check"><input type="checkbox" data-objective-id="4.1"> 4.1 Pricing Model</label>
+              <label class="objective-check"><input type="checkbox" data-objective-id="4.2"> 4.2 Cost Management</label>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="no-print" style="display:flex;gap:.5rem;flex-wrap:wrap;margin:.5rem 0 1.5rem">
+      <button class="btn btn-sm" id="export-progress" type="button">ส่งออกความคืบหน้า (JSON)</button>
+      <button class="btn btn-sm" id="import-progress-trigger" type="button">นำเข้าความคืบหน้า</button>
+      <input type="file" id="import-progress-file" accept="application/json,.json" hidden>
+      <button class="btn btn-sm" id="reset-progress" type="button">รีเซ็ตความคืบหน้า</button>
+      <span style="align-self:center;font-size:.85rem;color:var(--muted)">จบแล้ว <b data-progress-total>0</b>/10 objectives</span>
+    </div>
+
+    <h2 id="study-plan">แผนอ่าน 3 สัปดาห์</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>สัปดาห์</th><th>เป้าหมาย</th><th>สิ่งที่ทำ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>สัปดาห์ 1</b><br><small>D1 + D2 (ครึ่งแรก)</small></td>
+            <td>วางพื้นฐาน + ทำความเข้าใจ Compute</td>
+            <td>อ่าน <a href="d1-getting-started.html">D1</a> แล้วติ๊ก 1.1–1.2 · อ่าน <a href="d2a-compute-cloud-native.html">2.1 Compute</a> · ทำ quiz D1 + D2.1 ให้ได้ ≥ 80% · ทบทวนด้วย flashcards 20 ใบ/วัน</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 2</b><br><small>D2 (ที่เหลือ) + D3</small></td>
+            <td>Networking/Storage + Security ให้แน่น (น้ำหนักรวม 75%)</td>
+            <td>อ่าน <a href="d2b-networking.html">2.2</a>, <a href="d2c-storage-database.html">2.3</a>, <a href="d3a-shared-security-services.html">3.1–3.2</a>, <a href="d3b-iam.html">3.3</a> · วาด VCN ด้วย SVG ในหน้านั้นแล้วอธิบายให้ตัวเองฟัง · เขียน policy 10 ข้อให้คล่อง · quiz D2 และ D3</td>
+          </tr>
+          <tr>
+            <td><b>สัปดาห์ 3</b><br><small>D4 + ทบทวน + สอบจำลอง</small></td>
+            <td>ปิดช่องโหว่และคุมเวลา</td>
+            <td>อ่าน <a href="d4-governance-cost.html">D4</a> · อ่าน <a href="cheatsheet.html">Cheatsheet</a> · ทำ <a href="exam.html">จำลองสอบ</a> อย่างน้อย 3 รอบ ห่างกันวันละครึ่ง — เป้าหมาย ≥ 75% ทุกรอบ · กลับไปอ่านโดเมนที่คะแนนต่ำสุดจากหน้าสรุปผล</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="shortcuts">ทางลัดทุกส่วน</h2>
+    <div class="card-grid">
+      <a class="card" href="d1-getting-started.html"><span class="badge badge-d1">D1 · 15%</span><h3>Getting Started</h3><p>IaaS/PaaS/SaaS · Distributed Cloud · Regions, ADs, Fault Domains</p></a>
+      <a class="card" href="d2a-compute-cloud-native.html"><span class="badge badge-d2">D2 · 50%</span><h3>Compute &amp; Cloud Native</h3><p>VM / Bare Metal · Shapes · OKE · Container Instances · Functions</p></a>
+      <a class="card" href="d2b-networking.html"><span class="badge badge-d2">D2 · 50%</span><h3>Networking</h3><p>VCN · Subnets · Gateways · Security Lists vs NSG · Load Balancer</p></a>
+      <a class="card" href="d2c-storage-database.html"><span class="badge badge-d2">D2 · 50%</span><h3>Storage &amp; Database</h3><p>Block · Object · File · (เสริม) Autonomous DB &amp; friends</p></a>
+      <a class="card" href="d3a-shared-security-services.html"><span class="badge badge-d3">D3 · 25%</span><h3>Security Model &amp; Services</h3><p>Shared model · Cloud Guard · Vault · WAF · Bastion · Data Safe</p></a>
+      <a class="card" href="d3b-iam.html"><span class="badge badge-d3">D3 · 25%</span><h3>IAM</h3><p>Compartments · Policies · Identity Domains · MFA · Dynamic Groups</p></a>
+      <a class="card" href="d4-governance-cost.html"><span class="badge badge-d4">D4 · 10%</span><h3>Governance &amp; Cost</h3><p>Universal Credits · Free Tier · Budgets · Cost Analysis · Cloud Advisor</p></a>
+      <a class="card" href="quiz.html"><span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)">ฝึก</span><h3>Quiz</h3><p>เลือกโดเมน/objective/ความยาก · เฉลยทันทีพร้อมคำอธิบาย · โหมดทบทวนข้อที่ผิด</p></a>
+      <a class="card" href="exam.html"><span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)">จำลอง</span><h3>Exam Simulation</h3><p>40 ข้อ 60 นาที สุ่มตามน้ำหนักโดเมน · flag ข้อ · กราฟพัฒนาการ</p></a>
+      <a class="card" href="flashcards.html"><span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)">จำ</span><h3>Flashcards</h3><p>พลิกการ์ด + Leitner 1–5 กล่อง · กรองตามโดเมน</p></a>
+      <a class="card" href="cheatsheet.html"><span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)">ก่อนสอบ</span><h3>Cheatsheet</h3><p>สรุป 1–2 หน้า พิมพ์ได้ (print-friendly)</p></a>
+      <a class="card" href="glossary.html"><span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)">ศัพท์</span><h3>Glossary A–Z</h3><p>ศัพท์ทั้งหมดพร้อมคำแปลและค้นหา</p></a>
+    </div>
+  </article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่มีส่วนเกี่ยวข้อง หรือได้รับการรับรองจาก Oracle ชื่อบริการและเครื่องหมายการค้าทั้งหมดเป็นของเจ้าของแต่ละราย · เนื้อหาเขียนขึ้นจากเอกสารสาธารณะของ Oracle (ดู <a href="SOURCES.md">SOURCES.md</a>) · ไม่มีการฝังโลโก้หรือทรัพย์สินทางปัญญาของ Oracle</p>
+  <p>กด <kbd class="kbd">/</kbd> เพื่อค้นหาจากหน้าใดก็ได้ · ข้อมูลความคืบหน้าเก็บในเบราว์เซอร์ของคุณเท่านั้น (localStorage) ไม่มีการส่งออกไปไหน</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
