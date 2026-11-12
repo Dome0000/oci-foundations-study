@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cheatsheet — อ่านก่อนสอบ | OCI Foundations Study</title>
+<meta name="description" content="สรุป 1–2 หน้าก่อนสอบ 1Z0-1085-26: ตัวเลขต้องจำ ตารางเปรียบเทียบ คำสัญญาณโจทย์ — พิมพ์ได้ (print-friendly)">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .cheat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.2rem; }
+  @media (max-width: 768px) { .cheat-grid { grid-template-columns: 1fr; } }
+  .cheat-block { border: 1px solid var(--border); border-radius: var(--radius-s); padding: .5rem .65rem; background: var(--surface); break-inside: avoid; font-size: .86rem; }
+  .cheat-block h3 { margin: .1rem 0 .3rem; font-size: .9rem; border-bottom: 2px solid var(--border-strong); padding-bottom: .15rem; }
+  .cheat-block ul { margin: .2rem 0 .2rem 1.1rem; padding: 0; }
+  .cheat-block li { margin: .15rem 0; }
+  .cheat-block table { font-size: .78rem; }
+  @media print { .cheat-grid { grid-template-columns: 1fr 1fr; } .cheat-block { font-size: 8.5pt; padding: .3rem .4rem; } }
+</style>
+</head>
+<body>
+<header class="topbar no-print">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar no-print" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html" aria-current="page">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb no-print" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › Cheatsheet</nav>
+<article class="article" style="max-width:none">
+
+  <h1>Cheatsheet — อ่านคืนก่อนสอบ <span class="badge badge-d2">พิมพ์ได้</span></h1>
+  <div class="no-print" style="margin-bottom:.75rem"><button class="btn btn-primary" onclick="window.print()" type="button">พิมพ์หน้านี้</button> <span style="font-size:.85rem;color:var(--muted)">กด Ctrl+P ได้เช่นกัน — ปรับ margin เป็น Default/None เลือก "Background graphics" เพื่อให้สีติดมาด้วย</span></div>
+
+  <div class="cheat-grid">
+
+    <section class="cheat-block">
+      <h3>ตัวเลขต้องจำ</h3>
+      <ul>
+        <li>FD = <strong>3 ต่อ AD</strong> เสมอ</li>
+        <li>VCN CIDR IPv4 = <strong>/16 ถึง /30</strong></li>
+        <li>1 OCPU x86 = <strong>2 vCPU</strong> · Arm A1 = 1/OCPU · Arm A2/A4 = 2 cores/OCPU</li>
+        <li>Realm ของ tenancy = <strong>1 เดียว</strong> (OC1 commercial)</li>
+        <li>Multi-AD region = เฉพาะ region ใหญ่บางแห่ง (ส่วนใหญ่ single-AD)</li>
+        <li>Policy verbs: <strong>inspect → read → use → manage</strong></li>
+        <li>Scoring: ดูแบนเนอร์หน้าแรก — ยืนยันกับ Oracle ก่อนสอบ</li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>ทรัพยากร: global / regional / AD</h3>
+      <table>
+        <thead><tr><th>ระดับ</th><th>ตัวอย่าง</th></tr></thead>
+        <tbody>
+          <tr><td><b>Global (cross-region)</b></td><td>IAM ทุกอย่าง: users, groups, compartments, policies, dynamic groups, tag namespaces</td></tr>
+          <tr><td><b>Regional</b></td><td>VCN, route tables, security lists, NSG, gateways, LB, Vault, buckets, images, Functions, OKE, reserved public IP, Bastion, Autonomous DB</td></tr>
+          <tr><td><b>AD-specific</b></td><td>compute instances, block/boot volumes, DB systems (VM/BM), container instances, ephemeral public IPs</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Gateway ไหนใช้เมื่อไหร่</h3>
+      <table>
+        <thead><tr><th>เส้นทาง</th><th>Gateway</th></tr></thead>
+        <tbody>
+          <tr><td>Private subnet → Internet (ออกอย่างเดียว)</td><td><b>NAT</b></td></tr>
+          <tr><td>Public subnet ↔ Internet</td><td><b>Internet Gateway</b></td></tr>
+          <tr><td>Private subnet → Object Storage/OCI services</td><td><b>Service Gateway</b></td></tr>
+          <tr><td>On-prem / remote VCN (VPN, FastConnect, remote peering)</td><td><b>DRG</b></td></tr>
+          <tr><td>VCN อื่น ใน region เดียว (CIDR ไม่ซ้อน)</td><td><b>LPG</b></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.3rem 0 0">public subnet = route 0.0.0.0/0 → IGW + instance มี public IP</p>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Storage เลือกยังไง</h3>
+      <ul>
+        <li><b>Block/Boot</b> — ดิสก์ให้ instance/DB, AD-specific, tiers + auto-tune, backup/clone/volume groups</li>
+        <li><b>Object</b> — regional, namespace system-generated, bucket default <b>private</b>, tiers: <b>Standard → Infrequent Access → Archive</b> (Archive ต้อง restore ก่อน), lifecycle policy / versioning / replication / <b>PAR</b> (URL ชั่วคราวไม่ต้องมี OCI credentials)</li>
+        <li><b>File</b> — NFS mount target, หลาย instance mount พร้อมกัน, snapshot</li>
+        <li>ข้อมูล PB + เน็ตไม่ไหว → <b>Data Transfer Appliance</b></li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Compute — เลือกบริการ</h3>
+      <table>
+        <thead><tr><th>สถานการณ์</th><th>ใช้</th></tr></thead>
+        <tbody>
+          <tr><td>OS เต็ม / software เฉพาะ / Windows</td><td>VM (Flex shapes) / Bare Metal</td></tr>
+          <tr><td>Hardware isolation แบบ managed</td><td>Dedicated VM Host</td></tr>
+          <tr><td>Batch ทน interrupt, ถูกสุด</td><td>Preemptible</td></tr>
+          <tr><td>Container เดี่ยว งานสั้น</td><td>Container Instances</td></tr>
+          <tr><td>Kubernetes เต็มรูปแบบ, ไม่อยากดู control plane</td><td>OKE (Managed nodes / Virtual nodes = serverless pods / Self-managed)</td></tr>
+          <tr><td>ฟังก์ชันเล็ก trigger จาก event</td><td>Functions</td></tr>
+          <tr><td>single HTTPS endpoint + auth/rate-limit</td><td>API Gateway</td></tr>
+          <tr><td>"เมื่อ X เกิด → ทำ Y"</td><td>Events + Functions/Notifications</td></tr>
+          <tr><td>Terraform แบบ managed</td><td>Resource Manager</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Security services จำให้ไว</h3>
+      <ul>
+        <li><b>Cloud Guard</b> — detect + respond อัตโนมัติ (target/recipe/detector/responder/problem) · "ปิด public bucket ให้"</li>
+        <li><b>Security Zones</b> — บังคับ posture <em>ก่อน</em>สร้าง (preventive) · "สร้าง public bucket ไม่ได้เลย"</li>
+        <li><b>Data Safe</b> — ความปลอดภัยของ <em>ฐานข้อมูล</em>: sensitive data discovery, masking, audit, user assessment</li>
+        <li><b>Vault</b> — keys (soft vs <b>HSM</b>, FIPS 140-2 L3) + secrets (versioning); CMK = customer-managed keys</li>
+        <li><b>WAF</b> = L7 web (OWASP, bots) · <b>DDoS</b> = always-on network · <b>Network Firewall</b> = L3–L7 IDS/IPS + TLS inspection</li>
+        <li><b>Bastion</b> — SSH/RDP เข้า private subnet แบบ session จำกัดเวลา + audit</li>
+        <li><b>Audit</b> = API call ทุกตัวอัตโนมัติ · <b>Logging</b> = ศูนย์รวม log · <b>Monitoring</b> = metrics + alarms</li>
+        <li>at rest = <b>AES-256 default</b> · in transit = TLS เสมอ</li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>IAM policy cheat sheet</h3>
+      <pre style="margin:.2rem 0;font-size:.72rem">Allow &lt;subject&gt; to &lt;verb&gt; &lt;resource-type&gt; in &lt;location&gt; where &lt;cond&gt;</pre>
+      <ul>
+        <li>subjects: <code>group X</code> · <code>dynamic-group X</code> · <code>any-user</code> · <code>service X</code></li>
+        <li>verbs: <code>inspect &lt; read &lt; use &lt; manage</code> (manage รวม create/delete)</li>
+        <li>location: <code>tenancy</code> · <code>compartment Name</code> · <code>compartment id OCID</code></li>
+        <li>inheritance: policy บน parent → child ครบถ้วน</li>
+        <li>conditions ฐาน: <code>request.region</code> · <code>request.networkSource.name</code> · <code>request.permission</code> · tag-based (<b>defined tags เท่านั้น</b>)</li>
+        <li>instance เรียก API เอง → <b>instance principals</b> (dynamic group + policy ไม่ฝัง key)</li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Budgets vs Limits vs Quotas</h3>
+      <table>
+        <thead><tr><th>เครื่องมือ</th><th>คือ</th><th>ผลเมื่อเกิน</th></tr></thead>
+        <tbody>
+          <tr><td><b>Service Limits</b></td><td>เพดาน tenancy/region (Oracle ตั้ง, ขอเพิ่มได้)</td><td>สร้างไม่ได้</td></tr>
+          <tr><td><b>Quotas</b></td><td>เพดาน compartment (คุณตั้ง)</td><td>สร้างไม่ได้</td></tr>
+          <tr><td><b>Budgets</b></td><td>เพดาน <em>เงิน</em> (compartment/cost-tracking tag)</td><td><b>เตือนเท่านั้น ไม่บล็อก!</b></td></tr>
+        </tbody>
+      </table>
+      <p style="margin:.3rem 0 0">ดูใช้จ่าย: Cost Analysis (กราฟ) · Cost Reports (line-item CSV) · Cloud Advisor (แนะนำ cost/security/perf/availability) · ราคาเท่ากันทุก region · Free Tier: Always Free vs trial credits</p>
+    </section>
+
+    <section class="cheat-block">
+      <h3>คำสัญญาณโจทย์ → คำตอบ</h3>
+      <ul>
+        <li>"outbound-only private subnet" → <b>NAT Gateway</b></li>
+        <li>"ไม่ผ่าน internet, ไป Object Storage" → <b>Service Gateway</b></li>
+        <li>"dedicated circuit แบนด์วิดท์สูง" → <b>FastConnect</b> · "เร็ว/สำรอง" → <b>Site-to-Site VPN</b></li>
+        <li>"L7, path routing, TLS termination" → <b>Load Balancer</b> · "UDP, ultra-low latency" → <b>NLB</b></li>
+        <li>"กัน pre-create ผิด" → <b>Security Zones</b> · "detect + auto-fix" → <b>Cloud Guard</b></li>
+        <li>"instance เรียก API ไม่ฝัง key" → <b>Instance principals</b></li>
+        <li>"ไฟล์แชร์หลายเครื่อง" → <b>File Storage</b> · "object URL ชั่วคราว" → <b>PAR</b></li>
+        <li>"budget ครบ 100%" → <b>ไม่มีอะไรถูกปิด</b></li>
+        <li>"restore ก่อนอ่าน" → <b>Archive</b> · "อ่านได้เลยแต่ถูกกว่า Standard" → <b>Infrequent Access</b></li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>Distributed Cloud จำชื่อ</h3>
+      <ul>
+        <li><b>Public Cloud</b> — region สาธารณะของ Oracle</li>
+        <li><b>Dedicated Region Cloud@Customer</b> — region เต็มของ OCI ที่ datacenter ลูกค้า</li>
+        <li><b>Oracle Alloy</b> — partner รัน OCI ใต้แบรนด์ตัวเอง</li>
+        <li><b>Oracle AI Database@Azure / @AWS / @Google Cloud</b> — Oracle DB รันใน cloud เจ้าอื่น</li>
+        <li><b>Sovereign / Government Cloud</b> — ภาครัฐ/ข้อมูลอ่อนไหว</li>
+        <li><b>Roving Edge</b> — edge พกพา offline ได้</li>
+        <li>Gen 2 architecture · ราคา/บริการสม่ำเสมอทุกรูปแบบ · security-first</li>
+      </ul>
+    </section>
+
+    <section class="cheat-block">
+      <h3>ก่อนเข้าห้องสอบ</h3>
+      <ul>
+        <li>40 ข้อ · 60 นาที · ผ่าน 65% · ทั้ง single/multi-select</li>
+        <li>อ่านคำว่า "BEST", "MOST", "NOT" ให้ถี่ถ้วน</li>
+        <li>ข้อ multi-select: เลือกครบทุกข้อที่ถูก ไม่งั้นไม่ได้คะแนน</li>
+        <li>ติดข้อใด — flag ไว้ก่อน ทำข้ออื่นก่อน</li>
+        <li>รหัส: 1Z0-1085-26 (จากข้อมูลที่ให้มา — ยืนยันกับ Oracle)</li>
+      </ul>
+    </section>
+
+  </div>
+</article>
+</main>
+</div>
+
+<footer class="footer no-print">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ตัวเลข/ราคา/SLA ตรวจสอบกับเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay no-print" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
