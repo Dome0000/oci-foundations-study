@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4.1–4.2 Governance &amp; Cost | OCI Foundations Study</title>
+<meta name="description" content="OCI Pricing: Universal Credits, Free Tier, BYOL vs License Included, Cost Estimator, SLA, Support; Cost management: Budgets, Cost Analysis, Cost/Usage Reports, cost-tracking tags, Quotas vs Service Limits vs Budgets, Cloud Advisor, เครื่องมือบริหาร">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1" aria-current="page"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#pricing">4.1 Pricing Model &amp; Free Tier</a></li>
+      <li><a href="#sla-support">SLA และ Support</a></li>
+      <li><a href="#tools">เครื่องมือบริหาร (Console/CLI/…)</a></li>
+      <li><a href="#budgets">4.2 Budgets &amp; Alerts</a></li>
+      <li><a href="#cost-analysis">Cost Analysis &amp; Reports</a></li>
+      <li><a href="#quotas">Quotas vs Service Limits vs Budgets</a></li>
+      <li><a href="#advisor">Cloud Advisor</a></li>
+      <li><a href="#compartment-cost">ออกแบบ compartment แยกต้นทุน</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d4">Domain 4</span> 4.1–4.2 Governance &amp; Cost</nav>
+<article class="article">
+
+  <h1>4.1–4.2 Governance, Administration &amp; Cost <span class="badge badge-d4">D4 · 10%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 35–45 นาที · objectives 4.1 (Pricing Model) และ 4.2 (Cost Management tools) — โดเมนเล็กแต่เก็บคะแนนง่าย</p>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="4.1"> อ่าน 4.1 จบแล้ว</label>
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="4.2"> อ่าน 4.2 จบแล้ว</label>
+  </div>
+
+  <div class="banner-warn" role="note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex:0 0 auto;margin-top:.1rem"><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="15"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <span><strong>ตัวเลขราคาและโควตา Free Tier เปลี่ยนได้ตลอดเวลา</strong> — เว็บนี้ตั้งใจไม่ฝังตัวเลขเหล่านั้น ให้ลิงก์ไปหน้าทางการและติดป้าย "ตรวจสอบก่อนสอบ" เสมอ</span>
+  </div>
+
+  <h2 id="why">Why it matters</h2>
+  <p>Domain 4 มีแค่ ~4 ข้อ แต่เป็นข้อที่ "อ่านหนังสือ 30 นาทีก็ตอบได้" เพราะเป็นข้อเท็จจริงล้วน ๆ — อย่าปล่อยทิ้งโดเมนนี้เด็ดขาด</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  Governance &amp; Cost เหมือนระบบบัตรเครดิตขององค์กร: <strong>Budget</strong> = วงเงินบัตร (เตือนเมื่อใกล้ถึง) · <strong>Cost Analysis</strong> = ดู statement ย้อนหลังแยกตามหมวด · <strong>Service Limits/Quotas</strong> = เพดานเครดิตที่ธนาคารกำหนด · <strong>Cloud Advisor</strong> = ที่ปรึกษาการเงินแนะว่า "ตรงไหนควรลด/เพิ่ม"</div>
+
+  <h2 id="pricing">4.1 Pricing Model</h2>
+  <h3>Universal Credits และรูปแบบการจ่าย</h3>
+  <ul>
+    <li><strong>Universal Credits</strong> — จ่ายล่วงหน้าเป็นเครดิต (annual commitment) แล้วนำไปใช้กับบริการใด ๆ ของ OCI ได้ทั้งหมด (ยกเว้นบางรายการ) — ได้ส่วนลดมากกว่า pay-as-you-go; หมดเครดิตแล้วยังใช้ต่อได้ (จ่ายตามจริง)</li>
+    <li><strong>Pay As You Go (PAYG)</strong> — ไม่มี commitment จ่ายตามที่ใช้จริงรายเดือน เหมาะกับเริ่มต้น/ทดลอง</li>
+    <li><strong>Free Tier</strong> — สองอย่างที่ต่างกันชัดเจน:
+      <ul>
+        <li><strong>Always Free</strong> — ทรัพยากรที่ใช้ฟรีตลอดไป (เช่น VM Micro/A1 บางส่วน, object storage จำนวนหนึ่ง) ไม่มีวันหมดอายุของสิทธิ์</li>
+        <li><strong>Trial credits</strong> — เครดิตทดลองใช้ฟรีชั่วคราว (30 วัน) สำหรับลองบริการทั้งหมด หมดอายุแล้วกลายเป็น PAYG</li>
+      </ul>
+      รายละเอียดโควตา/ยอดเครดิต: <a href="https://www.oracle.com/cloud/free/" target="_blank" rel="noopener">ตรวจสอบก่อนสอบ</a></li>
+    <li><strong>ราคาเท่ากันทุก region</strong> — OCI ไม่คิดราคาต่างกันตาม region (ต่างจาก cloud บางเจ้า) — เลือก region จาก latency/compliance ได้เต็มที่โดยไม่ต้องมองราคา</li>
+  </ul>
+
+  <h3>BYOL vs License Included</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>BYOL (Bring Your Own License)</th><th>License Included</th></tr></thead>
+    <tbody>
+      <tr><td>ใบอนุญาต</td><td>ใช้สิทธิ์ที่องค์กรซื้ออยู่แล้ว (เช่น Oracle Database EE, Windows Server) บน OCI</td><td>OCI รวมสิทธิ์การใช้ software ไว้ในราคาแล้ว</td></tr>
+      <tr><td>ต้นทุน</td><td>ถูกลงถ้ามี license อยู่แล้ว (จ่ายแค่ infrastructure)</td><td>แพงกว่าต่อหน่วย แต่ไม่ต้องมี license มาก่อน</td></tr>
+      <tr><td>เหมาะกับ</td><td>องค์กรที่มี Oracle Database EE อยู่แล้ว</td><td>เริ่มใหม่/ไม่มี license เดิม</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cost Estimator</h3>
+  <p><strong>OCI Pricing Calculator / Cost Estimator</strong> — เครื่องมือประมาณค่าใช้จ่ายก่อนสร้างทรัพยากร ใส่ service ที่จะใช้แล้วได้ราคารวมโดยประมาณ (ไม่ต้อง login) ใช้ก่อนเสนอราคา/ออกแบบสถาปัตยกรรม</p>
+
+  <h2 id="sla-support">SLA และ Support Plans</h2>
+  <ul>
+    <li><strong>SLA (Service Level Agreement)</strong> — OCI ประกาศ SLA เป็น 3 แกนหลัก:
+      <ul>
+        <li><strong>Availability SLA</strong> — % uptime ต่อเดือนของแต่ละบริการ (เช่น 99.9% / 99.95%)</li>
+        <li><strong>Manageability SLA</strong> — การตอบสนองต่อการขอ service request ตาม severity</li>
+        <li><strong>Performance SLA</strong> — ตัวชี้วัด performance บางบริการ</li>
+      </ul>
+      ตัวเลข SLA เป๊ะ ๆ ของแต่ละบริการ: <a href="https://www.oracle.com/cloud/cloud-infrastructure-service-level-agreement-sla/" target="_blank" rel="noopener">ตรวจสอบก่อนสอบ</a></li>
+    <li><strong>Support plans</strong> — ขั้นสนับสนุนหลายระดับ (เช่น Basic/Developer/Proactive Containment — ชื่อและ SLA เปลี่ยนได้) ตั้งแต่ Community/Basic ที่รวมในราคา ไปจนถึง enterprise support แบบมี TAM และ response ตาม severity; เลือกตามความสำคัญของ workload</li>
+  </ul>
+
+  <h2 id="tools">เครื่องมือบริหารจัดการ (หลายทางเลือก ใช้ได้ทั้งหมด)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>เครื่องมือ</th><th>ใช้เมื่อไร</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Console</strong></td><td>UI บนเว็บ — ทำทุกอย่างแบบคลิก; เหมาะกับเริ่มต้น/งานไม่บ่อย</td></tr>
+      <tr><td><strong>Cloud Shell</strong></td><td>terminal บนเบราว์เซอร์ (เครื่อง OCI ให้ฟรี) มี OCI CLI พร้อม ไม่ต้องติดตั้งบนเครื่องตัวเอง</td></tr>
+      <tr><td><strong>OCI CLI</strong></td><td>command line — อัตโนมัติ/scripting</td></tr>
+      <tr><td><strong>SDKs</strong></td><td>Java/Python/Go/.NET/TypeScript/Ruby — เขียนแอปเรียก OCI API</td></tr>
+      <tr><td><strong>Resource Manager</strong></td><td>Terraform แบบ managed (stack, state, apply จาก Console) — ดูหน้า <a href="d2a-compute-cloud-native.html#cloud-native">2.1</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="budgets">4.2 Budgets และ Alert Rules</h2>
+  <ul>
+    <li><strong>Budget</strong> — กำหนดงบประมาณ (รายเดือน/รายไตรมาส/รายปี, แบบ recurring หรือ custom period) ผูกกับ <strong>compartment</strong> หรือ <strong>cost-tracking tag</strong> (อยากแยกตามทีม/โปรเจกต์)</li>
+    <li><strong>Budget alert rules</strong> — ส่ง notification (ผ่าน Notifications topic) เมื่อค่าใช้จ่ายจริงหรือค่าพยากรณ์ (forecast) ผ่าน threshold ที่ตั้ง (เช่น 50%, 80%, 100%) — <em>Budget ไม่ตัดการใช้งาน แค่เตือน</em></li>
+    <li>Budget เป็น <strong>composite tracking</strong>: ผูกได้หนึ่ง compartment หรือหนึ่ง tag ต่อ budget — วางแผน compartment/tag ให้ดี</li>
+  </ul>
+
+  <h2 id="cost-analysis">Cost Analysis และ Cost/Usage Reports</h2>
+  <ul>
+    <li><strong>Cost Analysis</strong> — กราฟ/ตารางค่าใช้จ่ายย้อนหลัง แยกตาม service, compartment, region, tag — ตอบ "เงินเดือนนี้หายไปกับอะไร"</li>
+    <li><strong>Cost Reports</strong> — รายงานละเอียด (CSV) ระดับ line item (แต่ละทรัพยากร แต่ละชั่วโมง) ส่งเข้า Object Storage bucket อัตโนมัติ — ใช้กับระบบภายใน/BI tools</li>
+    <li><strong>Usage Reports</strong> — ข้อมูล utilization (ทรัพยากรกี่ชั่วโมง) แบบดิบ สำหรับวิเคราะห์/chargeback</li>
+    <li><strong>Cost-tracking tags</strong> — tags ที่กำหนดให้ใช้หั่นต้นทุน (เช่น <code>CostCenter=Finance</code>); <strong>tag defaults</strong> ทำให้ทรัพยากรใหม่ติด tag อัตโนมัติตอนสร้าง</li>
+  </ul>
+
+  <h2 id="quotas">Quotas vs Service Limits vs Budgets — สรุปความต่าง</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Service Limits</th><th>Quotas</th><th>Budgets</th></tr></thead>
+    <tbody>
+      <tr><td>คืออะไร</td><td>เพดานจำนวนทรัพยากรที่ tenancy ใช้ได้ต่อ region (เช่น จำนวน VCN, shape A1 core)</td><td>เพดาน <em>ที่คุณกำหนดเอง</em> สำหรับ compartment (เข้มกว่า service limit)</td><td>เพดาน <em>ค่าใช้จ่ายเงิน</em></td></tr>
+      <tr><td>ใครกำหนด</td><td>Oracle (per region/tenancy, ขอเพิ่มได้)</td><td>คุณ (ผ่าน Console/CLI)</td><td>คุณ</td></tr>
+      <tr><td>ขอบเขต</td><td>region + tenancy</td><td>compartment (child ไม่เกิน parent)</td><td>compartment หรือ cost-tracking tag</td></tr>
+      <tr><td>ผลเมื่อเกิน</td><td>สร้างทรัพยากรไม่ได้</td><td>สร้างทรัพยากรไม่ได้ (เกิน quota)</td><td><strong>ไม่บล็อก</strong> — แจ้งเตือนอย่างเดียว</td></tr>
+      <tr><td>ใช้ทำอะไร</td><td>กัน resource exhaustion เริ่มต้น</td><td>ควบคุมการใช้ต่อทีม/โครงการ (governance)</td><td>ควบคุมการเงิน</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-trap"><span class="callout-title">จุดสับสนคลาสสิก</span><br>
+  "อยากให้สร้างเกิน X ตัวไม่ได้" → <strong>Quota</strong> (หรือ service limit ถ้าเป็นเพดานรวม) · "อยากให้หยุดใช้เมื่อครบงบ" → <strong>Budget</strong> — แต่ Budget ไม่หยุดจริง แค่เตือน! การหยุดจริงต้องพึ่ง automation (Events+Functions) หรือ quotas<br>
+  Service limits ขอเพิ่มผ่าน Help → Support → Request service limit increase (เลือก category/resource/limit)</div>
+
+  <h2 id="advisor">Cloud Advisor</h2>
+  <ul>
+    <li><strong>Cloud Advisor</strong> — บริการที่ปรึกษาอัตโนมัติ วิเคราะห์การใช้งานแล้วให้คำแนะนำใน 4 แกนหลัก: <strong>Cost, Security, Performance, Availability</strong> (และบางครั้ง operational excellence)</li>
+    <li>ตัวอย่าง: "instance นี้ CPU ต่ำผิดปกติ — พิจารณาลด size" · "bucket นี้ public — พิจารณาปิด" · "volume นี้ไม่มี backup — พิจารณาเปิด"</li>
+    <li>ใช้ร่วมกับ budgets/cost analysis เป็นวงจร governance: มอนิเตอร์ → วิเคราะห์ → แก้ → วัดผล</li>
+  </ul>
+
+  <h2 id="compartment-cost">การออกแบบ Compartment เพื่อแยกต้นทุน</h2>
+  <ul>
+    <li>แยก compartment ตาม <strong>ทีม/โปรเจกต์/สภาพแวดล้อม</strong> (เช่น <code>Production/Web</code>, <code>Production/DB</code>, <code>Dev/Sandbox</code>) — ได้ทั้ง cost report แยกและ policy แยก</li>
+    <li>อย่าซ้อนลึกเกินไป — 3–4 ชั้นพอ; โครงสร้าง root → environment → service/project</li>
+    <li>ใช้ <strong>cost-tracking tags</strong> สำหรับมิติที่ compartment ให้ไม่ได้ (เช่น cost center ข้าม project)</li>
+    <li>quotas ตั้งบน compartment ป้องกันทีมหนึ่งใช้ทรัพยากรจนหมดทั้ง tenancy</li>
+  </ul>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>Free Tier มี 2 แบบ: <strong>Always Free</strong> (ถาวร) vs <strong>trial credits</strong> (ชั่วคราว) — อย่าสับสน</li>
+      <li>ราคา OCI <strong>เท่ากันทุก region</strong></li>
+      <li>อยากประมาณราคาก่อนสร้าง → <strong>Cost Estimator</strong>; ดูย้อนหลังว่าใช้ไปเท่าไร → <strong>Cost Analysis</strong>; รายงาน line-item → <strong>Cost Reports</strong></li>
+      <li>งบเกินแล้ว <strong>Budget ไม่ตัดบริการ</strong> — แค่เตือน</li>
+      <li>อยาก <em>บล็อก</em> ไม่ให้สร้างเกินกำหนด → <strong>Quotas / Service Limits</strong></li>
+      <li>BYOL = มี license อยู่แล้ว; License Included = ทุกอย่างในราคาเดียว</li>
+      <li>Cloud Advisor แนะในแกน Cost/Security/Performance/Availability</li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"Budget ตัดการใช้งานเมื่อครบวงเงิน"</strong> — ผิด: แจ้งเตือนเท่านั้น ทรัพยากรยังรันและยังถูกคิดเงิน</li>
+      <li><strong>"Free Tier trial 30 วัน = Always Free"</strong> — ไม่: trial หมดแล้วเป็น PAYG; Always Free ใช้ได้ตลอด (โควตาจำกัด)</li>
+      <li><strong>"Region ถูกกว่า region อื่น"</strong> — ผิด: OCI ตั้งราคาเท่ากันทุก region</li>
+      <li><strong>"Quota = Budget"</strong> — Quota จำกัดจำนวนทรัพยากร (บล็อกการสร้าง); Budget จำกัดเงิน (เตือนอย่างเดียว)</li>
+      <li><strong>"cost-tracking tag ไม่ต้อง unique"</strong> — ควรมีมาตรฐานเดียวทั้งองค์กร ไม่งั้นรายงานหั่นไม่ได้</li>
+      <li><strong>"Service limit ขอเพิ่มที่ Oracle ไม่ได้"</strong> — ขอได้ผ่าน support request โดยระบุ category/resource</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  ผู้จัดการอยากรู้ว่า compute/DB/storage ทีมไหนกินเงินเท่าไร และอยากให้เตือนเมื่อทีม Finance ใช้เกิน 80% ของงบ 50,000 บาท/เดือน ทำอย่างไร?<br>
+  <strong>วิธีคิด:</strong> (1) ติด <strong>cost-tracking tag</strong> <code>CostCenter=Finance</code> ให้ทรัพยากรของทีม (หรือแยก compartment) (2) สร้าง <strong>Budget</strong> ผูกกับ tag/compartment นั้น (3) ตั้ง <strong>alert rule</strong> 80% (และ 100%) ส่งผ่าน Notifications — ตอบได้ทั้ง "ดู" และ "เตือน"</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ทีม sandbox ชอบสร้าง VM จำนวนมากจนเกินกำหนด ผู้บริหารต้องการให้ "สร้างไม่ได้เลยเมื่อครบ 10 instances" — ใช้อะไร?<br>
+  <strong>วิธีคิด:</strong> คีย์ = บล็อกการสร้าง → <strong>Quota</strong> บน compartment sandbox (เช่น จำกัด instance count = 10) — Budget ไม่ตอบโจทย์เพราะแค่เตือน</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. Budget ครบ 100% แล้วเกิดอะไรขึ้นกับทรัพยากร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">ไม่มีอะไรถูกปิด — Budget แจ้งเตือนอย่างเดียว (ผ่าน Notifications) ทรัพยากรยังทำงานและถูกคิดเงินต่อ</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. Always Free กับ Trial credits ต่างกันอย่างไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Always Free = สิทธิ์ถาวรสำหรับทรัพยากรชุดหนึ่ง; Trial = เครดิตทดลองชั่วคราว (ปกติ 30 วัน) สำหรับใช้บริการทั้งหมด แล้วกลายเป็น PAYG</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. อยากได้รายงาน line-item ละเอียดระดับทรัพยากร ใช้เครื่องมือไหน?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Cost Reports (CSV ระดับ line item ส่งลง Object Storage bucket) — Cost Analysis ดูภาพรวม/กราฟ ไม่ละเอียดเท่ารายงานนี้</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. ใครกำหนด Service Limits และใครกำหนด Quotas?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Oracle กำหนด Service Limits (เพดาน tenancy ต่อ region, ขอเพิ่มได้); คุณกำหนด Quotas เอง (เพดาน compartment ของคุณ)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. BYOL เหมาะกับใคร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">องค์กรที่มี license Oracle อยู่แล้ว (เช่น Database EE) — นำมาใช้บน OCI จ่ายแค่ infrastructure ถูกลง; ถ้าไม่มี license เลือก License Included</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://www.oracle.com/cloud/free/" target="_blank" rel="noopener">OCI Free Tier</a> — <em>ตรวจสอบก่อนสอบ</em></li>
+    <li><a href="https://www.oracle.com/cloud/cost-estimator/" target="_blank" rel="noopener">OCI Cost Estimator (Pricing Calculator)</a></li>
+    <li><a href="https://www.oracle.com/cloud/cloud-infrastructure-service-level-agreement-sla/" target="_blank" rel="noopener">OCI Service Level Agreement</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Budgets/home.htm" target="_blank" rel="noopener">Budgets</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Billing/home.htm" target="_blank" rel="noopener">Cost Analysis &amp; Cost/Usage Reports</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Quotas/home.htm" target="_blank" rel="noopener">Quotas</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm" target="_blank" rel="noopener">Service Limits</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/CloudAdvisor/home.htm" target="_blank" rel="noopener">Cloud Advisor</a></li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="d3b-iam.html"><small>ก่อนหน้า</small>← 3.3 IAM</a>
+    <a href="cheatsheet.html" style="text-align:right"><small>ถัดไป</small>Cheatsheet ก่อนสอบ →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ตัวเลข Free Tier/SLA/ราคาเปลี่ยนได้ ตรวจสอบหน้าทางการก่อนสอบเสมอ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
