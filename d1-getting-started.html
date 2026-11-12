@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D1 · Getting Started with OCI | OCI Foundations Study</title>
+<meta name="description" content="พื้นฐาน cloud (IaaS/PaaS/SaaS, CapEx/OpEx, HA/DR), OCI Distributed Cloud (Public Cloud, Dedicated Region Cloud@Customer, Oracle Alloy, Multicloud), และทรัพยากร Realms/Regions/ADs/Fault Domains — objective 1.1 และ 1.2">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1" aria-current="page"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#fundamentals">พื้นฐาน Cloud (IaaS/PaaS/SaaS)</a></li>
+      <li><a href="#d11">1.1 OCI Distributed Cloud</a></li>
+      <li><a href="#d12">1.2 Realms / Regions / ADs / FDs</a></li>
+      <li><a href="#resource-scope">Resource ไหน regional / AD / global</a></li>
+      <li><a href="#choosing-region">การเลือก Region และ Home Region</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d1">Domain 1</span> 1.1–1.2 Getting Started</nav>
+<article class="article">
+
+  <h1>D1 · Getting Started with OCI <span class="badge badge-d1">D1 · 15%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 40–50 นาที · objectives 1.1 (OCI Distributed Cloud) และ 1.2 (Regions &amp; Availability Domains)</p>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="1.1"> อ่าน 1.1 จบแล้ว</label>
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="1.2"> อ่าน 1.2 จบแล้ว</label>
+  </div>
+
+  <h2 id="why">Why it matters</h2>
+  <p>Domain 1 เป็นด่านแรกของข้อสอบ — คำถามส่วนใหญ่เป็น recall (ข้อเท็จจริงตรง ๆ) ถ้าแม่นตรงนี้ได้ ~6 ข้อฟรี ๆ นอกจากนี้แนวคิด regions/ADs ยังใช้ตอบโดเมนอื่นอีกหลายข้อ (เช่น "resource นี้ย้ายข้าม region ได้ไหม")</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  OCI คือเครือข่ายธนาคารสาขา: <strong>Realm</strong> = กลุ่มประเทศที่ธนาคารมีสาขา · <strong>Region</strong> = สาขาในประเทศนั้น · <strong>Availability Domain</strong> = ตึกคนละตึกในเมืองเดียวกัน (ไฟดับตึกหนึ่ง อีกตึกยังเปิด) · <strong>Fault Domain</strong> = ชั้นคนละชั้นในตึกเดียวกัน (ชั้นหนึ่งเครื่องดับ ชั้นอื่นยังทำงาน)</div>
+
+  <h2 id="fundamentals">พื้นฐาน Cloud ที่ต้องรู้</h2>
+  <h3>IaaS / PaaS / SaaS</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>โมเดล</th><th>คุณจัดการอะไร</th><th>ตัวอย่างบน OCI</th></tr></thead>
+    <tbody>
+      <tr><td><strong>IaaS</strong> (Infrastructure as a Service)</td><td>OS, runtime, แอป, ข้อมูล — ได้แค่ hardware เสมือน (VM/network/storage)</td><td>Compute VM, Block Volume, VCN</td></tr>
+      <tr><td><strong>PaaS</strong> (Platform as a Service)</td><td>แค่แอปและข้อมูล — แพลตฟอร์ม/runtime จัดการให้</td><td>Autonomous Database, Functions, OKE</td></tr>
+      <tr><td><strong>SaaS</strong> (Software as a Service)</td><td>แค่ใช้แอป ไม่ต้องจัดการอะไรเลย</td><td>Oracle Fusion Cloud Applications (ERP/HCM)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>CapEx vs OpEx</h3>
+  <ul>
+    <li><strong>CapEx</strong> (Capital Expenditure) — ลงทุนก้อนใหญ่ซื้อเครื่อง/data center ล่วงหน้า ทรัพย์สินเก่าลงเรื่อย ๆ; เหมาะกับ on-premises แบบเดิม</li>
+    <li><strong>OpEx</strong> (Operational Expenditure) — จ่ายเท่าที่ใช้จริงรายเดือน ไม่ต้องซื้อล่วงหน้า; cloud ส่วนใหญ่เป็น OpEx — เหตุผลหลักที่ธุรกิจย้ายขึ้น cloud</li>
+  </ul>
+
+  <h3>Elasticity vs Scalability</h3>
+  <ul>
+    <li><strong>Scalability</strong> — ระบบขยายขนาดรองรับงานมากขึ้นได้ (ทั้ง scale-up แนวตั้ง และ scale-out แนวนอน) อาจทำทันทีหรือวางแผนล่วงหน้า</li>
+    <li><strong>Elasticity</strong> — ขยาย/หดแบบ <em>อัตโนมัติตามความต้องการจริงแบบ real-time</em> แล้วจ่ายตามที่ใช้ — elasticity คือ scalability แบบอัตโนมัติและยืดหยุ่นทั้งสองทาง</li>
+  </ul>
+
+  <h3>High Availability (HA) vs Disaster Recovery (DR)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>HA</th><th>DR</th></tr></thead>
+    <tbody>
+      <tr><td>เป้าหมาย</td><td>ลด downtime จากความล้มเหลวเล็ก ๆ (instance ดับ, rack เสีย)</td><td>กู้ระบบจากเหตุใหญ่ (region หาย, data center พัง)</td></tr>
+      <tr><td>เครื่องมือ</td><td>หลาย AD + Load Balancer + instance pool</td><td>สำรองข้าม region (backup, replication, standby)</td></tr>
+      <tr><td>ตัวชี้วัด</td><td>uptime %</td><td><strong>RTO</strong> (Recovery Time Objective — กู้กลับมาใช้ได้ภายในกี่นาที/ชม.) และ <strong>RPO</strong> (Recovery Point Objective — ยอมเสียข้อมูลย้อนหลังกี่นาที/ชม.)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="d11">1.1 OCI Distributed Cloud (คลาวด์แบบกระจายตัว)</h2>
+  <p><strong>Distributed Cloud</strong> = Oracle นำ OCI ไปรัน ๆ ทุกที่ที่ลูกค้าต้องการ — ไม่ใช่แค่ public cloud ใน region ของ Oracle แต่รวมถึงที่ลูกค้าตั้งเอง พันธมิตรรันให้ และ multicloud ด้วย OCI เป็น <strong>cloud เดียวที่มาตรฐานเดียวกัน</strong> ทุกรูปแบบ (บริการเดียวกัน ราคาใกล้เคียงกัน จัดการจาก Console อันเดียวกัน)</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>รูปแบบ</th><th>คืออะไร / เมื่อไหร่ใช้</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Public Cloud</strong> (region ของ Oracle)</td><td>OCI ใน region สาธารณะของ Oracle ทั่วโลก — ตัวเลือกมาตรฐาน ราคาถูกที่สุด ใช้ได้ทันที เหมาะกับ workload ทั่วไป</td></tr>
+      <tr><td><strong>Dedicated Region Cloud@Customer</strong></td><td>Oracle ติดตั้ง <em>region เต็มรูปแบบของ OCI</em> ไว้ใน datacenter ของลูกค้า — ได้บริการครบเหมือน public cloud แต่ข้อมูลอยู่ในมือลูกค้า เหมาะกับข้อกำหนด data residency/ระเบียบเข้มงวด</td></tr>
+      <tr><td><strong>Oracle Alloy</strong></td><td>คู่ค้า/พันธมิตร (เช่น service provider) ซื้อสิทธิ์รัน OCI <strong>ภายใต้แบรนด์ของตัวเอง</strong> แล้วขายต่อ/ให้บริการลูกค้าของตน — cloud ส่วนตัวของ partner ที่ขับเคลื่อนด้วย OCI</td></tr>
+      <tr><td><strong>Oracle AI Database@Azure / @AWS / @Google Cloud</strong> (ชื่อเดิม Oracle Database@...)</td><td>Oracle Database รันบน infrastructure ของ Azure / AWS / Google Cloud โดยตรง (multicloud) — ลูกค้าใช้ database ของ Oracle ใน cloud ที่องค์กรใช้อยู่ โดยไม่ต้องย้าย workload ทั้งหมด</td></tr>
+      <tr><td><strong>Oracle Interconnect for Azure / AWS / Google Cloud</strong></td><td>ลิงก์ส่วนตัว latency ต่ำระหว่าง OCI กับ multicloud เจ้าอื่น ให้แอปข้าม cloud ได้เร็วเหมือนอยู่ในเครือข่ายเดียวกัน</td></tr>
+      <tr><td><strong>Sovereign / Government Cloud</strong></td><td>region สำหรับภาครัฐและข้อมูลอ่อนไหว (เช่น US Government, EU sovereign) — บุคลากรที่มีภูมิหลังตรวจสอบ (cleared) และการันตีว่าข้อมูลไม่ออกนอกประเทศ/เขตอำนาจศาล</td></tr>
+      <tr><td><strong>Compute Cloud@Customer / Base Database Cloud@Customer / Exadata Cloud@Customer</strong></td><td>OCI <em>บางบริการ</em> (compute, database) ติดตั้งที่ลูกค้า — เล็กกว่า Dedicated Region (ที่ยกทั้ง region มา)</td></tr>
+      <tr><td><strong>Private Cloud Appliance</strong></td><td>Appliance สำเร็จรูปขนาดเล็กติดตั้งที่ลูกค้า สำหรับ on-premises cloud ขนาดย่อม</td></tr>
+      <tr><td><strong>Roving Edge Infrastructure</strong></td><td>อุปกรณ์ edge พกพา รัน compute/storage แบบ offline ได้ เหมาะกับเรือ เหมือง remote site งานสนาม</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>ทำไม OCI ถึงเน้น "distributed"</h3>
+  <ul>
+    <li><strong>Gen 2 architecture</strong> — OCI ออกแบบใหม่ทั้งหมด (ไม่ใช่รุ่นต่อยอดจากระบบเก่า) แยก network off-box, ใช้ RDMA network ระหว่างเซิร์ฟเวอร์, isolating tenant ด้วย hardware virtualization ที่ปลอดภัยกว่า</li>
+    <li><strong>ราคาและบริการสม่ำเสมอทุกรูปแบบ</strong> — ตัวไหนดก็ API เดียวกัน เครื่องมือเดียวกัน ราคาใกล้เคียงกัน (ยกเว้นต้นทุน delivery เฉพาะรุ่น)</li>
+    <li><strong>Security-first</strong> — ทุกการออกแบบมี security เป็นตัวตั้ง (เข้ารหัส default, isolation เข้มงวด)</li>
+    <li><strong>ไม่ต้องเลือกอย่างใดอย่างหนึ่ง</strong> — เริ่ม public cloud → ขยายไป dedicated/multicloud เมื่อข้อกำหนดเปลี่ยน</li>
+  </ul>
+
+  <h2 id="d12">1.2 Realms, Regions, Availability Domains, Fault Domains</h2>
+
+  <figure class="diagram" role="img" aria-label="แผนภาพลำดับชั้น realm region availability domain และ fault domain">
+    <svg viewBox="0 0 660 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+      <rect x="10" y="10" width="640" height="280" rx="12" fill="none" stroke="#0f6f6b" stroke-width="2"/>
+      <text x="330" y="34" text-anchor="middle" font-size="14" font-weight="bold" fill="currentColor">Realm (เช่น OC1 — commercial)</text>
+
+      <rect x="35" y="48" width="280" height="210" rx="10" fill="#0f6f6b" opacity="0.06" stroke="#0f6f6b"/>
+      <text x="175" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Region A (เช่น ap-singapore-1)</text>
+      <rect x="55" y="84" width="240" height="60" rx="8" fill="#c74634" opacity="0.08" stroke="#c74634"/>
+      <text x="175" y="106" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">Availability Domain 1</text>
+      <text x="175" y="126" text-anchor="middle" font-size="10" fill="currentColor">Fault Domains: FD1 · FD2 · FD3</text>
+      <rect x="55" y="152" width="240" height="60" rx="8" fill="#c74634" opacity="0.08" stroke="#c74634"/>
+      <text x="175" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">Availability Domain 2</text>
+      <text x="175" y="194" text-anchor="middle" font-size="10" fill="currentColor">Fault Domains: FD1 · FD2 · FD3</text>
+
+      <rect x="345" y="48" width="280" height="210" rx="10" fill="#3f5f8a" opacity="0.06" stroke="#3f5f8a"/>
+      <text x="485" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Region B (อีกประเทศ)</text>
+      <rect x="365" y="84" width="240" height="128" rx="8" fill="#3f5f8a" opacity="0.08" stroke="#3f5f8a"/>
+      <text x="485" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">Availability Domain 1</text>
+      <text x="485" y="132" text-anchor="middle" font-size="10" fill="currentColor">(region ใหม่ส่วนใหญ่มี AD เดียว)</text>
+      <text x="485" y="152" text-anchor="middle" font-size="10" fill="currentColor">Fault Domains: FD1 · FD2 · FD3</text>
+    </svg>
+    <figcaption>ลำดับชั้น: Realm → Region → Availability Domain → Fault Domain (3 ต่อ AD) · ทราฟฟิกข้าม AD และข้าม region เข้ารหัสเสมอ</figcaption>
+  </figure>
+
+  <h3>นิยามแต่ละระดับ (ตามเอกสารทางการ)</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ระดับ</th><th>คืออะไร</th><th>จุดสำคัญ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Realm</strong></td><td>กลุ่มของ region; tenancy ของคุณอยู่ใน realm เดียว และเข้าได้เฉพาะ region ใน realm นั้น</td><td>มี commercial (<code>OC1</code>), government และ dedicated realms; realm พิเศษ เช่น Serbia Central อยู่ realm <code>OC20</code></td></tr>
+      <tr><td><strong>Region</strong></td><td>พื้นที่ทางภูมิศาสตร์ที่มี datacenter อย่างน้อยหนึ่งแห่ง; region หนึ่งประกอบด้วย AD ตั้งแต่ 1 แห่งขึ้นไป</td><td>แยกจากกันโดยสิ้นเชิง; งานใหม่ ๆ เปิดเป็น single-AD region</td></tr>
+      <tr><td><strong>Availability Domain (AD)</strong></td><td>หนึ่งหรือหลาย datacenter ใน region เดียวกัน แยกไฟฟ้า ความเย็น และเครือข่ายภายในจากกัน</td><td>ภายใน region เชื่อมกันด้วยเครือข่าย low-latency high-bandwidth → ทำ HA/DR ข้าม AD ได้ดีมาก</td></tr>
+      <tr><td><strong>Fault Domain (FD)</strong></td><td>กลุ่มฮาร์ดแวร์ย่อยภายใน AD — <em>ทุก AD มี 3 FD เสมอ</em></td><td>ใส่ instance คนละ FD = ไม่แชร์ฮาร์ดแวร์เดียวกัน (กัน hardware failure + planned maintenance)</td></tr>
+    </tbody>
+  </table></div>
+
+  <ul>
+    <li><strong>ชื่อ AD สุ่มต่อ tenancy</strong> — <code>PHX-AD-1</code> ของคุณกับของคนอื่นอาจเป็นคนละตึก (มี prefix ของ tenancy เช่น <code>Uocm:PHX-AD-1</code>) อย่าวางแผนโดยสมมติว่าชื่อตรงกัน</li>
+    <li><strong>Multi-AD region</strong> มีเพียงบางregion (เช่น Phoenix, Ashburn, Chicago, London, Frankfurt — 3 ADs); region อื่น ๆ ส่วนใหญ่ single-AD</li>
+    <li><strong>Subscription limit</strong> — tenancy แบบ trial/free tier/pay-as-you-go โดยทั่วไป <em>สมัครได้ 1 region</em> (ขอเพิ่มได้); แบบ Universal Credits สมัครได้ทุก commercial region</li>
+  </ul>
+
+  <h2 id="resource-scope">Resource ไหน regional / AD-specific / global?</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ขอบเขต</th><th>ตัวอย่าง</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Global (cross-region)</strong></td><td>IAM resources ทั้งหมด (users, groups, compartments, policies, dynamic groups, tag namespaces/keys), Cloud Guard config</td><td>สร้างครั้งเดียว ใช้ได้ทุก region</td></tr>
+      <tr><td><strong>Regional</strong></td><td>VCN, subnets (regional), route tables, security lists, NSGs, gateways (IGW/NAT/SGW/DRG), Load Balancer, Vault, keys/secrets, buckets, images, functions, OKE clusters, reserved public IPs, Bastion, Autonomous DB</td><td>ทุกอย่างนอกเหนือจาก 2 กลุ่มนี้; bucket เป็น regional แต่เรียกข้ามเน็ตได้ผ่าน URL เฉพาะ region</td></tr>
+      <tr><td><strong>AD-specific</strong></td><td>Compute instances, block/boot volumes, DB systems (VM/BM), container instances, ephemeral public IPs, subnets แบบ AD-specific (แบบเก่า)</td><td>ย้ายข้าม AD ต้องผ่าน backup/image แล้วสร้างใหม่</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-tip"><span class="callout-title">หลักจำเร็ว</span><br>
+  "IAM = global · instance/volume/DB = AD · ที่เหลือ = regional" — ข้อสอบออกช้อยส์แนวนี้บ่อยมาก</div>
+
+  <h2 id="choosing-region">การเลือก Region และ Home Region</h2>
+  <ol>
+    <li><strong>Latency / ความใกล้ผู้ใช้</strong> — วางใกล้ที่ผู้ใช้/ระบบภายในใช้งาน</li>
+    <li><strong>Data residency / compliance</strong> — บางข้อมูลออกนอกประเทศไม่ได้; บางอุตสาหกรรมมีข้อบังคับเขตอำนาจศาล</li>
+    <li><strong>Service availability</strong> — ไม่ใช่ทุกบริการมีในทุก region (บริการใหม่มักเปิดไม่พร้อมกันทุกที่) ตรวจหน้า Service Availability ของแต่ละ region</li>
+    <li><strong>Cost</strong> — ราคา OCI สม่ำเสมอทุก region โดยรวม (ไม่ต้องเลือกถูกเพราะราคา) ต่างตรง free-tier capacity และความพร้อมของ instance types มากกว่า</li>
+    <li><strong>Realm constraint</strong> — tenancy อยู่ realm ไหน สมัครได้เฉพาะ region ใน realm นั้น</li>
+    <li><strong>Home region</strong> — region ที่ tenancy ของคุณถูก provision เป็นที่แรก (Oracle เลือก/กำหนดตอนสมัคร)<br>
+      <span class="badge badge-d1" style="margin-top:.3rem">[ตรวจสอบกับเอกสารทางการ]</span><br>
+      เอกสารปัจจุบันที่ใช้สร้างเนื้อหานี้ไม่ได้ระบุรายละเอียด home region — โดยหลักทั่วไป home region ใช้เก็บข้อมูล identity/global metadata และเปลี่ยนไม่ได้หลังสมัคร ตรวจสอบนิยามล่าสุดกับ Identity documentation ก่อนสอบ</li>
+  </ol>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>"tenancy อยู่ได้หลาย realm ไหม" → <strong>ไม่</strong> อยู่ realm เดียว เห็นเฉพาะ region ใน realm นั้น</li>
+      <li>"FD มีกี่อันต่อ AD" → <strong>3</strong> และใช้ป้องกัน hardware failure / planned maintenance</li>
+      <li>"IAM resources เป็น regional หรือ global" → <strong>global (cross-region)</strong></li>
+      <li>"region ใหม่ส่วนใหญ่มีกี่ AD" → <strong>1</strong> (multi-AD มีเฉพาะ region ใหญ่บางแห่ง)</li>
+      <li>"AD ชื่อเดียวกันในคนละ tenancy คือตึกเดียวกันไหม" → <strong>ไม่</strong> — ชื่อสุ่มต่อ tenancy ต้องเช็คผ่าน Console/API ของตัวเอง</li>
+      <li>"ข้อมูลออกนอกประเทศไม่ได้ ต้องใช้อะไร" → เลือก region ที่ถูกต้อง / Dedicated Region / Sovereign cloud</li>
+      <li>"Oracle Database บน Azure/AWS/Google" → เรียกว่า <strong>Oracle AI Database@Azure / @AWS / @Google Cloud</strong> (ชื่อเดิม Oracle Database@...)</li>
+      <li>"zone สำหรับภาครัฐ/ข้อมูลลับ" → <strong>Government / Sovereign cloud</strong></li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"Region = ประเทศ"</strong> — ไม่เสมอไป: region คือ geography ที่ Oracle กำหนด ชื่ออย่าง "ap-singapore-1" อาจไม่ตรงขอบเขตประเทศพอดี</li>
+      <li><strong>"FD ป้องกัน region ล่มได้"</strong> — ไม่: FD/AD ป้องกันความล้มเหลวระดับฮาร์ดแวร์/AD; region ล่มต้อง DR ข้าม region</li>
+      <li><strong>"ทุก region มีบริการเหมือนกัน"</strong> — ไม่: บางบริการ (โดยเฉพาะใหม่/เฉพาะกลุ่ม) เปิดเฉพาะบาง region</li>
+      <li><strong>"ชื่อ AD ตรงกันทุก tenancy"</strong> — ผิด สุ่มต่อ tenancy</li>
+      <li><strong>"Subscribed region ไม่จำกัด"</strong> — trial/PAYG โดยทั่วไปจำกัด 1 region (ตรวจสอบ quotas; Universal Credits ไม่จำกัดในเชิงการพาณิชย์)</li>
+      <li><strong>"Distributed cloud = หลาย cloud ผู้ให้บริการคนละเจ้า"</strong> — ไม่ครบ: multicloud เป็นส่วนหนึ่งเท่านั้น; Distributed Cloud คือกลยุทธ์ส่งมอบ OCI ทุกรูปแบบสถานที่ (public/dedicated/edge/multicloud) ภายใต้ cloud เดียวกัน</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  ธนาคารไทยต้องการใช้ OCI แต่นโยบายกำหนดว่าข้อมูลลูกค้าห้ามออกนอกประเทศ แต่ data center ของตัวเองไม่พร้อมสร้าง cloud เอง เลือกอะไรได้บ้าง?<br>
+  <strong>วิธีคิด:</strong> ใช้ <strong>region ไทย</strong> ที่เปิดให้บริการ (commercial region ในประเทศ) เป็นอันดับแรก — ถ้ามีข้อกำหนดเข้มกว่านั้น (ความเป็นอิสระ การควบคุม hardware เต็มรูปแบบ) → <strong>Dedicated Region Cloud@Customer</strong> ติดตั้งใน datacenter ของธนาคาร; ถ้าเป็นงาน government ที่มี clearance เฉพาะ → sovereign/government region</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ทีมต้องการให้ instance 2 ตัวไม่แชร์ฮาร์ดแวร์เดียวกันภายใน AD เดียวเพื่อกัน planned maintenance พร้อมกัน — ต้องตั้งค่าอะไร?<br>
+  <strong>วิธีคิด:</strong> ใส่ใน <strong>Fault Domains คนละ FD</strong> (FD1/FD2/FD3) ตอนสร้าง instance หรือใน instance pool — ถามต่อว่า "ข้าม AD ล่ะ?" → ต้องวางคนละ AD และใช้ Load Balancer/backup ช่วย</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. RTO กับ RPO ต่างกันอย่างไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">RPO = ยอมเสียข้อมูลย้อนหลังกี่นาที/ชั่วโมง (จุดกู้ข้อมูลล่าสุด); RTO = ยอมให้ระบบล่มนานแค่ไหนก่อนต้องกลับมาใช้ได้</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. FD มีกี่อันต่อหนึ่ง AD และกันอะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">3 อัน — กัน hardware failure และ planned maintenance โดยแยก instance ให้อยู่คนละฮาร์ดแวร์ใน AD เดียวกัน</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. อยากได้ทั้ง region ของ OCI ใน datacenter ตัวเอง พร้อมบริการครบเหมือน public cloud — เรียกว่า?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Dedicated Region Cloud@Customer (Oracle ยก region เต็มไปติดตั้งที่ลูกค้า)</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. ทรัพยากรใดเป็น global บ้าง — compute instance / compartment / VCN?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">compartment — IAM resources (ซึ่งรวม compartment, users, groups, policies) เป็น cross-region/global ส่วน compute instance และ VCN ไม่ใช่</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. "Elasticity" ต่างจาก "scalability" อย่างไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Scalability = ขยายรองรับงานได้ (อาจทำเอง/อัตโนมัติก็ได้); Elasticity = ขยาย-หด <em>อัตโนมัติตาม demand แบบ real-time</em> และจ่ายตามที่ใช้จริง</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm" target="_blank" rel="noopener">Regions and Availability Domains</a></li>
+    <li><a href="https://docs.oracle.com/iaas/Content/dedicated/dedicated-cloud-architecture.htm" target="_blank" rel="noopener">Dedicated Cloud architecture (Dedicated Region, Alloy)</a> · <a href="https://docs.oracle.com/iaas/Content/multicloud-hub/home.htm" target="_blank" rel="noopener">Oracle Multicloud Hub</a></li>
+    <li><a href="https://docs.oracle.com/iaas/Content/database-at-azure/oaa.htm" target="_blank" rel="noopener">Oracle AI Database@Azure</a> · <a href="https://docs.oracle.com/iaas/Content/database-at-aws/oaaws.htm" target="_blank" rel="noopener">Oracle AI Database@AWS</a> · <a href="https://docs.oracle.com/iaas/Content/database-at-gcp/home.htm" target="_blank" rel="noopener">Oracle AI Database@Google Cloud</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/General/Concepts/oiaas-overview.htm" target="_blank" rel="noopener">OCI+ overview</a> (ถ้า 404 ให้เริ่มจากหน้า OCI documentation แล้วค้น "distributed cloud")</li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="index.html"><small>ก่อนหน้า</small>ภาพรวมข้อสอบ</a>
+    <a href="d2a-compute-cloud-native.html" style="text-align:right"><small>ถัดไป</small>2.1 Compute &amp; Cloud Native →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ข้อมูล region/AD/บริการเปลี่ยนได้เสมอ ตรวจกับเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
