@@ -1,0 +1,2944 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCI 2026 Foundations Associate (1Z0-1085-26) - Ultimate Cheat Sheet</title>
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-alt: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --border-color: #cbd5e1;
+      --border-light: #e2e8f0;
+      
+      --accent-color: #0284c7;
+      --accent-hover: #0369a1;
+      --accent-light: #e0f2fe;
+      --accent-dark: #075985;
+      --oracle-red: #c74634;
+
+      /* Domain Badges */
+      --d1-color: #0284c7;
+      --d1-bg: #e0f2fe;
+      --d2-color: #059669;
+      --d2-bg: #d1fae5;
+      --d3-color: #7c3aed;
+      --d3-bg: #ede9fe;
+      --d4-color: #d97706;
+      --d4-bg: #fef3c7;
+
+      /* Callout Colors */
+      --callout-kw-bg: #f0f9ff;
+      --callout-kw-border: #38bdf8;
+      --callout-kw-text: #0369a1;
+
+      --callout-trap-bg: #fef2f2;
+      --callout-trap-border: #f87171;
+      --callout-trap-text: #b91c1c;
+
+      --callout-tip-bg: #fffbeb;
+      --callout-tip-border: #fbbf24;
+      --callout-tip-text: #b45309;
+
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.06), 0 2px 4px -2px rgba(0,0,0,0.04);
+      --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --font-family: "Sarabun", "Noto Sans Thai", Tahoma, "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: #162032;
+      --bg-alt: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --border-color: #2e3e56;
+      --border-light: #1e293b;
+
+      --accent-color: #38bdf8;
+      --accent-hover: #0ea5e9;
+      --accent-light: #082f49;
+      --accent-dark: #7dd3fc;
+      --oracle-red: #f87171;
+
+      --d1-color: #38bdf8;
+      --d1-bg: #0c2d48;
+      --d2-color: #34d399;
+      --d2-bg: #064e3b;
+      --d3-color: #a78bfa;
+      --d3-bg: #3b1d6e;
+      --d4-color: #fbbf24;
+      --d4-bg: #523106;
+
+      --callout-kw-bg: #082845;
+      --callout-kw-border: #0284c7;
+      --callout-kw-text: #7dd3fc;
+
+      --callout-trap-bg: #3f1214;
+      --callout-trap-border: #dc2626;
+      --callout-trap-text: #fca5a5;
+
+      --callout-tip-bg: #382405;
+      --callout-tip-border: #d97706;
+      --callout-tip-text: #fde68a;
+
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+      --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.4);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg-primary: #090d16;
+        --bg-secondary: #111827;
+        --bg-card: #162032;
+        --bg-alt: #1e293b;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --border-color: #2e3e56;
+        --border-light: #1e293b;
+
+        --accent-color: #38bdf8;
+        --accent-hover: #0ea5e9;
+        --accent-light: #082f49;
+        --accent-dark: #7dd3fc;
+        --oracle-red: #f87171;
+
+        --d1-color: #38bdf8;
+        --d1-bg: #0c2d48;
+        --d2-color: #34d399;
+        --d2-bg: #064e3b;
+        --d3-color: #a78bfa;
+        --d3-bg: #3b1d6e;
+        --d4-color: #fbbf24;
+        --d4-bg: #523106;
+
+        --callout-kw-bg: #082845;
+        --callout-kw-border: #0284c7;
+        --callout-kw-text: #7dd3fc;
+
+        --callout-trap-bg: #3f1214;
+        --callout-trap-border: #dc2626;
+        --callout-trap-text: #fca5a5;
+
+        --callout-tip-bg: #382405;
+        --callout-tip-border: #d97706;
+        --callout-tip-text: #fde68a;
+
+        --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+        --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.4);
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Container */
+    header.app-header {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .header-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: var(--oracle-red);
+      color: #fff;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+    }
+
+    .title-text h1 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .title-text p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      padding: 7px 32px 7px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      font-size: 13px;
+      width: 210px;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(2,132,199,0.15);
+      width: 260px;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+
+    .btn {
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--bg-alt);
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: #fff;
+      border-color: var(--accent-color);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      color: #fff;
+    }
+
+    /* Sub-header with Tabs & Progress */
+    .header-sub {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 6px 20px 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .view-tabs {
+      display: flex;
+      background: var(--bg-alt);
+      padding: 3px;
+      border-radius: 8px;
+      gap: 4px;
+    }
+
+    .tab-btn {
+      padding: 6px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--accent-color);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .progress-bar-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .progress-track {
+      width: 140px;
+      height: 8px;
+      background: var(--bg-alt);
+      border-radius: 99px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #10b981;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Mobile Chip Nav */
+    .chip-nav {
+      display: flex;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-light);
+      scrollbar-width: none;
+    }
+
+    .chip-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-chip {
+      white-space: nowrap;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      color: var(--text-secondary);
+      background: var(--bg-alt);
+      border: 1px solid var(--border-light);
+      transition: all 0.15s;
+    }
+
+    .nav-chip.active, .nav-chip:hover {
+      background: var(--accent-light);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    /* Main Layout */
+    .layout-wrapper {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 20px 60px 20px;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Sticky Sidebar TOC */
+    .sidebar-toc {
+      position: sticky;
+      top: 130px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px;
+      max-height: calc(100vh - 160px);
+      overflow-y: auto;
+      box-shadow: var(--card-shadow);
+    }
+
+    .sidebar-toc h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .toc-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .toc-item a {
+      display: block;
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.15s;
+    }
+
+    .toc-item a:hover {
+      background: var(--bg-alt);
+      color: var(--text-primary);
+    }
+
+    .toc-item a.active {
+      background: var(--accent-light);
+      color: var(--accent-color);
+      font-weight: 700;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .toc-sub {
+      list-style: none;
+      padding-left: 14px;
+      margin-top: 2px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc-sub a {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+
+    /* Content Area */
+    .content-area {
+      min-width: 0;
+    }
+
+    /* Section Styles */
+    section.study-section {
+      margin-bottom: 28px;
+      scroll-margin-top: 130px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border-light);
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .domain-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .badge-d1 { background: var(--d1-bg); color: var(--d1-color); }
+    .badge-d2 { background: var(--d2-bg); color: var(--d2-color); }
+    .badge-d3 { background: var(--d3-bg); color: var(--d3-color); }
+    .badge-d4 { background: var(--d4-bg); color: var(--d4-color); }
+    .badge-cross { background: var(--bg-alt); color: var(--text-primary); border: 1px solid var(--border-color); }
+
+    /* Collapsible Details */
+    details.study-accordion {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+      box-shadow: var(--card-shadow);
+    }
+
+    details.study-accordion[open] {
+      border-color: var(--accent-color);
+    }
+
+    summary.accordion-summary {
+      padding: 12px 18px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      background: var(--bg-card);
+      user-select: none;
+      list-style: none;
+    }
+
+    summary.accordion-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.accordion-summary:hover {
+      background: var(--bg-alt);
+    }
+
+    .summary-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .summary-icon {
+      transition: transform 0.2s ease;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    details[open] .summary-icon {
+      transform: rotate(90deg);
+      color: var(--accent-color);
+    }
+
+    .accordion-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .memorize-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .memorize-label input[type="checkbox"] {
+      cursor: pointer;
+      accent-color: #10b981;
+      width: 15px;
+      height: 15px;
+    }
+
+    .accordion-body {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-light);
+      background: var(--bg-card);
+    }
+
+    /* Memorized state */
+    details.is-memorized {
+      border-left: 4px solid #10b981 !important;
+    }
+
+    /* Key Concept Cards Grid */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .concept-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .concept-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .concept-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .concept-term {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .concept-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .concept-footer {
+      font-size: 11px;
+      background: var(--bg-alt);
+      padding: 5px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      border-left: 3px solid var(--accent-color);
+    }
+
+    .concept-footer strong {
+      color: var(--accent-color);
+    }
+
+    /* Callouts */
+    .callout {
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 14px 0;
+      border-left: 4px solid;
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .callout-kw {
+      background: var(--callout-kw-bg);
+      border-color: var(--callout-kw-border);
+      color: var(--callout-kw-text);
+    }
+
+    .callout-trap {
+      background: var(--callout-trap-bg);
+      border-color: var(--callout-trap-border);
+      color: var(--callout-trap-text);
+    }
+
+    .callout-tip {
+      background: var(--callout-tip-bg);
+      border-color: var(--callout-tip-border);
+      color: var(--callout-tip-text);
+    }
+
+    .callout-title {
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+      font-size: 13.5px;
+    }
+
+    /* Responsive Tables */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 14px 0;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-card);
+    }
+
+    table.study-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+      min-width: 600px;
+    }
+
+    table.study-table th {
+      background: var(--bg-alt);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    table.study-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    table.study-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    table.study-table tr:hover td {
+      background: var(--bg-alt);
+    }
+
+    .check-mark { color: #10b981; font-weight: bold; }
+    .cross-mark { color: #ef4444; font-weight: bold; }
+
+    /* SVG Diagram Containers */
+    .diagram-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .diagram-wrapper svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .diagram-caption {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Volatile warning badge */
+    .volatile-tag {
+      display: inline-block;
+      font-size: 10px;
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+    [data-theme="dark"] .volatile-tag {
+      background: #451a1a;
+      color: #fca5a5;
+    }
+
+    /* Search Highlight */
+    mark.highlight {
+      background: #fef08a;
+      color: #854d0e;
+      padding: 0 2px;
+      border-radius: 2px;
+      font-weight: bold;
+    }
+    [data-theme="dark"] mark.highlight {
+      background: #854d0e;
+      color: #fef08a;
+    }
+
+    /* Policy Code Box */
+    .policy-box {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: var(--bg-alt);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-color);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: var(--text-primary);
+      margin: 8px 0;
+      overflow-x: auto;
+    }
+
+    /* Footer */
+    footer.app-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 24px 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 40px;
+    }
+
+    /* Quick Sheet View Specifics */
+    .quick-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .quick-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: var(--card-shadow);
+      font-size: 12.5px;
+    }
+
+    .quick-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--accent-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quick-card ul {
+      padding-left: 18px;
+      margin-bottom: 6px;
+    }
+
+    .quick-card li {
+      margin-bottom: 4px;
+      color: var(--text-secondary);
+    }
+
+    .quick-card strong {
+      color: var(--text-primary);
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 10.5pt;
+      }
+
+      .app-header, .sidebar-toc, .chip-nav, .header-controls, .accordion-actions,
+      .view-tabs, .search-box, .progress-bar-container, .btn {
+        display: none !important;
+      }
+
+      .layout-wrapper {
+        display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      details.study-accordion {
+        border: 1px solid #ccc !important;
+        box-shadow: none !important;
+        margin-bottom: 12px !important;
+        page-break-inside: avoid;
+      }
+
+      details.study-accordion summary {
+        background: #f5f5f5 !important;
+        color: #000 !important;
+        padding: 6px 10px !important;
+        font-size: 11pt !important;
+      }
+
+      details.study-accordion > * {
+        display: block !important;
+      }
+
+      .concept-card, .quick-card, .table-container, .diagram-wrapper, .callout {
+        page-break-inside: avoid;
+        box-shadow: none !important;
+        border-color: #ddd !important;
+      }
+
+      .table-container {
+        overflow: visible !important;
+      }
+
+      table.study-table {
+        min-width: 100% !important;
+        font-size: 9.5pt !important;
+      }
+
+      table.study-table th {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+        padding: 5px 8px !important;
+      }
+
+      table.study-table td {
+        padding: 4px 8px !important;
+      }
+
+      /* Quick sheet printed mode: dense 2-page fit */
+      #view-quick .quick-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+      }
+
+      #view-quick .quick-card {
+        padding: 8px !important;
+        font-size: 8.5pt !important;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .layout-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-toc {
+        display: none;
+      }
+
+      .quick-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .header-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .search-box input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Application Header -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand-title">
+        <span class="brand-badge">OCI 2026</span>
+        <div class="title-text">
+          <h1>Foundations Associate (1Z0-1085-26) Study Notes</h1>
+          <p>สรุปเข้มเตรียมสอบ OCI ฉบับสมบูรณ์ | อัปเดตโครงสร้างข้อสอบปี 2026</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="ค้นหาคำศัพท์ / คีย์เวิร์ดสอบ..." autocomplete="off">
+          <button class="search-clear" id="searchClear" title="ล้างการค้นหา">&times;</button>
+        </div>
+
+        <button class="btn" id="btnExpandAll" title="เปิดเนื้อหาทั้งหมด">
+          <span>⊞</span> ขยายทั้งหมด
+        </button>
+        <button class="btn" id="btnCollapseAll" title="ย่อเนื้อหาทั้งหมด">
+          <span>⊟</span> ย่อทั้งหมด
+        </button>
+        <button class="btn" id="btnPrint" title="พิมพ์เป็น PDF หรือเอกสาร A4">
+          <span>🖨️</span> พิมพ์
+        </button>
+        <button class="btn" id="btnThemeToggle" title="สลับโหมดสว่าง/มืด">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- View Tabs & Memorize Progress -->
+    <div class="header-sub">
+      <div class="view-tabs">
+        <button class="tab-btn active" id="tabQuick" onclick="switchView('quick')">⚡ Quick Sheet (สรุปด่วน 2 หน้า)</button>
+        <button class="tab-btn" id="tabFull" onclick="switchView('full')">📖 Full Notes (สรุปเนื้อหาฉบับสมบูรณ์)</button>
+      </div>
+
+      <div class="progress-bar-container">
+        <span>ความคืบหน้าการจำ:</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span id="progressText">0%</span>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Chips -->
+    <nav class="chip-nav" id="chipNav">
+      <a href="#d1" class="nav-chip">1. Getting Started</a>
+      <a href="#d2" class="nav-chip">2. Core Services</a>
+      <a href="#d3" class="nav-chip">3. Security</a>
+      <a href="#d4" class="nav-chip">4. Governance</a>
+      <a href="#keyword-map" class="nav-chip">🎯 Keyword Map</a>
+      <a href="#traps" class="nav-chip">⚠️ 15 Traps</a>
+      <a href="#last-night" class="nav-chip">🌙 สรุปคืนก่อนสอบ</a>
+      <a href="#strategy" class="nav-chip">💡 กลยุทธ์ทำข้อสอบ</a>
+    </nav>
+  </header>
+
+  <div class="layout-wrapper">
+    <!-- Desktop Sticky Sidebar TOC -->
+    <aside class="sidebar-toc">
+      <h3>สารบัญเนื้อหา (Contents)</h3>
+      <ul class="toc-menu">
+        <li class="toc-item"><a href="#d1">1. Getting Started with OCI</a>
+          <ul class="toc-sub">
+            <li><a href="#d1-cloud">Cloud Basics & Deployment</a></li>
+            <li><a href="#d1-infra">Global Infra (Region/AD/FD)</a></li>
+            <li><a href="#d1-tenancy">Tenancy & Compartment</a></li>
+            <li><a href="#d1-access">Access Methods & Free Tier</a></li>
+          </ul>
+        </li>
+        <li class="toc-item"><a href="#d2">2. Core OCI Services</a>
+          <ul class="toc-sub">
+            <li><a href="#d2-compute">Compute & Containers</a></li>
+            <li><a href="#d2-network">Networking & Gateways</a></li>
+            <li><a href="#d2-storage">Storage Comparison</a></li>
+            <li><a href="#d2-database">Autonomous & DB Services</a></li>
+            <li><a href="#d2-observability">Observability & Management</a></li>
+          </ul>
+        </li>
+        <li class="toc-item"><a href="#d3">3. OCI Security</a>
+          <ul class="toc-sub">
+            <li><a href="#d3-shared">Shared Responsibility</a></li>
+            <li><a href="#d3-iam">IAM, Domains & Policies</a></li>
+            <li><a href="#d3-services">Cloud Guard & Security Zones</a></li>
+            <li><a href="#d3-dataprot">Vault, Bastion & Data Safe</a></li>
+          </ul>
+        </li>
+        <li class="toc-item"><a href="#d4">4. Governance & Admin</a>
+          <ul class="toc-sub">
+            <li><a href="#d4-pricing">Pricing Models & BYOL</a></li>
+            <li><a href="#d4-cost">Cost Tools (Budgets vs Quotas)</a></li>
+            <li><a href="#d4-tags">Tags & Compartment Design</a></li>
+            <li><a href="#d4-sla">Support, Triple SLA & Terraform</a></li>
+          </ul>
+        </li>
+        <li class="toc-item"><a href="#keyword-map">🎯 Keyword Map (25+ คู่คำ)</a></li>
+        <li class="toc-item"><a href="#traps">⚠️ Top 15 ข้อสอบหลอก</a></li>
+        <li class="toc-item"><a href="#last-night">🌙 สรุปคืนก่อนสอบ (Last-Night)</a></li>
+        <li class="toc-item"><a href="#strategy">💡 กลยุทธ์ทำข้อสอบ (Exam Strategy)</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Container -->
+    <main class="content-area">
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 1: QUICK SHEET (COMPACT 2-PAGE DENSE REFERENCE)                       -->
+      <!-- ========================================================================= -->
+      <div id="view-quick">
+        <section class="study-section">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-cross">Quick Reference</span>
+              <h2 class="section-title">⚡ OCI Foundations 2026 - Quick Sheet สรุปด่วนกระชับ 2 หน้า</h2>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">เน้นอ่านทวนก่อนเข้าห้องสอบ</span>
+          </div>
+
+          <div class="quick-grid">
+            <!-- Box 1: Global Infrastructure -->
+            <div class="quick-card">
+              <h4><span>🌐 Global Infrastructure</span> <span class="domain-badge badge-d1">Domain 1</span></h4>
+              <ul>
+                <li><strong>Region:</strong> พื้นที่ทางภูมิศาสตร์ที่ตั้ง Data Center แบ่งเป็น Multi-AD หรือ Single-AD</li>
+                <li><strong>Availability Domain (AD):</strong> Data Center 1 แห่งหรือมากกว่า มีระบบไฟ ความเย็น เครือข่ายแยกอิสระ ไม่แชร์จุดพัง (Faults) ร่วมกัน</li>
+                <li><strong>Fault Domain (FD):</strong> กลุ่ม Hardware / Rack / Power Switch ภายใน AD เดียวกัน แต่ละ AD มี <strong>3 FDs เสมอ</strong></li>
+                <li><strong>ทำไมต้องมี FD:</strong> ป้องกัน Hardware Failure เฉพาะจุด และป้องกันไม่ให้ Maintenance กระทบเครื่องทั้งหมดพร้อมกัน (Anti-affinity)</li>
+                <li><strong>Realm:</strong> กลุ่ม Regions ที่แยกกันเด็ดขาด (Commercial, Government, Sovereign) ไม่แชร์ข้อมูลหรือบัญชีกัน</li>
+              </ul>
+            </div>
+
+            <!-- Box 2: Tenancy & Compartment -->
+            <div class="quick-card">
+              <h4><span>📁 Tenancy & Compartment</span> <span class="domain-badge badge-d1">Domain 1</span></h4>
+              <ul>
+                <li><strong>Tenancy:</strong> บัญชีคลาวด์ระดับบนสุด (Root Compartment) เมื่อเปิดใช้งาน OCI</li>
+                <li><strong>Compartment:</strong> หน่วยจัดกลุ่มทรัพยากรเชิงตรรกะ (Logical Boundary)</li>
+                <li><strong>คุณสมบัติสำคัญ:</strong> ซ้อนกันได้สูงสุด 6 ระดับ, ข้าม Region ได้ (Global Scope), ทรัพยากรย้ายข้าม Compartment ได้</li>
+                <li><strong>ไม่ใช่:</strong> ไม่ใช่เครือข่าย ไม่ใช่ Firewall และไม่ใช่ Physical Data Center</li>
+                <li><strong>วัตถุประสงค์:</strong> ควบคุมสิทธิ์ (Policy Boundary), แบ่งบิล (Cost Tracking), และจำกัดโควตา (Quotas)</li>
+              </ul>
+            </div>
+
+            <!-- Box 3: Networking Gateways -->
+            <div class="quick-card">
+              <h4><span>🔀 VCN Gateways Cheat Sheet</span> <span class="domain-badge badge-d2">Domain 2</span></h4>
+              <ul>
+                <li><strong>Internet Gateway (IGW):</strong> เข้า-ออก Internet ได้ 2 ทิศทาง สำหรับ <strong>Public Subnet</strong></li>
+                <li><strong>NAT Gateway:</strong> ออก Internet ทางเดียว (Outbound only) เพื่อ Update Patch ไม่ให้ภายนอกยิงเข้ามา สำหรับ <strong>Private Subnet</strong></li>
+                <li><strong>Service Gateway (SGW):</strong> เชื่อมต่อ Private Subnet ไปยัง OCI Public Services (เช่น Object Storage, Autonomous DB) ผ่าน Oracle Network <strong>ไม่ผ่าน Internet</strong></li>
+                <li><strong>Dynamic Routing Gateway (DRG):</strong> เสมือน Virtual Router เชื่อม VCN ไปยัง On-premises (Site-to-Site VPN, FastConnect) หรือเชื่อมข้าม VCN (Peering)</li>
+                <li><strong>LPG (Local Peering Gateway):</strong> เชื่อม 2 VCN ใน Region เดียวกันโดยตรง</li>
+              </ul>
+            </div>
+
+            <!-- Box 4: Security List vs NSG -->
+            <div class="quick-card">
+              <h4><span>🛡️ Security List vs NSG</span> <span class="domain-badge badge-d2">Domain 2</span></h4>
+              <ul>
+                <li><strong>Security List (SL):</strong> บังคับใช้ระดับ <strong>Subnet</strong> ทุก Instance ใน Subnet นั้นต้องรับกฎเดียวกันทั้งหมด</li>
+                <li><strong>Network Security Group (NSG):</strong> บังคับใช้ระดับ <strong>VNIC / Instance</strong> เจาะจงเฉพาะเครื่องได้</li>
+                <li><strong>Stateful vs Stateless:</strong> Default เป็น Stateful (ขาไปเปิด ขากลับเปิดให้อัตโนมัติไม่ต้องเขียนกฎ)</li>
+                <li><strong>ข้อสอบชอบถาม:</strong> ต้องการคุมความปลอดภัยเครื่องที่อยู่ใน Subnet เดียวกันแต่ใช้กฎต่างกัน &rarr; ตอบ <strong>NSG</strong></li>
+              </ul>
+            </div>
+
+            <!-- Box 5: Storage Decision Guide -->
+            <div class="quick-card">
+              <h4><span>💾 Storage Decision Guide</span> <span class="domain-badge badge-d2">Domain 2</span></h4>
+              <ul>
+                <li><strong>Block Volume:</strong> ต่อกับ Compute เป็นดิสก์ข้อมูล/OS (Boot Volume), NVMe SSD ประสิทธิภาพสูง, ติดตั้ง Database</li>
+                <li><strong>File Storage (FSS):</strong> Shared File System มาตรฐาน <strong>NFS v3 (POSIX)</strong> แชร์ให้เครื่องหลายพันเครื่องอ่านเขียนพร้อมกัน</li>
+                <li><strong>Object Storage:</strong> เก็บไฟล์ภาพ วิดีโอ ก้อนข้อมูล Unstructured ผ่าน HTTP REST API, ไม่จำกัดขนาด, ทำ Pre-Authenticated Requests (PAR) ได้</li>
+                <li><strong>Archive Tier:</strong> เก็บข้อมูลระยะยาว ต้นทุนต่ำสุด ต้อง <strong>Restore (หลายชั่วโมง)</strong> ก่อนดาวน์โหลดได้</li>
+              </ul>
+            </div>
+
+            <!-- Box 6: Database Comparison -->
+            <div class="quick-card">
+              <h4><span>🗄️ Database Quick Reference</span> <span class="domain-badge badge-d2">Domain 2</span></h4>
+              <ul>
+                <li><strong>Autonomous Database (ADB):</strong> ดูแลตัวเองอัตโนมัติ (Self-driving, Self-securing, Self-repairing) มี ATP (OLTP), ADW (Analytics)</li>
+                <li><strong>Base Database Service:</strong> จัดการผ่าน Console แต่ผู้ใช้ยังได้ <strong>Root Access / OS Access</strong></li>
+                <li><strong>Exadata Database Service:</strong> ประสิทธิภาพสูงสุดระดับ Enterprise บนฮาร์ดแวร์ Exadata</li>
+                <li><strong>MySQL HeatWave:</strong> รัน OLTP + OLAP (In-Memory Engine) จบในฐานข้อมูลตัวเดียว</li>
+              </ul>
+            </div>
+
+            <!-- Box 7: IAM Policy & Verbs -->
+            <div class="quick-card">
+              <h4><span>🔐 IAM Policy Syntax & Verbs</span> <span class="domain-badge badge-d3">Domain 3</span></h4>
+              <ul>
+                <li><strong>ไวยากรณ์:</strong> <code>Allow &lt;subject&gt; to &lt;verb&gt; &lt;resource&gt; in &lt;location&gt;</code></li>
+                <li><strong>ลำดับสิทธิ์ (น้อย &rarr; มาก):</strong><br>
+                  <code>inspect</code> (ดูรายชื่อ) &lt; <code>read</code> (ดูรายละเอียดและเนื้อหา) &lt; <code>use</code> (ใช้งานอัปเดต แต่สร้าง/ลบไม่ได้) &lt; <code>manage</code> (สิทธิ์เต็ม Admin สร้าง-ลบได้)</li>
+                <li><strong>Dynamic Group:</strong> ให้สิทธิ์ Compute Instance รัน API โดยใช้ <strong>Instance Principals</strong> ไม่ต้องฝัง Key ในโค้ด</li>
+              </ul>
+            </div>
+
+            <!-- Box 8: Governance & Budgets vs Quotas -->
+            <div class="quick-card">
+              <h4><span>📊 Budgets vs Quotas vs Service Limits</span> <span class="domain-badge badge-d4">Domain 4</span></h4>
+              <ul>
+                <li><strong>Budgets:</strong> ตั้งแจ้งเตือนค่าใช้จ่าย (Alert) ผ่าน Email/Slack <strong>ไม่มีวันหยุดหรือสั่งปิดเครื่องเด็ดขาด!</strong></li>
+                <li><strong>Compartment Quotas:</strong> ผู้ดูแลระบบกำหนด policy ล็อกไม่ให้สร้าง Resource เกินโควตาใน Compartment</li>
+                <li><strong>Service Limits:</strong> ขีดจำกัดสูงสุดเริ่มต้นที่ Oracle ตั้งไว้ให้กับ Tenancy (ขอเพิ่มได้โดยส่ง Support Request)</li>
+                <li><strong>Triple SLA:</strong> การันตี 3 ด้าน: <strong>Availability</strong> (ความพร้อมใช้), <strong>Manageability</strong> (การจัดการผ่าน API), <strong>Performance</strong> (ประสิทธิภาพเครือข่าย)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- VIEW 2: FULL STUDY NOTES (COMPREHENSIVE ALL 4 DOMAINS)                     -->
+      <!-- ========================================================================= -->
+      <div id="view-full" style="display:none;">
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- DOMAIN 1: GETTING STARTED WITH OCI                                        -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="d1">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-d1">Domain 1 (35-40%)</span>
+              <h2 class="section-title">1. Getting Started with OCI</h2>
+            </div>
+          </div>
+
+          <!-- Section 1.1: Cloud Fundamentals & Deployment Models -->
+          <details class="study-accordion" id="sec-d1-cloud" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>1.1 Cloud Fundamentals, Deployment Models & Access Methods</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d1-cloud', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <p style="margin-bottom:12px; color:var(--text-secondary);">
+                ระบบคลาวด์คอมพิวติงของ OCI นำเสนอการทำงานบนสถาปัตยกรรม Gen 2 Cloud ที่เน้นประสิทธิภาพ ความปลอดภัยแบบ Security-First และความยืดหยุ่นในการจัดวางโครงสร้างระบบ
+              </p>
+
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">IaaS (Infrastructure as a Service)</span>
+                  </div>
+                  <p class="concept-desc">เช่าโครงสร้างพื้นฐานระดับฮาร์ดแวร์ เช่น Compute VM, Bare Metal, Storage, Virtual Cloud Network โดยผู้ใช้รับผิดชอบ OS และแอปพลิเคชัน</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Full OS control, Manage your own VM, Raw infrastructure</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">PaaS (Platform as a Service)</span>
+                  </div>
+                  <p class="concept-desc">คลาวด์ดูแลฮาร์ดแวร์ OS แพตช์อัตโนมัติ ผู้ใช้พัฒนาและวางแอปพลิเคชัน/ข้อมูล เช่น Autonomous Database, OKE, OCI Functions</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Managed platform, Focus on code/data, Auto-patching OS</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">SaaS (Software as a Service)</span>
+                  </div>
+                  <p class="concept-desc">โปรแกรมสำเร็จรูปพร้อมใช้งานผ่านเว็บเบราว์เซอร์ ผู้ให้บริการจัดการทั้งหมด เช่น Oracle Fusion Cloud ERP, HCM, NetSuite</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> End-user application, Fully managed software</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Elasticity & Scalability</span>
+                  </div>
+                  <p class="concept-desc"><strong>Elasticity:</strong> ปรับขยายและลดขนาดทรัพยากรตามโหลดแบบอัตโนมัติ | <strong>Scalability:</strong> ขยายขนาดได้ทั้งแนวตั้ง (Scale-up) และแนวนอน (Scale-out)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Grow and shrink dynamically, Pay only for what you use</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Dedicated Region</span>
+                  </div>
+                  <p class="concept-desc">ยกบริการ OCI Cloud แบบเต็มรูปแบบทุกบริการไปติดตั้งไว้ใน Data Center ของลูกค้าเอง ตอบโจทย์ Data Sovereignty สูงสุด</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> All OCI services in customer data center, Strict compliance</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Oracle Alloy</span>
+                  </div>
+                  <p class="concept-desc">แพลตฟอร์มที่เปิดให้พันธมิตร (Partners/Service Providers) นำโครงสร้างพื้นฐาน OCI ไปรีแบรนด์และเปิดให้บริการคลาวด์ในนามของตนเอง</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Partner-operated cloud, White-label cloud provider</div>
+                </div>
+              </div>
+
+              <!-- Comparison Table: Deployment Models -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางเปรียบเทียบ: OCI Deployment Options</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>รูปแบบ (Model)</th>
+                      <th>สถานที่ติดตั้ง (Location)</th>
+                      <th>บริการที่ได้รับ (Services Available)</th>
+                      <th>กลุ่มเป้าหมายข้อสอบ (Key Target)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Public Cloud</strong></td>
+                      <td>Oracle Global Data Centers ทั่วโลก</td>
+                      <td>ครบทุกบริการของ OCI</td>
+                      <td>องค์กรทั่วไปต้องการความยืดหยุ่น จ่ายตามจริง</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Dedicated Region</strong></td>
+                      <td>Data Center ของลูกค้าเอง</td>
+                      <td>ครบทุกบริการเหมือน Public Cloud</td>
+                      <td>องค์กรที่ต้องการ Data Residency 100% ภายในประเทศ</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cloud@Customer</strong></td>
+                      <td>Data Center ของลูกค้า</td>
+                      <td>เฉพาะบริการ Exadata หรือ Compute</td>
+                      <td>งานฐานข้อมูลหนักที่ต้องอยู่ใกล้ On-premises Core System</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Multicloud (OD@Azure/Google/AWS)</strong></td>
+                      <td>ติดตั้งใน Data Center พันธมิตร</td>
+                      <td>Oracle Database Services</td>
+                      <td>แอปอยู่บน Azure/GCP/AWS ต่อ Database ออราเคิลแบบ Low-latency</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Access Methods -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ช่องทางการเข้าถึง OCI (Access Methods)</h4>
+              <p style="font-size:13px; color:var(--text-secondary); margin-bottom:8px;">
+                สามารถบริหารจัดการทรัพยากร OCI ได้ผ่าน 5 ช่องทางหลัก:
+              </p>
+              <ul style="padding-left:20px; font-size:13px; color:var(--text-secondary); margin-bottom:12px;">
+                <li><strong>OCI Console:</strong> เว็บ Graphical User Interface (GUI) ใช้งานง่ายผ่านเบราว์เซอร์</li>
+                <li><strong>OCI Command Line Interface (CLI):</strong> คำสั่ง command-line ทำงานบน Shell เหมาะกับ automation scripts</li>
+                <li><strong>Software Development Kits (SDKs):</strong> ไลบรารีสำหรับนักพัฒนา (รองรับ Java, Python, TypeScript/JS, Go, .NET, Ruby)</li>
+                <li><strong>REST APIs:</strong> เรียกใช้งานผ่าน HTTP Requests มาตรฐาน (ต้องลงนามคำขอด้วย API Signing Key)</li>
+                <li><strong>Cloud Shell:</strong> เบราว์เซอร์เทอร์มินัล Linux ฟรี มี OCI CLI และเครื่องมือ Dev ติดตั้งพร้อมใช้งานทันที และมีที่เก็บไฟล์ส่วนตัว <span class="volatile-tag">ตรวจสอบกับเอกสารล่าสุด</span></li>
+                <li><strong>Terraform / Resource Manager:</strong> บริหารจัดการ Infrastructure as Code (IaC) ผ่าน OCI Resource Manager แบบ Managed Service</li>
+              </ul>
+
+              <div class="callout callout-tip">
+                <div class="callout-title">💡 Exam Tip: Free Tier & Always Free</div>
+                OCI มีบริการ <strong>Always Free Services</strong> ที่ใช้งานได้ฟรีตลอดชีพไม่มีวันหมดอายุ (เช่น Autonomous Database ฟรี, Compute shapes บางรุ่น, Object Storage) และมี <strong>Free Trial Credits</strong> ที่มีอายุจำกัด <span class="volatile-tag">ตรวจสอบกับเอกสารล่าสุด</span> (เมื่อยอดเงินเครดิตทดลองหมด ทรัพยากร Always Free จะยังคงใช้งานได้ต่อเนื่องโดยไม่ถูกตัดเงินอัตโนมัติ)
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 1.2: Global Infrastructure (Region, AD, FD) -->
+          <details class="study-accordion" id="sec-d1-infra" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>1.2 OCI Global Infrastructure Architecture (Realm, Region, AD, FD)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d1-infra', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <p style="margin-bottom:12px; color:var(--text-secondary);">
+                สถาปัตยกรรมโครงสร้างพื้นฐานระดับสากลของ OCI ออกแบบลำดับชั้นแบบ <strong>Realm &rarr; Region &rarr; Availability Domain (AD) &rarr; Fault Domain (FD)</strong> เพื่อรับประกัน High Availability (HA) และ Disaster Recovery (DR)
+              </p>
+
+              <!-- SVG 1: Region > AD > FD Architecture -->
+              <div class="diagram-wrapper">
+                <svg viewBox="0 0 840 280" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Outer: Region -->
+                  <rect x="10" y="10" width="820" height="255" rx="12" fill="var(--bg-alt)" stroke="var(--accent-color)" stroke-width="2" stroke-dasharray="6,4" />
+                  <text x="30" y="36" fill="var(--accent-color)" font-family="sans-serif" font-size="16" font-weight="bold">OCI REGION (พื้นที่ภูมิศาสตร์ เช่น Tokyo, Singapore, Frankfurt)</text>
+                  
+                  <!-- Availability Domain 1 -->
+                  <g transform="translate(30, 50)">
+                    <rect x="0" y="0" width="240" height="200" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="15" y="24" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold">Availability Domain 1 (AD 1)</text>
+                    <text x="15" y="40" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">Isolated Data Center (ไฟ/เน็ตแยก)</text>
+                    
+                    <!-- FD 1, 2, 3 inside AD 1 -->
+                    <rect x="12" y="55" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="78" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 1 (Rack / Switch 1)</text>
+
+                    <rect x="12" y="102" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="125" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 2 (Rack / Switch 2)</text>
+
+                    <rect x="12" y="149" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="172" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 3 (Rack / Switch 3)</text>
+                  </g>
+
+                  <!-- Availability Domain 2 -->
+                  <g transform="translate(300, 50)">
+                    <rect x="0" y="0" width="240" height="200" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="15" y="24" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold">Availability Domain 2 (AD 2)</text>
+                    <text x="15" y="40" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">High-speed, Low-latency interconnect</text>
+
+                    <rect x="12" y="55" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="78" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 1 (Hardware A)</text>
+
+                    <rect x="12" y="102" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="125" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 2 (Hardware B)</text>
+
+                    <rect x="12" y="149" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="172" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 3 (Hardware C)</text>
+                  </g>
+
+                  <!-- Availability Domain 3 -->
+                  <g transform="translate(570, 50)">
+                    <rect x="0" y="0" width="240" height="200" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="15" y="24" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold">Availability Domain 3 (AD 3)</text>
+                    <text x="15" y="40" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">Encrypted optical network links</text>
+
+                    <rect x="12" y="55" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="78" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 1 (Power Supply 1)</text>
+
+                    <rect x="12" y="102" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="125" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 2 (Power Supply 2)</text>
+
+                    <rect x="12" y="149" width="216" height="40" rx="4" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="22" y="172" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" font-weight="600">Fault Domain 3 (Power Supply 3)</text>
+                  </g>
+                </svg>
+                <div class="diagram-caption">ภาพจำลองสถาปัตยกรรม Region &gt; Availability Domain (AD) &gt; Fault Domain (FD) โดย 1 AD มี 3 FDs เสมอ</div>
+              </div>
+
+              <!-- Comparison Table: AD vs FD -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางเปรียบเทียบข้อสอบออกบ่อย: Availability Domain vs Fault Domain</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>คุณลักษณะ (Feature)</th>
+                      <th>Availability Domain (AD)</th>
+                      <th>Fault Domain (FD)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>นิยามทางกายภาพ</strong></td>
+                      <td>ศูนย์ข้อมูล (Data Center) แยกอิสระจากกัน</td>
+                      <td>กลุ่มฮาร์ดแวร์ / Rack / สวิตช์เครือข่าย <em>ภายใน AD เดียวกัน</em></td>
+                    </tr>
+                    <tr>
+                      <td><strong>จำนวนต่อ AD</strong></td>
+                      <td>แต่ละ Region มี 1 หรือ 3 ADs</td>
+                      <td>แต่ละ AD มี <strong>3 Fault Domains เสมอ</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>ป้องกันความเสี่ยงระดับใด</strong></td>
+                      <td>ป้องกันภัยพิบัติระดับตึก Data Center (ไฟดับน้ำท่วมตึก)</td>
+                      <td>ป้องกันตู้ Rack ดับ, สวิตช์พัง, หรือการบำรุงรักษาฮาร์ดแวร์</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ความล่าช้าเครือข่าย (Latency)</strong></td>
+                      <td>ต่ำมาก (เชื่อมด้วยไฟเบอร์ใยแก้วความเร็วสูง)</td>
+                      <td>ต่ำที่สุด (อยู่ในดาต้าเซ็นเตอร์ห้องเดียวกัน)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Exam Keyword ที่ชี้มา</strong></td>
+                      <td>"Separate data center", "Disaster recovery in region"</td>
+                      <td><strong>"Anti-affinity"</strong>, "Hardware failure within AD", "Unexpected hardware failure"</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout callout-trap">
+                <div class="callout-title">⚠️ Exam Trap: ข้อสอบหลอกเรื่อง Single-AD Region</div>
+                อย่าเข้าใจผิดว่า Region ที่มีแค่ 1 Availability Domain จะทำ High Availability (HA) ไม่ได้! เพราะภายใน 1 AD จะมี <strong>3 Fault Domains เสมอ</strong> ทำให้เราสามารถกระจาย VM 2 ตัวไปอยู่คนละ Fault Domain (เช่น FD 1 และ FD 2) เพื่อรับประกันความพร้อมใช้งานเมื่อเกิดปัญหาฮาร์ดแวร์ได้
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 1.3: Tenancy and Compartment Hierarchy -->
+          <details class="study-accordion" id="sec-d1-tenancy" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>1.3 Tenancy, Compartments & Resource Organization</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d1-tenancy', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <p style="margin-bottom:12px; color:var(--text-secondary);">
+                <strong>Compartment</strong> คือหัวใจสำคัญของการบริหารจัดการบน OCI เป็นหน่วยจัดกลุ่มเชิงตรรกะที่แยกทรัพยากรออกจากกันอย่างเป็นระบบ
+              </p>
+
+              <!-- SVG 3: Tenancy > Compartment tree with an example policy -->
+              <div class="diagram-wrapper">
+                <svg viewBox="0 0 840 260" width="100%" height="220" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Root Tenancy -->
+                  <rect x="270" y="10" width="300" height="54" rx="8" fill="var(--bg-card)" stroke="var(--oracle-red)" stroke-width="2" />
+                  <text x="420" y="32" fill="var(--oracle-red)" font-family="sans-serif" font-size="13.5" font-weight="bold" text-anchor="middle">Root Compartment (Tenancy)</text>
+                  <text x="420" y="49" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5" text-anchor="middle">ครอบคลุมทุก Region ทั่วโลก (Global Scope)</text>
+
+                  <!-- Branch lines -->
+                  <path d="M 370 64 L 370 95 L 200 95 L 200 120" stroke="var(--border-color)" stroke-width="2" fill="none" />
+                  <path d="M 470 64 L 470 95 L 640 95 L 640 120" stroke="var(--border-color)" stroke-width="2" fill="none" />
+
+                  <!-- Compartment Prod -->
+                  <g transform="translate(80, 120)">
+                    <rect x="0" y="0" width="240" height="70" rx="8" fill="var(--bg-card)" stroke="var(--accent-color)" stroke-width="1.5" />
+                    <text x="120" y="26" fill="var(--accent-color)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Compartment: Production</text>
+                    <text x="120" y="44" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" text-anchor="middle">VCN-Prod, DB-Prod, App-Prod</text>
+                    <text x="120" y="58" fill="var(--text-muted)" font-family="sans-serif" font-size="9.5" text-anchor="middle">ควบคุมด้วย Prod Policy</text>
+                  </g>
+
+                  <!-- Compartment Dev -->
+                  <g transform="translate(520, 120)">
+                    <rect x="0" y="0" width="240" height="70" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="120" y="26" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Compartment: Development</text>
+                    <text x="120" y="44" fill="var(--text-secondary)" font-family="sans-serif" font-size="11" text-anchor="middle">VCN-Dev, Test-VMs, Sandbox</text>
+                    <text x="120" y="58" fill="var(--text-muted)" font-family="sans-serif" font-size="9.5" text-anchor="middle">ตั้ง Quota จำกัดค่าใช้จ่าย</text>
+                  </g>
+
+                  <!-- Policy banner overlay -->
+                  <rect x="140" y="205" width="560" height="42" rx="6" fill="var(--callout-kw-bg)" stroke="var(--callout-kw-border)" stroke-width="1" />
+                  <text x="420" y="231" fill="var(--callout-kw-text)" font-family="monospace" font-size="12" font-weight="bold" text-anchor="middle">Policy: Allow group NetworkAdmins to manage virtual-network-family in compartment Production</text>
+                </svg>
+                <div class="diagram-caption">โครงสร้างลำดับชั้น Tenancy &gt; Compartment พร้อมตัวอย่างการสโคป Policy สิทธิ์การจัดการเครือข่าย</div>
+              </div>
+
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Global Scope</span>
+                  </div>
+                  <p class="concept-desc">Compartment เป็นทรัพยากรระดับสากล ไม่ขึ้นกับ Region ทรัพยากรที่อยู่ใน Compartment เดียวกันสามารถกระจายอยู่คนละประเทศหรือคนละทวีปได้</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Global logical entity, Span multiple regions</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Nesting (ซ้อนกันได้ 6 ระดับ)</span>
+                  </div>
+                  <p class="concept-desc">สามารถสร้าง Sub-compartment ซ้อนกันได้ลึกสูงสุด <strong>6 ระดับ</strong> เพื่อสะท้อนโครงสร้างองค์กร หรือแผนกงานย่อย</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Up to six levels deep, Hierarchical structure</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Resource Movement</span>
+                  </div>
+                  <p class="concept-desc">สามารถย้ายทรัพยากร (เช่น VM, VCN, Block Volume) จาก Compartment หนึ่งไปยังอีก Compartment หนึ่งได้โดยไม่ต้องลบสร้างใหม่</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Move resources between compartments without downtime</div>
+                </div>
+              </div>
+
+              <div class="callout callout-kw">
+                <div class="callout-title">🎯 Exam Keyword: ถามหา "Logical Boundary" ให้ตอบ Compartment เสมอ!</div>
+                ถ้าโจทย์ถามถึง <em>"Logical collection of related resources"</em> หรือ <em>"Isolate resources for access control and billing"</em> คำตอบที่ถูกต้องคือ <strong>Compartment</strong> (ไม่ใช่ VCN เพราะ VCN คือ Network Boundary ไม่ใช่ Resource Boundary)
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- DOMAIN 2: CORE OCI SERVICES                                               -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="d2">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-d2">Domain 2 (30-35%)</span>
+              <h2 class="section-title">2. Core OCI Services</h2>
+            </div>
+          </div>
+
+          <!-- Section 2.1: Compute, Containers & Serverless -->
+          <details class="study-accordion" id="sec-d2-compute" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>2.1 Compute, Containers & Serverless (VM, Bare Metal, OKE, Functions)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d2-compute', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Bare Metal Compute</span>
+                  </div>
+                  <p class="concept-desc">ได้สิทธิ์ควบคุมเซิร์ฟเวอร์กายภาพ 100% ตัวเดียวทั้งเครื่อง <strong>ไม่มี Hypervisor</strong> ของคลาวด์มาคั่น ประสิทธิภาพสูงสุด ปราศจาก Noisy Neighbors</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Direct hardware access, No hypervisor, Single-tenant isolation</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Virtual Machine (VM)</span>
+                  </div>
+                  <p class="concept-desc">รันอยู่บน Hypervisor แชร์เครื่องกายภาพร่วมกับผู้อื่น (Multi-tenant) หรือเป็น Dedicated Host เหมาะกับเวิร์กโหลดทั่วไปที่ต้องการความยืดหยุ่น</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Hypervisor-based, Cost-effective, General workloads</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Flexible Shapes</span>
+                  </div>
+                  <p class="concept-desc">สามารถเลือกจำนวน OCPU และขนาดหน่วยความจำ (RAM) ได้อย่างอิสระตามความต้องการจริง โดยไม่ต้องยึดติดกับอัตราส่วนสเปกตายตัว</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Customize exact OCPUs and memory, Avoid overprovisioning</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Instance Pools & Autoscaling</span>
+                  </div>
+                  <p class="concept-desc">กลุ่มของ Compute Instance ที่สร้างจากแม่แบบเดียวกัน (Instance Configuration) ขยายหรือลดจำนวนอัตโนมัติตาม Metric (CPU/Memory) หรือตามเวลา (Schedule)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Metric-based scaling, Schedule-based scaling, Instance configuration</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OKE (Container Engine for Kubernetes)</span>
+                  </div>
+                  <p class="concept-desc">บริการจัดการ Kubernetes Cluster แบบ Fully-managed โดย Oracle ดูแล Master Node ให้ฟรี ผู้ใช้จ่ายเฉพาะ Worker Nodes</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Managed Kubernetes, Container orchestration, Free control plane</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Functions</span>
+                  </div>
+                  <p class="concept-desc">Serverless Compute รันโค้ดตอบสนองต่อ Event สร้างบนมาตรฐานโอเพนซอร์ส <strong>Fn Project</strong> จ่ายเงินเฉพาะช่วงวินาทีที่โค้ดประมวลผลจริงเท่านั้น</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Event-driven, Serverless execution, Fn Project, Pay per execution time</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Container Instances</span>
+                  </div>
+                  <p class="concept-desc">รัน Container โดยตรงบน OCI ทันทีโดยไม่ต้องสร้างเซิร์ฟเวอร์ VM และไม่ต้องจัดการ Kubernetes Cluster</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Run containers instantly, No VM management, No Kubernetes overhead</div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 2.2: Networking (VCN, Subnets, Gateways, Load Balancers) -->
+          <details class="study-accordion" id="sec-d2-network" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>2.2 Networking & Gateways Architecture (VCN, Subnets, IGW, NAT, SGW, DRG)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d2-network', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <p style="margin-bottom:12px; color:var(--text-secondary);">
+                <strong>Virtual Cloud Network (VCN)</strong> คือเครือข่ายส่วนตัวเสมือนที่สร้างขึ้นบน OCI ใน Region หนึ่งๆ ประกอบด้วย Subnets, Route Tables, Security Lists/NSGs และเกตเวย์ประเภทต่างๆ
+              </p>
+
+              <!-- SVG 2: VCN Network Topology with Gateways -->
+              <div class="diagram-wrapper">
+                <svg viewBox="0 0 840 330" width="100%" height="280" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Outer VCN Border -->
+                  <rect x="20" y="20" width="800" height="290" rx="12" fill="var(--bg-alt)" stroke="var(--d2-color)" stroke-width="2" stroke-dasharray="5,3" />
+                  <text x="40" y="46" fill="var(--d2-color)" font-family="sans-serif" font-size="15" font-weight="bold">VCN: 10.0.0.0/16 (Virtual Cloud Network - Regional Scope)</text>
+
+                  <!-- Public Subnet -->
+                  <g transform="translate(45, 65)">
+                    <rect x="0" y="0" width="350" height="150" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="15" y="25" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold">Public Subnet (10.0.1.0/24)</text>
+                    <text x="15" y="42" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">เครื่องได้รับ Public IP เข้าจากเน็ตได้</text>
+                    
+                    <rect x="20" y="60" width="140" height="65" rx="6" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="90" y="90" fill="var(--text-primary)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Web Server / LB</text>
+                    <text x="90" y="108" fill="var(--accent-color)" font-family="sans-serif" font-size="10.5" text-anchor="middle">Public IP Assigned</text>
+                  </g>
+
+                  <!-- Private Subnet -->
+                  <g transform="translate(440, 65)">
+                    <rect x="0" y="0" width="360" height="150" rx="8" fill="var(--bg-card)" stroke="var(--border-color)" stroke-width="1.5" />
+                    <text x="15" y="25" fill="var(--text-primary)" font-family="sans-serif" font-size="13" font-weight="bold">Private Subnet (10.0.2.0/24)</text>
+                    <text x="15" y="42" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">ไม่มี Public IP โดนตัดขาดจากเน็ตภายนอก</text>
+
+                    <rect x="20" y="60" width="145" height="65" rx="6" fill="var(--bg-alt)" stroke="var(--border-light)" stroke-width="1" />
+                    <text x="92" y="90" fill="var(--text-primary)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Database / App</text>
+                    <text x="92" y="108" fill="#10b981" font-family="sans-serif" font-size="10.5" text-anchor="middle">Private IP Only</text>
+                  </g>
+
+                  <!-- Gateways Bar at Bottom -->
+                  <g transform="translate(45, 235)">
+                    <!-- IGW -->
+                    <rect x="0" y="0" width="170" height="60" rx="6" fill="var(--bg-card)" stroke="var(--accent-color)" stroke-width="1.5" />
+                    <text x="85" y="26" fill="var(--accent-color)" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Internet Gateway</text>
+                    <text x="85" y="44" fill="var(--text-muted)" font-family="sans-serif" font-size="10" text-anchor="middle">2-Way Internet Traffic</text>
+
+                    <!-- NAT GW -->
+                    <rect x="195" y="0" width="170" height="60" rx="6" fill="var(--bg-card)" stroke="#f59e0b" stroke-width="1.5" />
+                    <text x="280" y="26" fill="#f59e0b" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">NAT Gateway</text>
+                    <text x="280" y="44" fill="var(--text-muted)" font-family="sans-serif" font-size="10" text-anchor="middle">1-Way Outbound Internet</text>
+
+                    <!-- SGW -->
+                    <rect x="390" y="0" width="170" height="60" rx="6" fill="var(--bg-card)" stroke="#10b981" stroke-width="1.5" />
+                    <text x="475" y="26" fill="#10b981" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Service Gateway</text>
+                    <text x="475" y="44" fill="var(--text-muted)" font-family="sans-serif" font-size="10" text-anchor="middle">Private &rarr; OCI Services</text>
+
+                    <!-- DRG -->
+                    <rect x="585" y="0" width="170" height="60" rx="6" fill="var(--bg-card)" stroke="#8b5cf6" stroke-width="1.5" />
+                    <text x="670" y="26" fill="#8b5cf6" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">DRG</text>
+                    <text x="670" y="44" fill="var(--text-muted)" font-family="sans-serif" font-size="10" text-anchor="middle">VPN / FastConnect / VCN</text>
+                  </g>
+                </svg>
+                <div class="diagram-caption">ผังแสดงการทำงานของ VCN พร้อม Public/Private Subnets และ 4 เกตเวย์หลักที่ข้อสอบออกบ่อย</div>
+              </div>
+
+              <!-- Comparison Table: 4 Gateways -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางเปรียบเทียบหมวดเกตเวย์ (ออกข้อสอบแน่นอน 2-3 ข้อ)</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>เกตเวย์ (Gateway)</th>
+                      <th>ทิศทางการรับส่งข้อมูล</th>
+                      <th>ใช้สำหรับ Subnet ใด</th>
+                      <th>Exam Keyword / กรณีใช้งานข้อสอบ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Internet Gateway (IGW)</strong></td>
+                      <td>2 ทิศทาง (Inbound &amp; Outbound)</td>
+                      <td><strong>Public Subnet</strong> เท่านั้น</td>
+                      <td>เว็บเซิร์ฟเวอร์ที่ต้องการให้คนทั่วไปบนโลกอินเทอร์เน็ตเข้าถึงได้</td>
+                    </tr>
+                    <tr>
+                      <td><strong>NAT Gateway</strong></td>
+                      <td><strong>1 ทิศทาง ขาออกเท่านั้น (Outbound-only)</strong></td>
+                      <td><strong>Private Subnet</strong></td>
+                      <td>เครื่อง Database ต้องการโหลด OS patch หรืออัปเดตซอฟต์แวร์โดย<strong>ไม่ให้ภายนอกยิงเข้ามา</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Service Gateway (SGW)</strong></td>
+                      <td>วิ่งภายใน Oracle Private Network (ไม่แตะเน็ต)</td>
+                      <td>Private หรือ Public Subnet</td>
+                      <td>เชื่อมต่อไปยัง <strong>Object Storage</strong> หรือ <strong>Autonomous DB</strong> โดยไม่ต้องผ่าน Public Internet</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Dynamic Routing Gateway (DRG)</strong></td>
+                      <td>2 ทิศทาง ระหว่าง VCN กับภายนอก</td>
+                      <td>ทุก Subnet</td>
+                      <td>เชื่อมต่อไป On-premises ด้วย <strong>Site-to-Site VPN</strong> หรือ <strong>FastConnect</strong> หรือเชื่อมข้าม VCN Peering</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Comparison: Load Balancer vs NLB & FastConnect vs VPN -->
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:14px;">
+                <div class="callout callout-kw" style="margin:0;">
+                  <div class="callout-title">⚖️ Load Balancer (L7) vs Network Load Balancer (L4)</div>
+                  <ul style="padding-left:16px; font-size:12.5px;">
+                    <li><strong>Flexible Load Balancer (Layer 7):</strong> รองรับ HTTP/HTTPS, ทำ SSL Termination, Path-based routing, ปรับ Bandwidth ได้ยืดหยุ่น</li>
+                    <li><strong>Network Load Balancer (Layer 4):</strong> รองรับ TCP/UDP, ทำงานแบบ Pass-through, <strong>Ultra-low latency</strong>, ความเร็วสูงระดับไมโครวินาที</li>
+                  </ul>
+                </div>
+
+                <div class="callout callout-kw" style="margin:0;">
+                  <div class="callout-title">⚖️ FastConnect vs Site-to-Site VPN</div>
+                  <ul style="padding-left:16px; font-size:12.5px;">
+                    <li><strong>Site-to-Site VPN (IPSec):</strong> วิ่งผ่าน <em>Public Internet</em> เข้ารหัสเป็นอุโมงค์ VPN ต้นทุนประหยัด ติดตั้งง่าย</li>
+                    <li><strong>FastConnect:</strong> ลากสายเคเบิลตรง <em>Dedicated Private Connection</em> ไม่ผ่าน Internet แบนด์วิดท์สูง เสถียรที่สุด ปลอดภัยสูงสุด</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 2.3: Storage Services & Decision Table -->
+          <details class="study-accordion" id="sec-d2-storage" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>2.3 Storage Services Deep Dive & Decision Matrix</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d2-storage', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Block Volume</span>
+                  </div>
+                  <p class="concept-desc">จัดเก็บข้อมูลระดับบล็อกบน NVMe SSD ติดตั้งเข้ากับ VM โดยตรง (Boot Volume หรือ Data Disk) ปรับความเร็วได้ (Ultra High, Higher, Balanced, Lower Cost)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> SAN storage, NVMe SSD, OS boot drive, High IOPS</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">File Storage (FSS)</span>
+                  </div>
+                  <p class="concept-desc">บริการแชร์ไฟล์แบบเครือข่าย รองรับโปรโตคอล <strong>NFS v3</strong> มาตรฐาน POSIX สามารถ Mount ใช้งานพร้อมกันได้หลายพันเครื่อง</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Shared file system, NFS v3, POSIX-compliant, Shared across VMs</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Object Storage</span>
+                  </div>
+                  <p class="concept-desc">จัดเก็บข้อมูลไม่มีโครงสร้าง (Unstructured Data) ไฟล์ขนาดใหญ่ วิดีโอ ก้อนแบ็กอัป เข้าถึงผ่าน HTTP/HTTPS REST API หรือ S3-compatible API</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Buckets, HTTP API, Unstructured data, Infinite scaling</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Pre-Authenticated Request (PAR)</span>
+                  </div>
+                  <p class="concept-desc">สร้าง URL พิเศษชั่วคราวให้ผู้อื่นดาวน์โหลดหรืออัปโหลดไฟล์ใน Object Storage ได้ <strong>โดยไม่ต้องมีบัญชี OCI หรือผ่านการล็อกอิน</strong> กำหนดเวลาหมดอายุได้</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Temporary access URL, No OCI credentials needed, Expiring link</div>
+                </div>
+              </div>
+
+              <!-- Storage Decision Matrix -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางตัดสินใจเลือกพื้นที่จัดเก็บข้อมูล (Storage Decision Table)</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>บริการ (Service)</th>
+                      <th>รูปแบบข้อมูล (Type)</th>
+                      <th>โปรโตคอล / การเข้าถึง</th>
+                      <th>การแชร์ข้ามเครื่อง</th>
+                      <th>เคสการใช้งานในข้อสอบ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Block Volume</strong></td>
+                      <td>Blocks</td>
+                      <td>iSCSI / Paravirtualized</td>
+                      <td>เครื่องเดียว (หรือ Read-only share)</td>
+                      <td>OS Boot disk, ฐานข้อมูล Oracle/SQL Server ต้องการ IOPS สูง</td>
+                    </tr>
+                    <tr>
+                      <td><strong>File Storage (FSS)</strong></td>
+                      <td>Files (Folders/Files)</td>
+                      <td><strong>NFS v3</strong></td>
+                      <td><span class="check-mark">✔</span> แชร์หลายพันเครื่องพร้อมกัน</td>
+                      <td>แชร์โฟลเดอร์สำหรับ Web Cluster, Content Management, Big Data</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Object Storage (Standard)</strong></td>
+                      <td>Objects (Buckets)</td>
+                      <td>HTTP/HTTPS (REST API)</td>
+                      <td><span class="check-mark">✔</span> เข้าถึงผ่านอินเทอร์เน็ต</td>
+                      <td>เก็บภาพ เสียง วิดีโอ บันทึก Log ข้อมูล Big Data ขนาดมหึมา</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Archive Storage</strong></td>
+                      <td>Objects (Cold Data)</td>
+                      <td>HTTP/HTTPS (ต้อง Restore ก่อน)</td>
+                      <td><span class="check-mark">✔</span> เข้าถึงผ่านอินเทอร์เน็ต</td>
+                      <td>เก็บสำรองข้อมูลตามกฎหมายระยะยาว (Log เก่า) ไม่ค่อยได้เปิดอ่าน</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="callout callout-trap">
+                <div class="callout-title">⚠️ Exam Trap: Archive Storage ไม่สามารถดาวน์โหลดได้ทันที!</div>
+                ข้อสอบชอบหลอกว่า <em>"ต้องการดาวน์โหลดไฟล์จาก Archive Storage ทันทีเพื่อแก้ปัญหาด่วน"</em> &rarr; <strong>ทำไม่ได้ทันที!</strong> จะต้องสั่ง Restore (Thaw) ก่อน ซึ่งใช้เวลาหลายชั่วโมง หากต้องการเข้าถึงแบบทันทีทันใดแต่เข้าไม่บ่อย ให้เลือก <strong>Infrequent Access Tier</strong>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 2.4: Database Services -->
+          <details class="study-accordion" id="sec-d2-database" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>2.4 Database Services (Autonomous DB, Exadata, MySQL HeatWave, NoSQL)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d2-database', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Autonomous Database (ADB)</span>
+                  </div>
+                  <p class="concept-desc">ฐานข้อมูลอัจฉริยะที่ดูแลตัวเองด้วย Machine Learning: <strong>Self-driving</strong> (ปรับจูนอัตโนมัติ), <strong>Self-securing</strong> (ลงแพตช์ความปลอดภัยขณะระบบทำงาน), <strong>Self-repairing</strong> (กู้คืนตัวเอง)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Self-driving, Self-securing, Self-repairing, Auto-patching with zero downtime</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">ATP vs ADW</span>
+                  </div>
+                  <p class="concept-desc"><strong>ATP (Autonomous Transaction Processing):</strong> เหมาะกับงาน Transaction ประจำวัน (OLTP, eCommerce) | <strong>ADW (Autonomous Data Warehouse):</strong> เหมาะกับงานวิเคราะห์ข้อมูลขนาดใหญ่ (BI, Analytics)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> ATP = OLTP / high concurrency, ADW = Analytical queries / Data lake</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Exadata Database Service</span>
+                  </div>
+                  <p class="concept-desc">รัน Oracle Database บนโครงสร้างฮาร์ดแวร์ Exadata ที่สร้างขึ้นเพื่อฐานข้อมูลออราเคิลโดยเฉพาะ ความเร็วและ I/O สูงสุด รองรับ RAC</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Highest performance, Dedicated Exadata hardware, Enterprise OLTP/DW</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">MySQL HeatWave</span>
+                  </div>
+                  <p class="concept-desc">ฐานข้อมูล MySQL ที่รวม In-memory Query Accelerator รันงานทั้งธุรกรรม (OLTP) และการวิเคราะห์ (OLAP) ได้ในระบบเดียวกันโดยไม่ต้องแปลง ETL</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> In-memory accelerator, Single database for OLTP and OLAP, No ETL needed</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">NoSQL Database Cloud</span>
+                  </div>
+                  <p class="concept-desc">บริการฐานข้อมูล NoSQL แบบ Serverless รองรับการอ่านเขียนด้วยความเร็วระดับไม่กี่มิลลิวินาที (Single-digit millisecond latency)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Document/KV store, Low predictable latency, Serverless NoSQL</div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 2.5: Observability & Management -->
+          <details class="study-accordion" id="sec-d2-observability" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>2.5 Observability & Management (Monitoring, Logging, Events, Notifications)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d2-observability', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Monitoring</span>
+                  </div>
+                  <p class="concept-desc">เก็บรวบรวมค่าตัววัดทางสถิติ (Metrics) ของระบบ เช่น อัตราการใช้ CPU, การใช้งาน Network และสามารถตั้ง <strong>Alarms</strong> แจ้งเตือนเมื่อค่าเกินเกณฑ์ที่กำหนด</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Numeric metric data, Alarms on threshold breached</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Logging</span>
+                  </div>
+                  <p class="concept-desc">ศูนย์กลางจัดการบันทึกข้อความ Log แบ่งเป็น 3 ประเภท: Audit Logs (ประวัติ API), Service Logs (บันทึกจากบริการ OCI), Custom Logs (บันทึกจากแอปในเครื่อง)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Centralized log repository, Audit logs, Service logs</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Notifications (ONS)</span>
+                  </div>
+                  <p class="concept-desc">บริการกระจายข่าวสารแบบ Publish/Subscribe ส่งข้อความไปยังปลายทางต่างๆ เช่น Email, Slack, PagerDuty, SMS หรือยิงต่อไปยัง Webhook / OCI Functions</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Pub/Sub messaging, Push notifications to Email/Slack/Functions</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Events</span>
+                  </div>
+                  <p class="concept-desc">ติดตามการเปลี่ยนแปลงสถานะของทรัพยากร OCI (ตามมาตรฐาน CloudEvents) เช่น มีการอัปโหลดไฟล์ใส่ Bucket &rarr; สั่งให้ ONS แจ้งเตือน หรือเรียก Functions ทำงานทันที</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> CloudEvents standard, State changes triggering automated actions</div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- DOMAIN 3: OCI SECURITY                                                    -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="d3">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-d3">Domain 3 (20-25%)</span>
+              <h2 class="section-title">3. OCI Security Architecture</h2>
+            </div>
+          </div>
+
+          <!-- Section 3.1: Shared Responsibility Model -->
+          <details class="study-accordion" id="sec-d3-shared" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>3.1 Shared Responsibility Model (โมเดลความรับผิดชอบร่วม)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d3-shared', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <p style="margin-bottom:12px; color:var(--text-secondary);">
+                หลักการพื้นฐานที่สุดของความปลอดภัยบนคลาวด์คือ <strong>Security OF the Cloud</strong> (Oracle รับผิดชอบ) ปะทะกับ <strong>Security IN the Cloud</strong> (ลูกค้ารับผิดชอบ)
+              </p>
+
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>ขอบเขตหน้าที่ (Layer)</th>
+                      <th>Oracle Responsibility (Security OF Cloud)</th>
+                      <th>Customer Responsibility (Security IN Cloud)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>ความปลอดภัยทางกายภาพ (Physical)</strong></td>
+                      <td><span class="check-mark">✔</span> อาคาร Data Center, รปภ., วงจรปิด, ไฟฟ้า, แอร์</td>
+                      <td><span class="cross-mark">✘</span> ลูกค้าไม่มีหน้าที่เข้าถึงห้องเครื่อง</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ฮาร์ดแวร์และโครงข่าย (Hardware &amp; Network)</strong></td>
+                      <td><span class="check-mark">✔</span> แม่ข่ายกายภาพ, สวิตช์, สายไฟเบอร์, Hypervisor</td>
+                      <td><span class="cross-mark">✘</span> Oracle เป็นผู้ดูแลซ่อมแซม</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ระบบปฏิบัติการ (OS on IaaS)</strong></td>
+                      <td><span class="cross-mark">✘</span> Oracle เตรียม Image ให้</td>
+                      <td><span class="check-mark">✔</span> <strong>ลูกค้าต้องลง OS Security Patches เอง</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>ข้อมูลและการเข้าถึง (Data &amp; IAM)</strong></td>
+                      <td><span class="cross-mark">✘</span> Oracle เข้ารหัส Storage ให้ตามค่าเริ่มต้น</td>
+                      <td><span class="check-mark">✔</span> <strong>ลูกค้าดูแลข้อมูล นโยบาย IAM การตั้งรหัสผ่าน MFA</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>เครือข่ายเสมือน (VCN &amp; Firewalls)</strong></td>
+                      <td><span class="cross-mark">✘</span> จัดเตรียมระบบ SDN ให้</td>
+                      <td><span class="check-mark">✔</span> <strong>ลูกค้าตั้งค่า Security Lists, NSGs, Route Tables</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 3.2: IAM, Identity Domains & Policy Syntax -->
+          <details class="study-accordion" id="sec-d3-iam" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>3.2 IAM, Identity Domains, Dynamic Groups & Policy Hierarchy</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d3-iam', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Identity Domains</span>
+                  </div>
+                  <p class="concept-desc">ระบบจัดการอัตลักษณ์รูปแบบใหม่บน OCI ที่รวมฟีเจอร์ User/Group Management, Single Sign-On (SSO), MFA และ Identity Governance ไว้ด้วยกัน</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> OCI IAM with Identity Domains, Modern IAM architecture</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Dynamic Groups</span>
+                  </div>
+                  <p class="concept-desc">กลุ่มที่สมาชิกไม่ใช่คน แต่เป็น <strong>Compute Instances</strong> ที่ตรงตามเงื่อนไข (Matching Rule) เช่น เครื่อง VM ทั้งหมดใน Compartment หนึ่งๆ</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Group of compute instances, Matching rules</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Instance Principals</span>
+                  </div>
+                  <p class="concept-desc">ฟีเจอร์ที่อนุญาตให้โค้ดที่รันอยู่บน Compute VM สามารถเรียกใช้งาน OCI API ได้โดยตรง <strong>โดยไม่ต้องเก็บ Username/Password หรือ API Key ไว้ในโค้ด</strong></p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Authorize VM to call APIs, No credentials stored on instance</div>
+                </div>
+              </div>
+
+              <!-- Policy Syntax Box -->
+              <h4 style="margin: 16px 0 6px 0; font-size:14px;">โครงสร้างไวยากรณ์ OCI Policy (ออกข้อสอบตรงๆ 1-2 ข้อ)</h4>
+              <div class="policy-box">
+                Allow &lt;subject&gt; to &lt;verb&gt; &lt;resource-type&gt; in &lt;location&gt; [where &lt;conditions&gt;]
+              </div>
+              <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:10px;">
+                ตัวอย่าง: <code>Allow group NetworkAdmins to manage virtual-network-family in compartment Production</code>
+              </p>
+
+              <!-- Verb Hierarchy Table -->
+              <h4 style="margin: 14px 0 6px 0; font-size:14px;">ลำดับระดับสิทธิ์ของ Verb (จากน้อยที่สุด &rarr; มากที่สุด)</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>Verb</th>
+                      <th>ระดับสิทธิ์ (Permission Level)</th>
+                      <th>ความสามารถ (Capabilities)</th>
+                      <th>ข้อสอบหลอก</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>inspect</strong></td>
+                      <td>ต่ำสุด (Least privilege)</td>
+                      <td>ดูรายชื่อทรัพยากรได้ (List) แต่<strong>มองไม่เห็น Metadata หรือข้อมูลจริง</strong></td>
+                      <td>ไม่สามารถอ่านไฟล์หรือเปิดดูเนื้อหาได้</td>
+                    </tr>
+                    <tr>
+                      <td><strong>read</strong></td>
+                      <td>ระดับอ่าน</td>
+                      <td>รวมสิทธิ์ inspect + ดู Metadata ของทรัพยากร และอ่านข้อมูลข้างในได้</td>
+                      <td>ไม่สามารถแก้ไข หรือใช้งานทรัพยากรได้</td>
+                    </tr>
+                    <tr>
+                      <td><strong>use</strong></td>
+                      <td>ระดับใช้งาน</td>
+                      <td>รวมสิทธิ์ read + อัปเดต แก้ไข ทำงานกับทรัพยากรที่มีอยู่แล้วได้</td>
+                      <td><strong>สร้างใหม่ (Create) หรือ ลบทิ้ง (Delete) ไม่ได้</strong> (ยกเว้นทรัพยากรชั่วคราวบางชนิด)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>manage</strong></td>
+                      <td>สูงสุด (Full Control)</td>
+                      <td>รวมสิทธิ์ทั้งหมด: สร้าง (Create), ลบ (Delete), แก้ไข, ย้าย, ปรับสิทธิ์</td>
+                      <td>เทียบเท่า Administrator ของบริการนั้นๆ</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 3.3: Security Services -->
+          <details class="study-accordion" id="sec-d3-services" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>3.3 OCI Security Services (Cloud Guard, Security Zones, Vault, Bastion, Data Safe)</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d3-services', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Cloud Guard</span>
+                  </div>
+                  <p class="concept-desc">เครื่องมือตรวจจับความเสี่ยงและพฤติกรรมผิดปกติทั่วทั้ง Tenancy อัตโนมัติ (Detector Recipes) และสามารถแก้ไขปัญหาให้เองได้ทันที (Responder Recipes)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Security posture management, Detect and remediate misconfigurations</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Security Zones</span>
+                  </div>
+                  <p class="concept-desc">พื้นที่ Compartment พิเศษที่บังคับใช้นโยบายความปลอดภัยสูงสุดแบบเข้มงวด <strong>ปฏิเสธการสร้างทรัพยากรที่ไม่ปลอดภัยตั้งแต่ต้น</strong> (เช่น สั่งห้ามไม่ให้เปิด Bucket เป็น Public เด็ดขาด)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Strictly enforce security recipes, Prevent bad creation at source</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Vault (KMS &amp; Secrets)</span>
+                  </div>
+                  <p class="concept-desc">บริการจัดการกุญแจเข้ารหัส (Master Encryption Keys) บนฮาร์ดแวร์มาตรฐาน FIPS 140-2 Level 3 HSM และจัดเก็บรหัสผ่าน/Token (Secrets Management)</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Key Management, Customer-Managed Keys (CMK), Store database secrets</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Bastion</span>
+                  </div>
+                  <p class="concept-desc">เปิดช่องทางเชื่อมต่อ SSH/RDP ไปยัง VM ใน Private Subnet ได้อย่างปลอดภัยแบบชั่วคราว (Time-limited) <strong>โดยไม่ต้องมี Public IP และไม่ต้องตั้งเครื่อง Jump Host เอง</strong></p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Secure SSH access to private instances, No public IP needed, No jump host</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Oracle Data Safe</span>
+                  </div>
+                  <p class="concept-desc">ศูนย์กลางความปลอดภัยสำหรับฐานข้อมูลออราเคิล: ค้นหาข้อมูลสำคัญ (Sensitive Data), ทำ Data Masking ซ่อนข้อมูลจริง, ประเมินความเสี่ยง และตรวจสอบผู้ใช้</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Database security center, Mask sensitive data, User assessment</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">WAF &amp; Network Firewall</span>
+                  </div>
+                  <p class="concept-desc"><strong>WAF:</strong> ป้องกันการโจมตีเว็บเลเยอร์ 7 (SQL Injection, XSS, DDoS) | <strong>Network Firewall:</strong> Next-Gen Firewall (Palo Alto) กรองข้อมูลระดับ Deep Packet Inspection</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> WAF = Layer 7 web traffic, Network Firewall = Deep packet inspection</div>
+                </div>
+              </div>
+
+              <!-- Comparison Table: Cloud Guard vs Security Zones -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางเปรียบเทียบ: Cloud Guard vs Security Zones (ข้อสอบชอบถามแยกความต่าง)</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>เกณฑ์เปรียบเทียบ</th>
+                      <th>Cloud Guard</th>
+                      <th>Security Zones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>ลักษณะการทำงาน</strong></td>
+                      <td>ตรวจจับหลังสร้าง (Detect &amp; Auto-remediate)</td>
+                      <td><strong>ป้องกันก่อนสร้าง (Prevent creation upfront)</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>การตอบสนองเมื่อเกิดความเสี่ยง</strong></td>
+                      <td>แจ้งเตือน ปิดสิทธิ์ หรือเรียก Responder Recipe แก้ปัญหา</td>
+                      <td><strong>บล็อกคำสั่งทันที (Operation Rejected)</strong> ไม่ยอมให้สร้าง</td>
+                    </tr>
+                    <tr>
+                      <td><strong>ตัวอย่างการใช้งาน</strong></td>
+                      <td>พบว่ามี Bucket ถูกเปิด Public &rarr; ส่งแจ้งเตือนและปิด Public ให้อัตโนมัติ</td>
+                      <td>ผู้ใช้พยายามสร้าง Bucket แบบ Public &rarr; ถูกปฏิเสธทันทีตั้งแต่กดสร้าง</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- DOMAIN 4: OCI GOVERNANCE & ADMINISTRATION                                 -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="d4">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-d4">Domain 4 (15-20%)</span>
+              <h2 class="section-title">4. OCI Governance & Administration</h2>
+            </div>
+          </div>
+
+          <!-- Section 4.1: Pricing Models, Billing & Cost Management -->
+          <details class="study-accordion" id="sec-d4-pricing" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>4.1 Pricing Models, Universal Credits & Cost Management Tools</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d4-pricing', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <div class="concept-grid">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Pay As You Go (PAYG)</span>
+                  </div>
+                  <p class="concept-desc">จ่ายตามจริงที่ใช้งานเป็นรายเดือน ไม่ต้องมีสัญญาผูกมัดหรือจ่ายเงินก้อนล่วงหน้า เหมาะกับเวิร์กโหลดระยะสั้นหรือเริ่มต้นทดสอบระบบ</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> No upfront commitment, Monthly in arrears</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Annual Universal Credits (UCC)</span>
+                  </div>
+                  <p class="concept-desc">ทำสัญญาซื้อเครดิตล่วงหน้าเป็นรายปี ได้ส่วนลดพิเศษตามขนาดสัญญา และสามารถนำเครดิตไปตัดใช้กับบริการ IaaS/PaaS ใดๆ ของ OCI ได้อย่างยืดหยุ่น</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Annual commitment, Volume discounts, Flexible across services</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">BYOL (Bring Your Own License)</span>
+                  </div>
+                  <p class="concept-desc">นำสิทธิการใช้งานซอฟต์แวร์ออราเคิลเดิมที่มีอยู่แล้วในองค์กร (เช่น Oracle Database) มาใช้บน OCI ได้ ทำให้จ่ายค่าบริการคลาวด์ในอัตราพิเศษที่ถูกลงมาก</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Apply existing on-premises licenses, Lower cloud pricing</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Cost Analysis</span>
+                  </div>
+                  <p class="concept-desc">หน้า Dashboard กราฟิกแสดงการวิเคราะห์ค่าใช้จ่ายย้อนหลัง กรองดูตาม Compartment, บริการ, วันที่ หรือ Cost-Tracking Tags</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Visual cost visualization, Filter spend by compartment/tags</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Budgets</span>
+                  </div>
+                  <p class="concept-desc">ตั้งเกณฑ์งบประมาณรายจ่ายใน Compartment และส่งอีเมลแจ้งเตือนเมื่อยอดใช้จริงหรือยอดพยากรณ์ล่วงหน้า (Forecasted) เกินเปอร์เซ็นต์ที่กำหนด</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Set spend thresholds, Alert notifications, Does NOT terminate instances</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">Usage Reports</span>
+                  </div>
+                  <p class="concept-desc">ไฟล์สรุปรายละเอียดการใช้งานรายวันในรูปแบบ CSV ละเอียดระดับรายชั่วโมง เก็บไว้ใน Object Storage อัตโนมัติเป็นเวลาหลายเดือน</p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Daily CSV report, Stored in Object Storage, Detailed hourly usage</div>
+                </div>
+              </div>
+
+              <div class="callout callout-trap">
+                <div class="callout-title">⚠️ Exam Trap: OCI Budgets ไม่มีวันหยุดการทำงานของเซิร์ฟเวอร์!</div>
+                จำให้แม่น: ฟังก์ชัน <strong>Budgets</strong> มีหน้าที่ส่งการแจ้งเตือน (Notifications) ผ่าน Email หรือ ONS เท่านั้น <strong>ไม่มีอำนาจในการหยุดเซิร์ฟเวอร์, ลบ Resource หรือขัดขวางการทำงานใดๆ ทั้งสิ้น</strong> เมื่อยอดใช้จ่ายแตะ 100%
+              </div>
+            </div>
+          </details>
+
+          <!-- Section 4.2: Tags, Quotas, Service Limits & SLAs -->
+          <details class="study-accordion" id="sec-d4-tags" open>
+            <summary class="accordion-summary">
+              <div class="summary-left">
+                <span class="summary-icon">▶</span>
+                <span>4.2 Tagging, Compartment Quotas, Service Limits, SLAs & Resource Manager</span>
+              </div>
+              <div class="accordion-actions">
+                <label class="memorize-label" onclick="event.stopPropagation();">
+                  <input type="checkbox" onchange="toggleMemorized('sec-d4-tags', this.checked)"> จำได้แล้ว
+                </label>
+              </div>
+            </summary>
+            <div class="accordion-body">
+              <!-- Comparison: Defined Tags vs Free-form Tags -->
+              <h4 style="margin: 0 0 8px 0; font-size:14px;">ตารางเปรียบเทียบ: Defined Tags vs Free-form Tags</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>คุณลักษณะ</th>
+                      <th>Free-form Tags (แท็กอิสระ)</th>
+                      <th>Defined Tags (แท็กแบบมีโครงสร้าง)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>โครงสร้างและสคีมา</strong></td>
+                      <td>ไม่มีสคีมา เป็น Key-Value ธรรมดา (เช่น <code>env: test</code>)</td>
+                      <td>มี <strong>Tag Namespace</strong> ควบคุมโครงสร้างและประเภทข้อมูล</td>
+                    </tr>
+                    <tr>
+                      <td><strong>การควบคุมสิทธิ์</strong></td>
+                      <td>ใครสร้างทรัพยากรก็พิมพ์ใส่เองได้ตามใจชอบ</td>
+                      <td>จำกัดสิทธิ์ผู้ดูแลได้ผ่าน IAM Policies</td>
+                    </tr>
+                    <tr>
+                      <td><strong>การควบคุมค่าที่กรอก</strong></td>
+                      <td>ไม่มีการตรวจสอบ (พิมพ์ผิดหรือซ้ำซ้อนได้ง่าย)</td>
+                      <td>ตั้งค่ารายการตัวเลือกที่กำหนดล่วงหน้า (Predefined list) ได้</td>
+                    </tr>
+                    <tr>
+                      <td><strong>การคิดบิล (Cost Tracking)</strong></td>
+                      <td>ไม่สามารถใช้ทำ Cost-tracking tags ได้</td>
+                      <td><strong>รองรับ Cost-tracking tags</strong> สำหรับวิเคราะห์บิลใน Cost Analysis</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Comparison: Service Limits vs Quotas -->
+              <h4 style="margin: 16px 0 8px 0; font-size:14px;">ตารางเปรียบเทียบ: Service Limits vs Compartment Quotas</h4>
+              <div class="table-container">
+                <table class="study-table">
+                  <thead>
+                    <tr>
+                      <th>รายการ</th>
+                      <th>Service Limits (ขีดจำกัดจาก Oracle)</th>
+                      <th>Compartment Quotas (โควตาที่ลูกค้าตั้งเอง)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>ผู้กำหนด</strong></td>
+                      <td><strong>Oracle</strong> เป็นผู้กำหนดค่าเริ่มต้นให้กับ Tenancy</td>
+                      <td><strong>ผู้ดูแลระบบของลูกค้า (Admin)</strong> เป็นผู้เขียน Policy</td>
+                    </tr>
+                    <tr>
+                      <td><strong>การปรับเปลี่ยนค่า</strong></td>
+                      <td>ต้องส่งคำร้องขอ <strong>Service Limit Increase</strong> ผ่าน Console</td>
+                      <td>Admin แก้ไขข้อความใน Quota Policy ได้ทันที</td>
+                    </tr>
+                    <tr>
+                      <td><strong>วัตถุประสงค์</strong></td>
+                      <td>ป้องกันการใช้ทรัพยากรเกินพิกัดของ Data Center</td>
+                      <td>ควบคุมและจำกัดการผลาญทรัพยากรของแต่ละทีมใน Compartment</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Triple SLA & Resource Manager -->
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-top:14px;">
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Triple SLA (ครอบคลุม 3 ด้าน)</span>
+                  </div>
+                  <p class="concept-desc">
+                    OCI เป็นผู้ให้บริการคลาวด์รายเดียวที่มีข้อตกลงระดับการให้บริการ (SLA) ครอบคลุมทั้ง 3 มิติ:
+                    <br>1. <strong>Availability SLA:</strong> การันตีระบบออนไลน์ไม่ล่ม
+                    <br>2. <strong>Manageability SLA:</strong> การันตีความสามารถในการเรียก API จัดการทรัพยากร
+                    <br>3. <strong>Performance SLA:</strong> การันตีความเร็วและเสถียรภาพของ I/O และเครือข่าย
+                  </p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Availability, Manageability, and Performance SLAs</div>
+                </div>
+
+                <div class="concept-card">
+                  <div class="concept-header">
+                    <span class="concept-term">OCI Resource Manager</span>
+                  </div>
+                  <p class="concept-desc">
+                    บริการจัดการโครงสร้างพื้นฐานในรูปแบบโค้ด (Infrastructure as Code - IaC) ที่พัฒนาขึ้นบน <strong>HashiCorp Terraform</strong> ในรูปแบบ Fully-managed Service ช่วยจัดการ State File และล็อกการประมวลผลให้อัตโนมัติ
+                  </p>
+                  <div class="concept-footer"><strong>Exam Keyword:</strong> Managed Terraform service, State file management, IaC</div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- CROSS-DOMAIN 1: KEYWORD MAP (IF YOU SEE... THINK...)                      -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="keyword-map">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-cross">Exam Cheat Matrix</span>
+              <h2 class="section-title">🎯 "If You See... Think..." Keyword Map (32 คู่คำออกสอบ)</h2>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">เทคนิคจำเร็ว: เจอคำซ้าย ให้กาคำขวา</span>
+          </div>
+
+          <div class="table-container">
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th style="width: 35px;">#</th>
+                  <th style="width: 45%;">เมื่อเห็นข้อความในโจทย์ (If You See / Question Clue)</th>
+                  <th style="width: 35%;">คำตอบที่ต้องนึกถึงทันที (Think / Answer)</th>
+                  <th style="width: 15%;">หมวด (Domain)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>Anti-affinity / ป้องกันตู้ Rack ดับ / Hardware failure ภายใน AD เดียวกัน</td><td><strong>Fault Domain (FD)</strong></td><td>Domain 1</td></tr>
+                <tr><td>2</td><td>ศูนย์ข้อมูลแยกอิสระจากกัน / ป้องกันน้ำท่วมตึก Data Center ใน Region</td><td><strong>Availability Domain (AD)</strong></td><td>Domain 1</td></tr>
+                <tr><td>3</td><td>Logical boundary / จัดกลุ่มทรัพยากร / นโยบายสิทธิ์ / คิดบิลแยกแผนก</td><td><strong>Compartment</strong></td><td>Domain 1</td></tr>
+                <tr><td>4</td><td>นำบริการ OCI ทุกตัวไปติดตั้งในดาต้าเซ็นเตอร์ของลูกค้าเอง</td><td><strong>OCI Dedicated Region</strong></td><td>Domain 1</td></tr>
+                <tr><td>5</td><td>พาร์ตเนอร์นำสถาปัตยกรรม OCI ไปสร้างคลาวด์แบรนด์ตนเอง</td><td><strong>Oracle Alloy</strong></td><td>Domain 1</td></tr>
+                <tr><td>6</td><td>เทอร์มินัล Linux ฟรีบนเบราว์เซอร์ มี CLI และที่เก็บข้อมูลส่วนตัว</td><td><strong>Cloud Shell</strong></td><td>Domain 1</td></tr>
+                <tr><td>7</td><td>เซิร์ฟเวอร์กายภาพไม่มี Hypervisor คั่น สิทธิ์ควบคุมเครื่อง 100%</td><td><strong>Bare Metal Compute</strong></td><td>Domain 2</td></tr>
+                <tr><td>8</td><td>ปรับแต่งจำนวน OCPU และ Memory ได้อย่างอิสระตามต้องการจริง</td><td><strong>Flexible Shape</strong></td><td>Domain 2</td></tr>
+                <tr><td>9</td><td>ระบบขยายหรือลดจำนวนเครื่อง Compute อัตโนมัติตาม Metric CPU</td><td><strong>Autoscaling (Instance Pools)</strong></td><td>Domain 2</td></tr>
+                <tr><td>10</td><td>Serverless รันโค้ดตอบสนองต่อ Event บนมาตรฐาน Fn Project</td><td><strong>OCI Functions</strong></td><td>Domain 2</td></tr>
+                <tr><td>11</td><td>รัน Container โดยตรงบนคลาวด์ ไม่ต้องมี VM หรือจัดการ Kubernetes</td><td><strong>Container Instances</strong></td><td>Domain 2</td></tr>
+                <tr><td>12</td><td>เข้า-ออกอินเทอร์เน็ตได้ 2 ทาง สำหรับ Web Server ใน Public Subnet</td><td><strong>Internet Gateway (IGW)</strong></td><td>Domain 2</td></tr>
+                <tr><td>13</td><td>ออกเน็ตทางเดียวเพื่อโหลด OS Patch ป้องกันไม่ให้เน็ตยิงเข้าเครื่อง Private</td><td><strong>NAT Gateway</strong></td><td>Domain 2</td></tr>
+                <tr><td>14</td><td>ต่อจาก Private Subnet ไปยัง Object Storage โดยไม่ผ่าน Public Internet</td><td><strong>Service Gateway (SGW)</strong></td><td>Domain 2</td></tr>
+                <tr><td>15</td><td>สายตรงส่วนตัว Dedicated Private Connection ไม่แตะอินเทอร์เน็ต</td><td><strong>FastConnect</strong></td><td>Domain 2</td></tr>
+                <tr><td>16</td><td>ควบคุม Firewall เฉพาะเจาะจงระดับเครื่อง VNIC ใน Subnet เดียวกัน</td><td><strong>Network Security Group (NSG)</strong></td><td>Domain 2</td></tr>
+                <tr><td>17</td><td>Load Balancer ที่รองรับ Ultra-low latency ทำงานระดับ Layer 4 Pass-through</td><td><strong>Network Load Balancer (NLB)</strong></td><td>Domain 2</td></tr>
+                <tr><td>18</td><td>Shared File System มาตรฐาน NFS v3 เชื่อมต่อได้หลายพันเครื่องพร้อมกัน</td><td><strong>File Storage Service (FSS)</strong></td><td>Domain 2</td></tr>
+                <tr><td>19</td><td>ฮาร์ดดิสก์ NVMe ประสิทธิภาพสูง ติดตั้งกับ VM สำหรับ OS หรือ Database</td><td><strong>Block Volume</strong></td><td>Domain 2</td></tr>
+                <tr><td>20</td><td>เก็บไฟล์ Unstructured ข้อมูลไม่จำกัด เข้าถึงผ่าน HTTP REST API</td><td><strong>Object Storage</strong></td><td>Domain 2</td></tr>
+                <tr><td>21</td><td>URL ชั่วคราวให้คนนอกดาวน์โหลดไฟล์ใน Bucket ได้โดยไม่ต้องล็อกอิน</td><td><strong>Pre-Authenticated Request (PAR)</strong></td><td>Domain 2</td></tr>
+                <tr><td>22</td><td>ย้ายข้อมูลเก่าไป Archive อัตโนมัติ หรือสั่งลบไฟล์ทิ้งเมื่อครบ 90 วัน</td><td><strong>Object Lifecycle Management</strong></td><td>Domain 2</td></tr>
+                <tr><td>23</td><td>ฐานข้อมูล Self-driving, Self-securing, Self-repairing</td><td><strong>Autonomous Database (ADB)</strong></td><td>Domain 2</td></tr>
+                <tr><td>24</td><td>รวมงานธุรกรรม (OLTP) และการวิเคราะห์ (OLAP) ไว้ใน MySQL ฐานข้อมูลเดียว</td><td><strong>MySQL HeatWave</strong></td><td>Domain 2</td></tr>
+                <tr><td>25</td><td>อนุญาตให้ VM เรียกใช้ OCI APIs โดยไม่ต้องฝังรหัสผ่านหรือ API Key ในโค้ด</td><td><strong>Instance Principals (Dynamic Group)</strong></td><td>Domain 3</td></tr>
+                <tr><td>26</td><td>Verb ใน Policy สิทธิ์ต่ำสุด ดูได้แค่รายชื่อ แต่ดูเนื้อหาและ Metadata ไม่ได้</td><td><strong>inspect</strong></td><td>Domain 3</td></tr>
+                <tr><td>27</td><td>เก็บรักษา Master Encryption Keys บนฮาร์ดแวร์มาตรฐาน FIPS 140-2 Level 3</td><td><strong>OCI Vault (KMS)</strong></td><td>Domain 3</td></tr>
+                <tr><td>28</td><td>ตรวจจับความผิดปกติและแก้ไขการตั้งค่าที่ไม่ปลอดภัยให้อัตโนมัติ (CSPM)</td><td><strong>Cloud Guard</strong></td><td>Domain 3</td></tr>
+                <tr><td>29</td><td>ปฏิเสธคำสั่งสร้าง Resource ที่ไม่ปลอดภัยตั้งแต่ต้น (เช่น บล็อกการเปิด Public)</td><td><strong>Security Zones</strong></td><td>Domain 3</td></tr>
+                <tr><td>30</td><td>เชื่อมต่อ SSH เข้าเครื่อง Private Subnet ปลอดภัยโดยไม่ต้องมี Public IP หรือ Jump host</td><td><strong>OCI Bastion</strong></td><td>Domain 3</td></tr>
+                <tr><td>31</td><td>ตั้งเกณฑ์แจ้งเตือนค่าใช้จ่ายผ่านอีเมล (ย้ำ: ไม่มีการสั่งปิดเครื่องเด็ดขาด!)</td><td><strong>OCI Budgets</strong></td><td>Domain 4</td></tr>
+                <tr><td>32</td><td>เครื่องมือ IaC บริหารจัดการโครงสร้างพื้นฐานบนมาตรฐาน Terraform</td><td><strong>Resource Manager</strong></td><td>Domain 4</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- CROSS-DOMAIN 2: TOP 15 COMMON TRAPS                                       -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="traps">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-cross">Exam Traps</span>
+              <h2 class="section-title">⚠️ Top 15 ข้อสอบหลอกบ่อยที่สุด (Common Traps & Pitfalls)</h2>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">จุดที่คนสอบตกมักเข้าใจผิด</span>
+          </div>
+
+          <div class="concept-grid">
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 1: Budgets สั่งปิดเครื่องเมื่อเงินหมด</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> OCI Budgets ทำหน้าที่ส่งอีเมล/แจ้งเตือนเตือนเท่านั้น <em>ไม่มีการหยุด ปิด หรือลบทรัพยากรใดๆ ทั้งสิ้น</em> หากต้องการจำกัดไม่ให้สร้างทรัพยากรเพิ่ม ต้องใช้ <strong>Compartment Quotas</strong></p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 2: Security List บังคับใช้กับระดับ VM</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Security List บังคับใช้ที่ระดับ <strong>Subnet</strong> ทุกเครื่องใน Subnet นั้นต้องรับกฎเดียวกัน ถ้าต้องการกำหนดกฎเฉพาะเจาะจงระดับเครื่อง VM เดี่ยวๆ ต้องใช้ <strong>Network Security Group (NSG)</strong></p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 3: NAT Gateway ยอมให้คนนอกเชื่อมเข้าหาเซิร์ฟเวอร์</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> NAT Gateway ให้สิทธิ์การสื่อสาร <strong>ขาออกทางเดียวเท่านั้น (Outbound only)</strong> ไม่ยอมให้ทราฟฟิกจากอินเทอร์เน็ตภายนอกยิงเข้ามาหาเครื่อง Private Subnet โดยตรง</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 4: Archive Storage ดาวน์โหลดได้ทันที</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Archive Storage ต้องสั่ง <strong>Restore (หลายชั่วโมง)</strong> ก่อนจึงจะเริ่มดาวน์โหลดได้ ถ้าโจทย์บอกว่าต้องการเปิดไฟล์ได้ทันทีโดยไม่เสียเวลารอ ต้องตอบ Standard Tier หรือ Infrequent Access Tier</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 5: Fault Domain ป้องกันน้ำท่วมตึก Data Center</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Fault Domain อยู่ภายในห้องเดียวกัน ป้องกันได้แค่ระดับตู้ Rack, สวิตช์ หรือระบบไฟของตู้ หากตึก Data Center ถูกน้ำท่วม ต้องอาศัย <strong>Availability Domain (AD)</strong> แยกตึก หรือข้าม Region</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 6: Compartment คือ Physical Boundary หรือ Region</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Compartment เป็น <strong>Logical Boundary (การแบ่งกลุ่มเชิงตรรกะ)</strong> มีขอบเขตระดับ Global สมาชิกใน Compartment เดียวกันสามารถอยู่ข้ามหลายๆ Region ทั่วโลกได้</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 7: Service Gateway ยิงข้อมูลออก Public Internet</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Service Gateway วิ่งอยู่บน <strong>Oracle Private Backbone Network</strong> เท่านั้น ไม่แตะต้องเครือข่ายอินเทอร์เน็ตสาธารณะเลย ปลอดภัยสูงมาก</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 8: Verb "use" สามารถสร้างและลบ Resource ได้</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Verb <code>use</code> อนุญาตแค่ใช้งานและแก้ไขค่าคอนฟิกที่มีอยู่แล้ว แต่ <em>ไม่สามารถสร้างใหม่ (Create) หรือลบทิ้ง (Delete) ได้</em> หากต้องการสร้างหรือลบ ต้องใช้ Verb <code>manage</code></p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 9: FastConnect วิ่งผ่านอินเทอร์เน็ตแบบเข้ารหัส</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> สิ่งที่วิ่งผ่าน Internet คือ <strong>Site-to-Site VPN</strong> ส่วน <strong>FastConnect</strong> คือการลากสายเชื่อมต่อทางกายภาพส่วนตัว (Dedicated Physical Connection) ซึ่งไม่ผ่านอินเทอร์เน็ตเลย</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 10: Pre-Authenticated Request (PAR) ต้องมีบัญชี OCI</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> PAR ถูกสร้างขึ้นมาเพื่อให้คนภายนอกที่ <strong>ไม่มีบัญชี OCI และไม่มี IAM Credentials</strong> สามารถดาวน์โหลดหรืออัปโหลดไฟล์ผ่าน URL ชั่วคราวได้</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 11: Free-form Tags บังคับสคีมาได้</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> Free-form Tags ไม่มีสคีมา ใครพิมพ์อะไรก็ได้ ตรวจสอบความถูกต้องไม่ได้ หากต้องการบังคับสคีมาและทำ Cost-tracking ต้องใช้ <strong>Defined Tags</strong> ภายใต้ Tag Namespace</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 12: Network Load Balancer (NLB) รองรับการทำ SSL Offloading</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> NLB ทำงานระดับ <strong>Layer 4</strong> แบบ Pass-through ไม่มีฟีเจอร์ถอดรหัส SSL หรือ Path routing หากต้องการ SSL Termination และตรวจสอบ HTTP Header ต้องใช้ <strong>Flexible Load Balancer (Layer 7)</strong></p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 13: ลูกค้าต้องดูแลความปลอดภัยฮาร์ดแวร์บน IaaS</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> ใน Shared Responsibility Model ฮาร์ดแวร์กายภาพและศูนย์ข้อมูลเป็นหน้าที่ของ <strong>Oracle เสมอ</strong> ลูกค้าบน IaaS ดูแลตั้งแต่ระบบปฏิบัติการ (OS Patches), ข้อมูล, และ Network Rules</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 14: Cloud Guard บล็อกไม่ให้ผู้ใช้กดสร้าง Resource ผิดพลาด</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> เครื่องมือที่บล็อกคำสั่งสร้างตั้งแต่แรกเริ่มคือ <strong>Security Zones</strong> ส่วน <strong>Cloud Guard</strong> คือระบบตรวจจับและแจ้งเตือนหรือสั่งแก้ปัญหาหลังจากสร้างไปแล้ว</p>
+            </div>
+
+            <div class="concept-card callout-trap" style="border-left:4px solid var(--callout-trap-border);">
+              <div class="concept-header">
+                <span class="concept-term">หลอกที่ 15: OCI SLA การันตีเฉพาะความพร้อมใช้งาน (Availability) เท่านั้น</span>
+              </div>
+              <p class="concept-desc"><strong>ความจริง:</strong> OCI มี <strong>Triple SLA</strong> การันตีครบทั้ง 3 ด้าน: <strong>Availability</strong> (ความพร้อมใช้), <strong>Manageability</strong> (ความสามารถในการเรียก API), และ <strong>Performance</strong> (ประสิทธิภาพความเร็ว)</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- CROSS-DOMAIN 3: LAST-NIGHT REVIEW (CONDENSED PUNCH-LIST)                  -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="last-night">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-cross">Ultra Dense</span>
+              <h2 class="section-title">🌙 Last-Night Review: สรุปเข้ม 1 หน้ารวมจุดออกสอบแน่นอน</h2>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">อ่าน 15 นาทีก่อนนอนในคืนก่อนสอบ</span>
+          </div>
+
+          <div class="quick-card" style="font-size:13.5px; line-height:1.7;">
+            <ul style="padding-left:22px; display:flex; flex-direction:column; gap:8px;">
+              <li><strong>1 Region</strong> = พื้นที่ภูมิศาสตร์ | <strong>1 AD</strong> = 1 Data Center อิสระ | <strong>1 AD มี 3 Fault Domains เสมอ</strong> (Anti-affinity ป้องกัน Hardware Failure)</li>
+              <li><strong>Compartment</strong> = หน่วยจัดกลุ่มทรัพยากรเชิงตรรกะ (Logical Boundary), ซ้อนได้สูงสุด <strong>6 ระดับ</strong>, ขอบเขตระดับ <strong>Global Scope</strong> ข้าม Region ได้</li>
+              <li><strong>Dedicated Region</strong> = ยกคลาวด์ OCI ไปวางที่บ้านลูกค้า | <strong>Alloy</strong> = พาร์ตเนอร์สร้างคลาวด์แบรนด์ตนเอง | <strong>Multicloud</strong> = ต่อ Oracle DB ข้ามคลาวด์ Low latency</li>
+              <li><strong>Bare Metal</strong> = ไม่มี Hypervisor, คุมฮาร์ดแวร์ 100%, ประสิทธิภาพสูงสุด | <strong>VM</strong> = รันบน Hypervisor คุ้มค่าเงิน</li>
+              <li><strong>Flexible Shapes</strong> = กำหนด OCPU และ RAM เองได้ตามต้องการ เพื่อประหยัดต้นทุน</li>
+              <li><strong>OKE</strong> = จัดการ Kubernetes Cluster ฟรี Master Node | <strong>OCI Functions</strong> = Serverless รันโค้ดตอบสนอง Event บนมาตรฐาน <strong>Fn Project</strong></li>
+              <li><strong>Internet Gateway</strong> = เน็ตเข้า-ออก 2 ทาง (Public Subnet) | <strong>NAT Gateway</strong> = ออกเน็ตทางเดียวเพื่อ Patch (Private Subnet)</li>
+              <li><strong>Service Gateway</strong> = เข้าถึง Object Storage/ADB ผ่านเน็ตส่วนตัว Oracle ไม่แตะ Internet | <strong>DRG</strong> = เชื่อม VPN / FastConnect / Peering</li>
+              <li><strong>FastConnect</strong> = ลากสายตรงส่วนตัวความเร็วสูง ไม่ผ่านเน็ต | <strong>Site-to-Site VPN</strong> = อุโมงค์ IPSec วิ่งบน Public Internet</li>
+              <li><strong>Security List</strong> = กรองข้อมูลระดับ <strong>Subnet</strong> | <strong>Network Security Group (NSG)</strong> = กรองข้อมูลระดับ <strong>VNIC/เครื่อง</strong></li>
+              <li><strong>Load Balancer (L7)</strong> = HTTP/HTTPS, SSL Offloading, Path Routing | <strong>Network Load Balancer (L4)</strong> = Ultra-low latency, Pass-through</li>
+              <li><strong>Block Volume</strong> = NVMe SSD สำหรับ Boot disk / ฐานข้อมูล | <strong>File Storage (FSS)</strong> = NFS v3 แชร์ไฟล์ข้ามหลายพันเครื่องพร้อมกัน</li>
+              <li><strong>Object Storage</strong> = ข้อมูล Unstructured ผ่าน HTTP REST API | <strong>Archive Tier</strong> = ค่าจัดเก็บถูกสุด ต้อง <strong>Restore</strong> ก่อนดาวน์โหลดได้</li>
+              <li><strong>Pre-Authenticated Requests (PAR)</strong> = ลิงก์ชั่วคราวให้คนนอกเข้าถึงไฟล์ใน Bucket โดย <strong>ไม่ต้องมีบัญชี OCI</strong></li>
+              <li><strong>Autonomous Database (ADB)</strong> = Self-driving (จูนเอง), Self-securing (แพตช์เอง), Self-repairing (กู้คืนเอง) มีรุ่น ATP และ ADW</li>
+              <li><strong>MySQL HeatWave</strong> = รวมงานธุรกรรม (OLTP) และงานวิเคราะห์ (OLAP) ไว้ใน MySQL เครื่องเดียวโดยไม่ต้องทำ ETL</li>
+              <li><strong>Shared Responsibility Model:</strong> Oracle ดูแล <strong>Security OF the Cloud</strong> (กายภาพ ฮาร์ดแวร์) | ลูกค้าดูแล <strong>Security IN the Cloud</strong> (ข้อมูล IAM กฎเน็ต OS patches บน IaaS)</li>
+              <li><strong>Instance Principals:</strong> ให้สิทธิ์ Compute VM เรียกใช้ OCI APIs ผ่าน Dynamic Group <strong>โดยไม่ต้องฝังรหัสผ่านหรือ API Key</strong></li>
+              <li><strong>ลำดับ Policy Verbs:</strong> <code>inspect</code> (ดูชื่อ) &lt; <code>read</code> (ดูเนื้อหา) &lt; <code>use</code> (ใช้งานแก้ได้ แต่สร้าง/ลบไม่ได้) &lt; <code>manage</code> (สิทธิ์สูงสุด แอดมินสร้าง-ลบได้)</li>
+              <li><strong>OCI Vault:</strong> จัดการกุญแจเข้ารหัส (KMS) บน FIPS 140-2 Level 3 HSM และเก็บ Secrets (รหัสผ่าน/Token)</li>
+              <li><strong>Cloud Guard:</strong> ตรวจจับความเสี่ยงหลังสร้าง (Detect &amp; Auto-remediate) | <strong>Security Zones:</strong> ป้องกันไม่ให้สร้าง Resource ที่ผิดกฎตั้งแต่ต้น (Strictly prevent)</li>
+              <li><strong>OCI Bastion:</strong> รีโมต SSH/RDP เข้าเครื่อง Private Subnet ชั่วคราว โดยไม่ต้องมี Public IP และไม่ต้องตั้ง Jump host</li>
+              <li><strong>Budgets:</strong> ส่งอีเมลแจ้งเตือนยอดเงินเท่านั้น <strong>ไม่เคยสั่งปิดเครื่อง!</strong> | <strong>Compartment Quotas:</strong> นโยบายล็อกไม่ให้สร้างเครื่องเกินจำนวน</li>
+              <li><strong>Defined Tags:</strong> มี Tag Namespace กำหนดค่าช้อยส์ได้ รองรับ Cost-tracking | <strong>Free-form Tags:</strong> ไม่มีสคีมา</li>
+              <li><strong>Triple SLA:</strong> การันตี 3 มิติรายเดียวในโลก: <strong>Availability</strong> + <strong>Manageability</strong> + <strong>Performance</strong></li>
+              <li><strong>Resource Manager:</strong> บริการจัดการโครงสร้างพื้นฐาน Infrastructure as Code (IaC) บนมาตรฐาน <strong>Terraform</strong></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------------------------- -->
+        <!-- CROSS-DOMAIN 4: EXAM STRATEGY & TEST-TAKING TACTICS                       -->
+        <!-- ------------------------------------------------------------------------- -->
+        <section class="study-section" id="strategy">
+          <div class="section-header">
+            <div class="section-title-wrap">
+              <span class="domain-badge badge-cross">Exam Strategy</span>
+              <h2 class="section-title">💡 กลยุทธ์และเทคนิคการทำข้อสอบ (Exam Strategy)</h2>
+            </div>
+            <span style="font-size:12px; color:var(--text-muted);">เทคนิคทำข้อสอบให้ผ่านฉลุยในรอบเดียว</span>
+          </div>
+
+          <div class="concept-grid">
+            <div class="concept-card">
+              <div class="concept-header">
+                <span class="concept-term">1. บริหารเวลา (Time Management)</span>
+              </div>
+              <p class="concept-desc">ข้อสอบมาตรฐานมีประมาณ 40-50 ข้อ ให้เวลา 60-90 นาที คิดเป็นเฉลี่ย <strong>ประมาณ 1.5 นาทีต่อข้อ</strong> ห้ามติดหล่มข้อใดข้อนึงเกิน 2 นาที หากไม่มั่นใจให้กาข้อที่น่าจะถูกที่สุดแล้วกด <strong>Flag for Review</strong> ไว้ก่อน</p>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-header">
+                <span class="concept-term">2. เทคนิคตัดช้อยส์ (Elimination)</span>
+              </div>
+              <p class="concept-desc">ข้อสอบ OCI จะมีช้อยส์ลวงที่ <em>"ไม่มีชื่อบริการนี้อยู่จริงใน OCI"</em> หรือคำศัพท์ที่สลับเอาคลาวด์อื่นมาใส่ (เช่น S3 Bucket แทน Object Storage Bucket, VPC แทน VCN, EC2 แทน Compute) ตัดตัวเลือกพวกนี้ทิ้งก่อนได้ทันที</p>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-header">
+                <span class="concept-term">3. ข้อสอบประเภท "Select TWO" หรือ "Select THREE"</span>
+              </div>
+              <p class="concept-desc">อ่านโจทย์ให้จบเสมอว่าให้เลือกกี่ข้อ! หากโจทย์ระบุว่า <strong>Select TWO</strong> ตัวเลือกที่ถูกมักจะมาเป็นคู่คำตรงข้าม หรือจับคู่ระหว่างคอนเซปต์ High Availability เช่น AD กับ FD หรือ Security List กับ NSG</p>
+            </div>
+
+            <div class="concept-card">
+              <div class="concept-header">
+                <span class="concept-term">4. ระวังคำว่า "NOT" และ "LEAST"</span>
+              </div>
+              <p class="concept-desc">สังเกตคำปฏิเสธ เช่น <em>"Which is NOT a valid feature..."</em> หรือ <em>"Which action requires the LEAST privilege..."</em> หากถาม Least privilege ให้ตัด Verb <code>manage</code> ทิ้งก่อน แล้วมองหา <code>inspect</code> หรือ <code>read</code></p>
+            </div>
+          </div>
+        </section>
+
+      </div> <!-- End Full Notes View -->
+
+    </main>
+  </div>
+
+  <!-- Application Footer -->
+  <footer class="app-footer">
+    <p>Original study notes for exam preparation. Not affiliated with Oracle. Oracle and OCI are trademarks of Oracle Corporation. Verify details against official Oracle documentation.</p>
+    <p style="margin-top:6px; font-size:11px; color:var(--text-muted);">OCI 2026 Foundations Associate (1Z0-1085-26) Study Engine | สรุปเข้มคู่มือสอบฉบับสมบูรณ์</p>
+  </footer>
+
+  <!-- Application JavaScript -->
+  <script>
+    // State management wrapped with safe localStorage handling
+    const STORAGE_KEY_MEMORIZED = 'oci_cheat_sheet_memorized_1085_26';
+    const STORAGE_KEY_THEME = 'oci_cheat_sheet_theme';
+    let memorizedSet = new Set();
+
+    // Initialize state
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPreferences();
+      updateProgress();
+      setupSearch();
+      setupScrollSpy();
+    });
+
+    function loadPreferences() {
+      try {
+        // Load memorized items
+        const raw = localStorage.getItem(STORAGE_KEY_MEMORIZED);
+        if (raw) {
+          memorizedSet = new Set(JSON.parse(raw));
+          memorizedSet.forEach(id => {
+            const section = document.getElementById(id);
+            if (section) {
+              section.classList.add('is-memorized');
+              const cb = section.querySelector('input[type="checkbox"]');
+              if (cb) cb.checked = true;
+            }
+          });
+        }
+
+        // Load theme
+        const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+          updateThemeIcon(savedTheme);
+        }
+      } catch (e) {
+        console.warn('localStorage not available:', e);
+      }
+    }
+
+    function toggleMemorized(sectionId, isChecked) {
+      const section = document.getElementById(sectionId);
+      if (isChecked) {
+        memorizedSet.add(sectionId);
+        if (section) section.classList.add('is-memorized');
+      } else {
+        memorizedSet.delete(sectionId);
+        if (section) section.classList.remove('is-memorized');
+      }
+
+      try {
+        localStorage.setItem(STORAGE_KEY_MEMORIZED, JSON.stringify(Array.from(memorizedSet)));
+      } catch (e) {
+        console.warn('Could not save to localStorage:', e);
+      }
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const allCheckboxes = document.querySelectorAll('.study-accordion input[type="checkbox"]');
+      const total = allCheckboxes.length;
+      const checked = memorizedSet.size;
+      const pct = total > 0 ? Math.round((checked / total) * 100) : 0;
+
+      const fill = document.getElementById('progressFill');
+      const text = document.getElementById('progressText');
+      if (fill) fill.style.width = pct + '%';
+      if (text) text.textContent = `${pct}% (${checked}/${total})`;
+    }
+
+    // View Switching: Quick Sheet vs Full Notes
+    function switchView(viewName) {
+      const quickView = document.getElementById('view-quick');
+      const fullView = document.getElementById('view-full');
+      const tabQuick = document.getElementById('tabQuick');
+      const tabFull = document.getElementById('tabFull');
+
+      if (viewName === 'quick') {
+        quickView.style.display = 'block';
+        fullView.style.display = 'none';
+        tabQuick.classList.add('active');
+        tabFull.classList.remove('active');
+      } else {
+        quickView.style.display = 'none';
+        fullView.style.display = 'block';
+        tabQuick.classList.remove('active');
+        tabFull.classList.add('active');
+      }
+    }
+
+    // Expand / Collapse all accordions
+    document.getElementById('btnExpandAll').addEventListener('click', () => {
+      document.querySelectorAll('details.study-accordion').forEach(d => d.open = true);
+    });
+
+    document.getElementById('btnCollapseAll').addEventListener('click', () => {
+      document.querySelectorAll('details.study-accordion').forEach(d => d.open = false);
+    });
+
+    // Print button
+    document.getElementById('btnPrint').addEventListener('click', () => {
+      // Auto expand all for clean printing
+      document.querySelectorAll('details.study-accordion').forEach(d => d.open = true);
+      window.print();
+    });
+
+    // Theme Toggle
+    document.getElementById('btnThemeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      updateThemeIcon(next);
+      try {
+        localStorage.setItem(STORAGE_KEY_THEME, next);
+      } catch (e) {
+        console.warn('Could not save theme:', e);
+      }
+    });
+
+    function updateThemeIcon(theme) {
+      const icon = document.getElementById('themeIcon');
+      if (icon) {
+        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+      }
+    }
+
+    // Search filter and real-time highlighting
+    function setupSearch() {
+      const input = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('searchClear');
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        if (query.length > 0) {
+          clearBtn.style.display = 'block';
+          // Automatically switch to Full Notes view so matches can be found
+          switchView('full');
+          performSearch(query);
+        } else {
+          clearBtn.style.display = 'none';
+          clearSearch();
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.style.display = 'none';
+        clearSearch();
+        input.focus();
+      });
+    }
+
+    function performSearch(query) {
+      clearHighlights();
+      let matchCount = 0;
+
+      const accordions = document.querySelectorAll('#view-full details.study-accordion');
+      accordions.forEach(acc => {
+        const body = acc.querySelector('.accordion-body');
+        const summary = acc.querySelector('.accordion-summary');
+        const text = (acc.innerText || '').toLowerCase();
+
+        if (text.includes(query)) {
+          acc.open = true;
+          matchCount++;
+          highlightNode(body, query);
+        }
+      });
+
+      // Also highlight in table rows and keyword map
+      const rows = document.querySelectorAll('#view-full table tbody tr');
+      rows.forEach(r => {
+        if ((r.innerText || '').toLowerCase().includes(query)) {
+          highlightNode(r, query);
+        }
+      });
+    }
+
+    function highlightNode(node, query) {
+      if (!node) return;
+      if (node.nodeType === 3) { // Text node
+        const val = node.nodeValue;
+        const idx = val.toLowerCase().indexOf(query);
+        if (idx >= 0) {
+          const span = document.createElement('span');
+          span.innerHTML = val.substring(0, idx) + 
+                           '<mark class="highlight">' + val.substring(idx, idx + query.length) + '</mark>' + 
+                           val.substring(idx + query.length);
+          node.parentNode.replaceChild(span, node);
+        }
+      } else if (node.nodeType === 1 && node.childNodes && !/(style|script|input|textarea)/i.test(node.tagName)) {
+        Array.from(node.childNodes).forEach(child => highlightNode(child, query));
+      }
+    }
+
+    function clearHighlights() {
+      document.querySelectorAll('mark.highlight').forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      });
+    }
+
+    function clearSearch() {
+      clearHighlights();
+    }
+
+    // ScrollSpy for Sidebar TOC & Mobile Chips
+    function setupScrollSpy() {
+      const sections = document.querySelectorAll('section.study-section');
+      const tocLinks = document.querySelectorAll('.toc-menu a');
+      const chipLinks = document.querySelectorAll('.chip-nav a');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            if (id) {
+              tocLinks.forEach(link => {
+                if (link.getAttribute('href') === '#' + id) {
+                  link.classList.add('active');
+                } else {
+                  link.classList.remove('active');
+                }
+              });
+
+              chipLinks.forEach(chip => {
+                if (chip.getAttribute('href') === '#' + id) {
+                  chip.classList.add('active');
+                  chip.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+                } else {
+                  chip.classList.remove('active');
+                }
+              });
+            }
+          }
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+
+      sections.forEach(s => observer.observe(s));
+    }
+  </script>
+</body>
+</html>

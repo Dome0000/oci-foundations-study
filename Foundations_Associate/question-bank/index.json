@@ -1,0 +1,59 @@
+{
+    "updated_at": "2026-11-03T00:00:00Z",
+    "total_sets": 2,
+    "total_questions": 140,
+    "sets": [
+        {
+            "id": "oci-foundations-set-001",
+            "filename": "oci-foundations-set-001.json",
+            "title": "OCI Foundations Mock Exam - Set 001",
+            "created_at": "2026-10-27T17:32:13Z",
+            "question_count": 100,
+            "time_limit_minutes": 90,
+            "passing_score_percent": 65,
+            "domain_breakdown": {
+                "Cloud Concepts": 15,
+                "Getting Started with OCI": 15,
+                "Core OCI Services": 45,
+                "Security and Compliance": 15,
+                "Pricing, Support and Operations": 10
+            },
+            "types": {
+                "single": 80,
+                "multiple": 20
+            },
+            "difficulties": {
+                "easy": 27,
+                "medium": 47,
+                "hard": 26
+            },
+            "scenario_count": 57
+        },
+        {
+            "id": "oci-foundations-set-002",
+            "filename": "oci-foundations-set-002.json",
+            "title": "OCI Foundations Mock Exam - Set 002",
+            "created_at": "2026-11-03T00:00:00Z",
+            "question_count": 40,
+            "time_limit_minutes": 45,
+            "passing_score_percent": 65,
+            "domain_breakdown": {
+                "Cloud Concepts": 6,
+                "Getting Started with OCI": 6,
+                "Core OCI Services": 18,
+                "Security and Compliance": 6,
+                "Pricing, Support and Operations": 4
+            },
+            "types": {
+                "single": 32,
+                "multiple": 8
+            },
+            "difficulties": {
+                "easy": 10,
+                "medium": 20,
+                "hard": 10
+            },
+            "scenario_count": 22
+        }
+    ]
+}

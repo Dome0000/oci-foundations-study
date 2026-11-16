@@ -1,0 +1,1521 @@
+{
+  "schema_version": "1.0",
+  "exam": {
+    "code": "1Z0-1085",
+    "title": "Oracle Cloud Infrastructure Foundations Associate",
+    "syllabus_version": "unspecified",
+    "question_language": "en"
+  },
+  "set": {
+    "id": "oci-foundations-set-002",
+    "title": "OCI Foundations Mock Exam - Set 002",
+    "created_at": "2026-11-03T00:00:00Z",
+    "question_count": 40,
+    "time_limit_minutes": 45,
+    "passing_score_percent": 65,
+    "blueprint": [
+      {
+        "domain": "Cloud Concepts",
+        "question_count": 6
+      },
+      {
+        "domain": "Getting Started with OCI",
+        "question_count": 6
+      },
+      {
+        "domain": "Core OCI Services",
+        "question_count": 18
+      },
+      {
+        "domain": "Security and Compliance",
+        "question_count": 6
+      },
+      {
+        "domain": "Pricing, Support and Operations",
+        "question_count": 4
+      }
+    ]
+  },
+  "questions": [
+    {
+      "id": "oci-fnd-002-q001",
+      "domain": "Cloud Concepts",
+      "subtopics": ["Cloud computing characteristics"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": false,
+      "question": "Which essential cloud computing characteristic means that capabilities are available over the network and accessed through standard mechanisms that promote use by heterogeneous thin or thick client platforms such as mobile phones, laptops, and PDAs?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Broad network access"
+        },
+        {
+          "id": "B",
+          "text": "Resource pooling"
+        },
+        {
+          "id": "C",
+          "text": "Rapid elasticity"
+        },
+        {
+          "id": "D",
+          "text": "Measured service"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Broad network access หมายถึงความสามารถของบริการคลาวด์ที่เข้าถึงผ่านเครือข่ายด้วยกลไกมาตรฐาน รองรับอุปกรณ์หลากหลาย เช่น โทรศัพท์มือถือ แล็ปท็อป และ PDA\n- ตัวเลือก B (Resource pooling) คือการรวมทรัพยากรของผู้ให้บริการเพื่อแชร์ให้ผู้ใช้หลายราย\n- ตัวเลือก C (Rapid elasticity) คือความสามารถในการขยายหรือยุบตัวทรัพยากรได้อย่างรวดเร็วตามความต้องการ\n- ตัวเลือก D (Measured service) คือระบบที่วัดปริมาณการใช้ทรัพยากรเพื่อคิดค่าบริการตามจริง",
+      "tags": ["cloud-concepts", "broad-network-access", "nist"],
+      "references": [
+        {
+          "title": "Oracle Cloud Infrastructure Concepts",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/cloudconcepts.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q002",
+      "domain": "Cloud Concepts",
+      "subtopics": ["IaaS, PaaS, SaaS"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "In which cloud service delivery model does the provider deliver a complete software application over the internet, where customers access the software via a web browser and the provider manages everything from infrastructure to application code?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Software as a Service (SaaS)"
+        },
+        {
+          "id": "B",
+          "text": "Platform as a Service (PaaS)"
+        },
+        {
+          "id": "C",
+          "text": "Infrastructure as a Service (IaaS)"
+        },
+        {
+          "id": "D",
+          "text": "Function as a Service (FaaS)"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Software as a Service (SaaS) คือโมเดลที่ผู้ให้บริการส่งมอบแอปพลิเคชันสมบูรณ์ผ่านอินเทอร์เน็ต ผู้ใช้เข้าถึงผ่านเว็บเบราว์เซอร์โดยที่ผู้ให้บริการดูแลทุกอย่างตั้งแต่โครงสร้างพื้นฐานไปจนถึงโค้ดแอปพลิเคชัน\n- ตัวเลือก B (PaaS) ให้แพลตฟอร์มสำหรับนักพัฒนาสร้างและปรับใช้แอป ไม่ใช่แอปสำเร็จรูป\n- ตัวเลือก C (IaaS) ให้ทรัพยากรโครงสร้างพื้นฐาน เช่น เซิร์ฟเวอร์และสตอเรจ ผู้ใช้ต้องจัดการ OS และแอปเอง\n- ตัวเลือก D (FaaS) เป็นโมเดลเซิร์ฟเวอร์เลสที่รันโค้ดเป็นฟังก์ชันตามเหตุการณ์ ไม่ใช่แอปพลิเคชันสมบูรณ์",
+      "tags": ["cloud-concepts", "saas", "service-models"],
+      "references": [
+        {
+          "title": "Oracle Cloud Infrastructure Concepts",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/cloudconcepts.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q003",
+      "domain": "Cloud Concepts",
+      "subtopics": ["Public, private, hybrid และ multicloud"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A healthcare organization must store sensitive patient records on infrastructure it fully controls to comply with national data sovereignty laws, while also running a public-facing appointment scheduling website on a public cloud for scalability. Which deployment model best describes this combined architecture?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hybrid Cloud"
+        },
+        {
+          "id": "B",
+          "text": "Public Cloud"
+        },
+        {
+          "id": "C",
+          "text": "Private Cloud"
+        },
+        {
+          "id": "D",
+          "text": "Community Cloud"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Hybrid Cloud คือการผสมผสานระหว่างโครงสร้างพื้นฐานส่วนตัว (Private Cloud/On-premises) และพับลิกคลาวด์ ทำงานร่วมกันผเทคโนโลยีที่ช่วยให้ข้อมูลและแอปพลิเคชันสามารถแชร์กันได้ ในกรณีนี้ องค์กรเก็บข้อมูลผู้ป่วยที่ละเอียดอ่อนไว้บนโครงสร้างพื้นฐานของตนเอง และใช้พับลิกคลาวด์สำหรับเว็บไซต์นัดหมายที่ต้องการความยืดหยุ่น\n- ตัวเลือก B (Public Cloud) ไม่สามารถให้การควบคุมฮาร์ดแวร์แบบเต็มรูปแบบสำหรับข้อมูลที่ละเอียดอ่อน\n- ตัวเลือก C (Private Cloud) ไม่ครอบคลุมส่วนที่เป็นพับลิกคลาวด์สำหรับเว็บไซต์สาธารณะ\n- ตัวเลือก D (Community Cloud) 是คลาวด์ที่แชร์ร่วมกันสำหรับองค์กรกลุ่มหนึ่งที่มีเป้าหมายร่วมกัน",
+      "tags": ["cloud-concepts", "hybrid-cloud", "deployment-models", "scenarios"],
+      "references": [
+        {
+          "title": "Oracle Cloud Infrastructure Concepts",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/cloudconcepts.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q004",
+      "domain": "Cloud Concepts",
+      "subtopics": ["Scalability, elasticity, high availability, fault tolerance"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "An e-commerce platform expects steady growth in users over the next year and needs to add more servers incrementally to handle the increasing load. Which cloud characteristic best describes the ability to increase or decrease resources to match workload demand?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Scalability"
+        },
+        {
+          "id": "B",
+          "text": "Elasticity"
+        },
+        {
+          "id": "C",
+          "text": "High Availability"
+        },
+        {
+          "id": "D",
+          "text": "Fault Tolerance"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Scalability (ความสามารถในการขยาย) คือความสามารถในการเพิ่มหรือลดทรัพยากรการประมวลผลเพื่อรองรับปริมาณงานที่เพิ่มขึ้นหรือลดลง โดยมักเป็นการวางแผนการขยายตัวในระยะยาว\n- ตัวเลือก B (Elasticity) คือการขยายหรือยุบตัวโดยอัตโนมัติทันทีตามความต้องการที่เปลี่ยนแปลงอย่างฉับพลัน เหมาะกับทราฟฟิกที่ผันผวนไม่คาดเดา\n- ตัวเลือก C (High Availability) คือการออกแบบระบบให้พร้อมใช้งานได้สูงสุด ลดเวลาหยุดทำงาน\n- ตัวเลือก D (Fault Tolerance) คือความสามารถของระบบในการทำงานต่อไปแม้มีส่วนประกอบบางอย่างขัดข้อง",
+      "tags": ["cloud-concepts", "scalability", "elasticity"],
+      "references": [
+        {
+          "title": "Oracle Cloud Infrastructure Concepts",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/cloudconcepts.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q005",
+      "domain": "Cloud Concepts",
+      "subtopics": ["Disaster recovery เบื้องต้น"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": true,
+      "question": "A company wants a disaster recovery strategy where it maintains a minimal version of its core environment in the cloud that is always running, with only the most critical components replicated. In the event of a disaster, the company provisions the full environment around these critical components. What is this strategy called?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Pilot Light"
+        },
+        {
+          "id": "B",
+          "text": "Warm Standby"
+        },
+        {
+          "id": "C",
+          "text": "Backup and Restore"
+        },
+        {
+          "id": "D",
+          "text": "Multi-site Active-Active"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Pilot Light คือกลยุทธ์การกู้คืนจากภัยพิบัติที่รักษาเวอร์ชันขั้นต่ำของสภาพแวดล้อมหลักให้ทำงานอยู่ตลอดเวลา โดยมีเฉพาะคอมโพเนนต์ที่สำคัญที่สุดที่ถูกรีพลิเคต เมื่อเกิดภัยพิบัติ จะเตรียมสภาพแวดล้อมเต็มรูปแบบรอบคอมโพเนนต์สำคัญเหล่านั้น\n- ตัวเลือก B (Warm Standby) รักษาสำเนาที่ทำงานได้ทั้งหมดในขนาดย่อลงตลอดเวลา ไม่ใช่แค่คอมโพเนนต์สำคัญ\n- ตัวเลือก C (Backup and Restore) คือการสำรองข้อมูลและกู้คืนเมื่อจำเป็น ไม่มีการรักษาสภาพแวดล้อมให้ทำงานอยู่ตลอดเวลา\n- ตัวเลือก D (Multi-site Active-Active) คือการทำงานพร้อมกันในหลายไซต์ทั้งหมด",
+      "tags": ["cloud-concepts", "disaster-recovery", "pilot-light", "scenarios"],
+      "references": [
+        {
+          "title": "Oracle Cloud Infrastructure Concepts",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/cloudconcepts.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q006",
+      "domain": "Cloud Concepts",
+      "subtopics": ["Shared responsibility model"],
+      "difficulty": "medium",
+      "type": "multiple",
+      "scenario": false,
+      "question": "Under the OCI Shared Security Responsibility Model for a Platform as a Service (PaaS) deployment, which TWO tasks are the responsibility of Oracle (the cloud provider)? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Patching and securing the underlying operating system and runtime environment"
+        },
+        {
+          "id": "B",
+          "text": "Managing the physical data center facilities and hardware infrastructure"
+        },
+        {
+          "id": "C",
+          "text": "Configuring application-level user access controls and permissions"
+        },
+        {
+          "id": "D",
+          "text": "Encrypting customer data at the application layer before storage"
+        },
+        {
+          "id": "E",
+          "text": "Managing IAM user accounts and policies within the customer tenancy"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "ในโมเดล PaaS ความรับผิดชอบของ Oracle (ผู้ให้บริการ) ได้แก่:\n- (A) การแก้ไขและรักษาความปลอดภัยของระบบปฏิบัติการและสภาพแวดล้อมรันไทม์เบื้องหลัง\n- (B) การจัดการสิ่งอำนวยความสะดวกทางกายภาพของดาต้าเซ็นเตอร์และโครงสร้างพื้นฐานฮาร์ดแวร์\n- ตัวเลือก C, D, และ E เป็นหน้าที่ของลูกค้าในการจัดการการเข้าถึงระดับแอปพลิเคชัน การเข้ารหัสข้อมูล และการจัดการบัญชี IAM",
+      "tags": ["cloud-concepts", "shared-responsibility", "paas"],
+      "references": [
+        {
+          "title": "Overview of Security in OCI",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Security/Reference/security_overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q007",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["Tenancy และ compartments"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "What is the relationship between an OCI Tenancy and the Root Compartment?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The Tenancy automatically serves as the Root Compartment for the account"
+        },
+        {
+          "id": "B",
+          "text": "The Root Compartment is a separate container created inside the Tenancy"
+        },
+        {
+          "id": "C",
+          "text": "The Tenancy and Root Compartment are completely unrelated concepts"
+        },
+        {
+          "id": "D",
+          "text": "The Root Compartment can be deleted independently of the Tenancy"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Tenancy ใน OCI คือคอนเทนเนอร์ระดับบนสุดที่สร้างขึ้นโดยอัตโนมัติเมื่อองค์กรสมัครใช้งาน OCI และทำหน้าที่เป็น Root Compartment เสมอ ทรัพยากร ผู้ใช้ กลุ่ม นโยบาย และ Compartment ย่อยทั้งหมดจะอยู่ภายใต้ Tenancy\n- ตัวเลือก B ผิด Root Compartment ไม่ได้ถูกสร้างแยกต่างหากภายใน Tenancy\n- ตัวเลือก C ผิด Tenancy และ Root Compartment เป็นแนวคิดเดียวกัน\n- ตัวเลือก D ผิด Root Compartment ไม่สามารถลบได้แยกจาก Tenancy",
+      "tags": ["getting-started", "tenancy", "root-compartment"],
+      "references": [
+        {
+          "title": "Overview of the Tenancy",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q008",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["OCI Console, API, CLI และ SDK ในระดับพื้นฐาน"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A cloud administrator needs to quickly check the status of a compute instance and modify a security list rule without installing any software on their local machine. Which OCI tool provides a browser-based interface for these tasks?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Console"
+        },
+        {
+          "id": "B",
+          "text": "OCI CLI"
+        },
+        {
+          "id": "C",
+          "text": "OCI Cloud Shell"
+        },
+        {
+          "id": "D",
+          "text": "OCI SDK"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Console คืออินเทอร์เฟซเว็บเบราว์เซอร์ที่ช่วยให้ผู้ดูแลระบบสามารถจัดการทรัพยากร OCI เช่น ตรวจสอบสถานะ Compute Instance และแก้ไข Security List ได้โดยไม่ต้องติดตั้งซอฟต์แวร์ใด ๆ บนเครื่อง\n- ตัวเลือก B (OCI CLI) ต้องติดตั้งและกำหนดค่าบนเครื่องผู้ใช้\n- ตัวเลือก C (OCI Cloud Shell) เป็นเทอร์มินัลบนเว็บ ไม่ใช่อินเทอร์เฟซ gráfิกสำหรับจัดการทรัพยากรทั่วไป\n- ตัวเลือก D (OCI SDK) เป็นไลบรารีสำหรับนักพัฒนาต้องเขียนโค้ด",
+      "tags": ["getting-started", "oci-console", "management-console"],
+      "references": [
+        {
+          "title": "Getting Started with the Console",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/GSG/Console/sign-in.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q009",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["Resource organization, tagging, quotas และ service limits"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A finance team wants to track cloud spending by department using tags, but they need to ensure that all tags follow a standardized format with predefined values to prevent inconsistent data. Which OCI tagging mechanism should they implement?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Defined Tags"
+        },
+        {
+          "id": "B",
+          "text": "Free-form Tags"
+        },
+        {
+          "id": "C",
+          "text": "Cost-tracking Tags"
+        },
+        {
+          "id": "D",
+          "text": "Operation Tags"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Defined Tags ช่วยให้ผู้ดูแลระบบสามารถสร้าง Tag Namespace และกำหนดรายการค่าที่อนุญาตให้เลือกได้ (predefined list of allowed values) ซึ่งบังคับให้ผู้ใช้ต้องเลือกค่าตามมาตรฐาน ป้องกันการพิมพ์ผิดและข้อมูลไม่สอดคล้องกัน\n- ตัวเลือก B (Free-form Tags) อนุญาตให้พิมพ์ข้อความใด ๆ ได้อย่างอิสระ ไม่มีการบังคับรูปแบบ\n- ตัวเลือก C และ D ไม่ใช่กลไกการแท็กของ OCI",
+      "tags": ["getting-started", "defined-tags", "cost-tracking", "tagging"],
+      "references": [
+        {
+          "title": "Overview of Tagging",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Tagging/Concepts/taggingoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q010",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["Resource organization, tagging, quotas และ service limits"],
+      "difficulty": "hard",
+      "type": "multiple",
+      "scenario": false,
+      "question": "Which TWO statements correctly describe the difference between OCI Service Limits and Compartment Quotas? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Service Limits are set by Oracle at the tenancy level and cannot be modified by customers"
+        },
+        {
+          "id": "B",
+          "text": "Compartment Quotas are set by customers using policy statements to limit resources within specific compartments"
+        },
+        {
+          "id": "C",
+          "text": "Service Limits can be configured per compartment using IAM policies"
+        },
+        {
+          "id": "D",
+          "text": "Compartment Quotas are set by Oracle and apply globally across all regions"
+        },
+        {
+          "id": "E",
+          "text": "Service Limits and Compartment Quotas are identical mechanisms with different names"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "ความแตกต่างระหว่าง Service Limits และ Compartment Quotas:\n- (A) Service Limits คือขีดจำกัดระดับ Tenancy ที่ Oracle กำหนดไว้ ลูกค้าสามารถขอเพิ่มได้แต่ไม่สามารถแก้ไขเอง\n- (B) Compartment Quotas ถูกตั้งโดยลูกค้าใช้ Policy statement เพื่อจำกัดทรัพยากรใน Compartment เฉพาะ\n- ตัวเลือก C ผิด Service Limits ไม่ได้กำหนดต่อ Compartment ด้วย IAM Policy\n- ตัวเลือก D ผิด Compartment Quotas ไม่ได้ตั้งโดย Oracle\n- ตัวเลือก E ผิดทั้งสองกลไกแตกต่างกันโดยสิ้นเชิง",
+      "tags": ["getting-started", "service-limits", "compartment-quotas", "governance"],
+      "references": [
+        {
+          "title": "Service Limits",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/servicelimits.htm"
+        },
+        {
+          "title": "Compartment Quotas",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/resourcequotas.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q011",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["Regions, realms, availability domains และ fault domains"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A company needs to deploy an application in OCI with the lowest possible latency for end users located in Thailand, while ensuring that customer data remains within Thailand due to regulatory requirements. Which factor should be the PRIMARY consideration when selecting an OCI Region?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Data residency and compliance requirements"
+        },
+        {
+          "id": "B",
+          "text": "Number of Availability Domains in the region"
+        },
+        {
+          "id": "C",
+          "text": "Region alphabetical naming convention"
+        },
+        {
+          "id": "D",
+          "text": "Availability of OCI Cloud Shell in the region"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "ปัจจัยหลักในการเลือก Region คือข้อกำหนดเรื่องการถิ่นที่อยู่ของข้อมูล (Data residency) และข้อกำหนดด้านกฎระเบียบ (Compliance) หากกฎหมายกำหนดให้ข้อมูลลูกค้าต้องอยู่ในประเทศไทย ต้องเลือก Region ที่ตั้งอยู่ในประเทศไทย เช่น โซนความพร้อมใช้งานในกรุงเทพฯ\n- ตัวเลือก B จำนวน AD เป็นปัจจัยรองสำหรับความพร้อมใช้งาน ไม่ใช่ปัจจัยหลักสำหรับข้อกำหนดด้านกฎหมาย\n- ตัวเลือก C และ D ไม่ใช่เกณฑ์ในการเลือก Region",
+      "tags": ["getting-started", "region-selection", "data-residency", "scenarios"],
+      "references": [
+        {
+          "title": "Regions and Availability Domains",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q012",
+      "domain": "Getting Started with OCI",
+      "subtopics": ["การเลือก Region และการออกแบบเพื่อ Availability"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": true,
+      "question": "An architect is designing a two-tier application in a single-AD OCI Region. The database tier must remain available even if one Fault Domain experiences a complete hardware failure. How should the database instances be deployed?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Deploy database instances across multiple Fault Domains within the same Availability Domain"
+        },
+        {
+          "id": "B",
+          "text": "Deploy all database instances in a single Fault Domain to minimize latency"
+        },
+        {
+          "id": "C",
+          "text": "Deploy database instances in multiple Regions"
+        },
+        {
+          "id": "D",
+          "text": "Deploy database instances only in Fault Domain 1"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "ใน Region ที่มี Availability Domain เดียว การกระจายฐานข้อมูลข้ามหลาย Fault Domains (FD1, FD2, FD3) จะช่วยให้มั่นใจว่าหาก FD ใด FD หนึ่งล้มเหลว ฐานข้อมูลใน FD อื่นยังคงทำงานได้ เนื่องจากแต่ละ FD มีฮาร์ดแวร์ แหล่งจ่ายไฟ และสวิตช์เครือข่ายแยกจากกัน\n- ตัวเลือก B เพิ่มความเสี่ยงหาก FD นั้นล้มเหลว\n- ตัวเลือก C เป็นการออกแบบระดับ Multi-Region ซึ่งเกินขอบเขตของโจทย์ที่กำหนดไว้ใน single-AD Region\n- ตัวเลือก D ไม่มีความซ้ำซ้อน",
+      "tags": ["getting-started", "fault-domains", "high-availability", "scenarios"],
+      "references": [
+        {
+          "title": "Regions and Availability Domains",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q013",
+      "domain": "Core OCI Services",
+      "subtopics": ["Block Volume และ Boot Volume"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "What is the primary difference between a Boot Volume and a Block Volume in OCI?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A Boot Volume contains the operating system image used to start a compute instance, while a Block Volume provides additional data storage"
+        },
+        {
+          "id": "B",
+          "text": "A Boot Volume is used for data storage, while a Block Volume contains the operating system"
+        },
+        {
+          "id": "C",
+          "text": "A Boot Volume can only be attached to one instance, while a Block Volume can be attached to multiple instances simultaneously"
+        },
+        {
+          "id": "D",
+          "text": "A Boot Volume is stored in Object Storage, while a Block Volume is stored in File Storage"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Boot Volume คือวอล륨ที่มีอิมเมจระบบปฏิบัติการใช้สำหรับบูตและเริ่มต้นการทำงานของ Compute Instance ในขณะที่ Block Volume คือวอล륨สตอเรจเพิ่มเติมสำหรับเก็บข้อมูลที่สามารถแนบกับอินสแตนซ์ได้\n- ตัวเลือก B สลับบทบาทของ Boot Volume และ Block Volume\n- ตัวเลือก C ผิด Block Volume ทั่วไปสามารถแนบกับอินสแตนซ์เดียวในเวลาเดียวกัน (ยกเว้นการใช้แบบมัลติแอตทาชที่จำกัด)\n- ตัวเลือก D ผิดทั้ง Boot Volume และ Block Volume อยู่บนบล็อกสตอเรจ ไม่ใช่ Object Storage หรือ File Storage",
+      "tags": ["core-services", "block-volume", "boot-volume", "compute-storage"],
+      "references": [
+        {
+          "title": "Overview of Block Volume",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Block/Concepts/overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q014",
+      "domain": "Core OCI Services",
+      "subtopics": ["Object Storage: namespaces, buckets, objects, storage tiers และ lifecycle rules"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "In OCI Object Storage, what is a namespace?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A unique, top-level container for all buckets and objects within a tenancy in a region"
+        },
+        {
+          "id": "B",
+          "text": "A subdirectory inside a bucket used to organize objects"
+        },
+        {
+          "id": "C",
+          "text": "A storage tier for infrequently accessed data"
+        },
+        {
+          "id": "D",
+          "text": "A lifecycle rule that automatically deletes old objects"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Namespace ใน OCI Object Storage คือคอนเทนเนอร์ระดับบนสุดที่ไม่ซ้ำกันสำหรับบักเก็ตและอ็อบเจ็กต์ทั้งหมดภายใน Tenancy ในภูมิภาคหนึ่ง ๆ แต่ละ Tenancy จะมี Namespace หนึ่งอันต่อภูมิภาค\n- ตัวเลือก B คือการอธิบายอ็อบเจ็กต์หรือตัวคั่นภายในบักเก็ต ไม่ใช่ Namespace\n- ตัวเลือก C คือ Storage Tier เช่น Archive หรือ Infrequent Access\n- ตัวเลือก D คือ Lifecycle Rule",
+      "tags": ["core-services", "object-storage", "namespace"],
+      "references": [
+        {
+          "title": "Overview of Object Storage",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/objectstorageoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q015",
+      "domain": "Core OCI Services",
+      "subtopics": ["Object Storage: namespaces, buckets, objects, storage tiers และ lifecycle rules"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A media company stores video files that are accessed frequently for the first 30 days after upload, then rarely accessed afterward. The company wants to automatically move older videos to a lower-cost storage tier. Which OCI Object Storage feature should they use?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Object Storage Lifecycle Rules"
+        },
+        {
+          "id": "B",
+          "text": "Object Storage Pre-Authenticated Requests"
+        },
+        {
+          "id": "C",
+          "text": "Object Storage Bucket Replication"
+        },
+        {
+          "id": "D",
+          "text": "Object Storage Multipart Upload"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Object Storage Lifecycle Rules ช่วยให้สามารถกำหนดกฎเพื่อย้ายอ็อบเจ็กต์ระหว่าง Storage Tiers (เช่น จาก Standard ไปยัง Archive หรือ Infrequent Access) หรือลบอ็อบเจ็กต์โดยอัตโนมัติตามอายุหรือเงื่อนไขที่กำหนด\n- ตัวเลือก B (Pre-Authenticated Requests) ช่วยให้เข้าถึงอ็อบเจ็กต์โดยไม่ต้องมีข้อมูลประจำตัวของ OCI ไม่เกี่ยวกับการย้ายข้อมูลระหว่างทียร์\n- ตัวเลือก C (Bucket Replication) ใช้สำหรับการคัดลอกบักเก็ตข้ามภูมิภาค\n- ตัวเลือก D (Multipart Upload) ใช้สำหรับอัปโหลดไฟล์ขนาดใหญ่เป็นส่วน ๆ",
+      "tags": ["core-services", "object-storage", "lifecycle-rules", "storage-tiers", "scenarios"],
+      "references": [
+        {
+          "title": "Managing Object Storage Lifecycle Rules",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Object/Tasks/managinglifecyclerules.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q016",
+      "domain": "Core OCI Services",
+      "subtopics": ["File Storage"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": false,
+      "question": "Which OCI service provides a fully managed, scalable network file system that can be mounted by multiple compute instances simultaneously using the NFS protocol?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI File Storage"
+        },
+        {
+          "id": "B",
+          "text": "OCI Block Volume"
+        },
+        {
+          "id": "C",
+          "text": "OCI Object Storage"
+        },
+        {
+          "id": "D",
+          "text": "OCI Boot Volume"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI File Storage คือบริการระบบไฟล์เครือข่ายที่จัดการอย่างเต็มรูปแบบ ปรับขนาดได้ตามต้องการ และสามารถติดตั้ง (mount) โดย Compute Instance หลายเครื่องพร้อมกันผ่านโปรโตคอล NFS (Network File System)\n- ตัวเลือก B (Block Volume) ให้สตอเรจระดับบล็อกที่แนบกับอินสแตนซ์เดียวในเวลาเดียวกัน\n- ตัวเลือก C (Object Storage) ใช้สำหรับเก็บข้อมูลแบบอ็อบเจ็กต์ ไม่รองรับการติดตั้งแบบ NFS\n- ตัวเลือก D (Boot Volume) ใช้สำหรับบูตระบบปฏิบัติการของอินสแตนซ์",
+      "tags": ["core-services", "file-storage", "nfs", "network-file-system"],
+      "references": [
+        {
+          "title": "Overview of File Storage",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/File/Concepts/filestorageoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q017",
+      "domain": "Core OCI Services",
+      "subtopics": ["VCN, subnets, route tables และ gateways"],
+      "difficulty": "easy",
+      "type": "multiple",
+      "scenario": false,
+      "question": "Which TWO statements correctly describe a Virtual Cloud Network (VCN) in OCI? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "A VCN is a software-defined, private network that closely resembles a traditional network"
+        },
+        {
+          "id": "B",
+          "text": "A VCN includes subnets, route tables, and gateways as key components"
+        },
+        {
+          "id": "C",
+          "text": "A VCN is a public internet-facing network automatically assigned to all compute instances"
+        },
+        {
+          "id": "D",
+          "text": "A VCN is a wireless network connecting OCI regions worldwide"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "VCN คือเครือข่ายเสมือนที่กำหนดโดยซอฟต์แวร์ (Software-defined network) เป็นส่วนตัว ซึ่งมีลักษณะคล้ายเครือข่ายแบบดั้งเดิม ประกอบด้วยซับเน็ต เส้นทางการนำทาง (Route tables) เกตเวย์ และกฎความปลอดภัย\n- ตัวเลือก A ถูกต้อง VCN เป็นเครือข่ายส่วนตัวที่กำหนดโดยซอฟต์แวร์\n- ตัวเลือก B ถูกต้อง VCN ประกอบด้วยซับเน็ต เส้นทางการนำทาง และเกตเวย์\n- ตัวเลือก C ผิด VCN เป็นเครือข่ายส่วนตัว ไม่ใช่เครือข่ายสาธารณะที่เปิดเผยต่ออินเทอร์เน็ต\n- ตัวเลือก D ผิด VCN ไม่ใช่เครือข่ายไร้สายที่เชื่อมต่อภูมิภาคต่าง ๆ",
+      "tags": ["core-services", "vcn", "networking", "virtual-cloud-network"],
+      "references": [
+        {
+          "title": "Overview of Networking",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q018",
+      "domain": "Core OCI Services",
+      "subtopics": ["Internet Gateway, NAT Gateway, Service Gateway และ DRG"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A company has compute instances in a private subnet that need to download software updates from the internet but must not be accessible from the internet. Which OCI gateway should be used?",
+      "options": [
+        {
+          "id": "A",
+          "text": "NAT Gateway"
+        },
+        {
+          "id": "B",
+          "text": "Internet Gateway"
+        },
+        {
+          "id": "C",
+          "text": "Service Gateway"
+        },
+        {
+          "id": "D",
+          "text": "Dynamic Routing Gateway (DRG)"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "NAT Gateway ช่วยให้อินสแตนซ์ในซับเน็ตส่วนตัวสามารถเริ่มต้นการเชื่อมต่อออกไปยังอินเทอร์เน็ต (เช่น การดาวน์โหลดอัปเดตซอฟต์แวร์) ได้ แต่ป้องกันไม่ให้อินเทอร์เน็ตสามารถเริ่มต้นการเชื่อมต่อมายังอินสแตนซ์เหล่านั้น\n- ตัวเลือก B (Internet Gateway) อนุญาตให้ทราฟฟิกสองทางระหว่างอินเทอร์เน็ตและ VCN ทำให้อินสแตนซ์เข้าถึงได้จากอินเทอร์เน็ต\n- ตัวเลือก C (Service Gateway) ใช้สำหรับเข้าถึงบริการ OCI เช่น Object Storage โดยไม่ต้องผ่านอินเทอร์เน็ตเกตเวย์\n- ตัวเลือก D (DRG) ใช้สำหรับการเชื่อมต่อ VCN กับเครือข่ายภายนอกผ่าน VPN หรือ FastConnect",
+      "tags": ["core-services", "nat-gateway", "private-subnet", "networking", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of NAT Gateway",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/NATgateway.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q019",
+      "domain": "Core OCI Services",
+      "subtopics": ["Security Lists และ Network Security Groups"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": false,
+      "question": "Which statement correctly describes a key difference between Security Lists and Network Security Groups (NSGs) in OCI?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Security Lists are applied at the subnet level, while NSGs are applied at the VNIC (instance) level"
+        },
+        {
+          "id": "B",
+          "text": "NSGs are applied at the subnet level, while Security Lists are applied at the VNIC level"
+        },
+        {
+          "id": "C",
+          "text": "Security Lists and NSGs are identical and can be used interchangeably"
+        },
+        {
+          "id": "D",
+          "text": "Security Lists only filter inbound traffic, while NSGs only filter outbound traffic"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Security Lists ถูกใช้งานในระดับซับเน็ต ทำให้กฎความปลอดภัยใช้กับอินสแตนซ์ทั้งหมดในซับเน็ตนั้น ในขณะที่ Network Security Groups (NSGs) ถูกใช้งานในระดับ VNIC (การ์ดเครือข่ายเสมือนของอินสแตนซ์) ช่วยให้ควบคุมได้ละเอียดยิ่งขึ้นต่ออินสแตนซ์แต่ละเครื่อง\n- ตัวเลือก B สลับระดับการใช้งาน\n- ตัวเลือก C ผิดทั้งสองกลไกแตกต่างกันทั้งระดับการใช้งานและกรณีการใช้งาน\n- ตัวเลือก D ผิดทั้ง Security Lists และ NSG สามารถกรองทั้งทราฟฟิกขาเข้าและขาออก",
+      "tags": ["core-services", "security-lists", "network-security-groups", "nsg", "networking"],
+      "references": [
+        {
+          "title": "Overview of Security Lists",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securitylists.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q020",
+      "domain": "Core OCI Services",
+      "subtopics": ["Load Balancing และ DNS ในระดับพื้นฐาน"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A web application needs to distribute incoming traffic evenly across multiple backend servers in different subnets within the same VCN. Which OCI service should be used?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Load Balancing"
+        },
+        {
+          "id": "B",
+          "text": "OCI DNS"
+        },
+        {
+          "id": "C",
+          "text": "OCI Traffic Management"
+        },
+        {
+          "id": "D",
+          "text": "OCI FastConnect"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Load Balancing คือบริการที่กระจายทราฟฟิกที่เข้ามาอย่างเท่าเทียมไปยังเซิร์ฟเวอร์แบ็กเอนด์หลายเครื่อง ช่วยเพิ่มความพร้อมใช้งานและความสามารถในการปรับขนาดของแอปพลิเคชัน\n- ตัวเลือก B (OCI DNS) ใช้สำหรับการจัดการชื่อโดเมนและการแก้ไขชื่อ ไม่ใช่การกระจายทราฟฟิกไปยังเซิร์ฟเวอร์\n- ตัวเลือก C (OCI Traffic Management) ใช้สำหรับการกำหนดนโยบายการส่งทราฟฟิก DNS ระดับโลก ไม่ใช่โหลดบาลานเซอร์ภายใน VCN\n- ตัวเลือก D (OCI FastConnect) ใช้สำหรับการเชื่อมต่อเครือข่ายส่วนตัวระหว่างสถานที่ของลูกค้ากับ OCI",
+      "tags": ["core-services", "load-balancing", "networking", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Load Balancing",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Balance/Concepts/balanceoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q021",
+      "domain": "Core OCI Services",
+      "subtopics": ["Site-to-Site VPN และ FastConnect ในระดับแนวคิด"],
+      "difficulty": "hard",
+      "type": "multiple",
+      "scenario": true,
+      "question": "An enterprise needs to connect its on-premises data center to OCI with a dedicated, private connection that does not traverse the public internet. Which TWO OCI services can provide this connectivity? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "FastConnect"
+        },
+        {
+          "id": "B",
+          "text": "Site-to-Site VPN"
+        },
+        {
+          "id": "C",
+          "text": "Internet Gateway"
+        },
+        {
+          "id": "D",
+          "text": "Service Gateway"
+        },
+        {
+          "id": "E",
+          "text": "NAT Gateway"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "FastConnect และ Site-to-Site VPN เป็นบริการสำหรับการเชื่อมต่อระหว่างสถานที่ภายในองค์กร (on-premises) กับ OCI:\n- (A) FastConnect คือการเชื่อมต่อแบบเฉพาะ (dedicated) ที่ไม่ผ่านอินเทอร์เน็ตสาธารณะ ให้แบนด์วิดท์สูงและ latency ต่ำ\n- (B) Site-to-Site VPN คือการเชื่อมต่อผ่านอินเทอร์เน็ตสาธารณะที่เข้ารหัส (IPSec VPN)\n- ตัวเลือก C, D, และ E เป็นเกตเวย์ภายใน VCN ไม่ใช่บริการเชื่อมต่อระหว่าง on-premises กับ OCI",
+      "tags": ["core-services", "fastconnect", "site-to-site-vpn", "connectivity", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of FastConnect",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/fastconnectoverview.htm"
+        },
+        {
+          "title": "Overview of Site-to-Site VPN",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/overviewVPN.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q022",
+      "domain": "Core OCI Services",
+      "subtopics": ["Autonomous Database, Base Database และ MySQL HeatWave ในระดับพื้นฐาน"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "Which OCI database service is a fully managed, autonomous database that uses machine learning to automate routine tasks such as patching, tuning, and scaling?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Oracle Autonomous Database"
+        },
+        {
+          "id": "B",
+          "text": "Oracle Base Database"
+        },
+        {
+          "id": "C",
+          "text": "MySQL HeatWave"
+        },
+        {
+          "id": "D",
+          "text": "Oracle Exadata Cloud@Customer"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Oracle Autonomous Database คือบริการฐานข้อมูลที่จัดการอย่างเต็มรูปแบบและทำงานอัตโนมัติ ใช้เทคโนโลยีแมชชีนเลิร์นนิงเพื่ออัตโนมัติงานปกติ เช่น การแพตช์ การปรับแต่ง และการปรับขนาด โดยไม่ต้องมีการดูแลจากผู้ดูแลระบบฐานข้อมูล\n- ตัวเลือก B (Oracle Base Database) คือฐานข้อมูลบนคลาวด์ที่ต้องการการจัดการจากผู้ดูแลระบบมากกว่า\n- ตัวเลือก C (MySQL HeatWave) คือบริการฐานข้อมูล Myomial ที่เร่งความเร็วด้วยอินมะเมมโมรี ไม่ใช่ฐานข้อมูลออโtonomous ของออเรเคิล\n- ตัวเลือก D (Exadata Cloud@Customer) คือระบบ Exadata ที่ติดตั้งในดาต้าเซ็นเตอร์ของลูกค้า",
+      "tags": ["core-services", "autonomous-database", "database", "managed-service"],
+      "references": [
+        {
+          "title": "Overview of Autonomous Database",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Database/Concepts/autonomous-overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q023",
+      "domain": "Core OCI Services",
+      "subtopics": ["Autonomous Database, Base Database และ MySQL HeatWave ในระดับพื้นฐาน"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A company needs to migrate an existing on-premises Oracle Database to OCI with minimal changes to the application and full control over database administration tasks such as patching and backups. Which OCI database service is most appropriate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Oracle Base Database"
+        },
+        {
+          "id": "B",
+          "text": "Oracle Autonomous Database"
+        },
+        {
+          "id": "C",
+          "text": "MySQL HeatWave"
+        },
+        {
+          "id": "D",
+          "text": "Oracle NoSQL Database"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Oracle Base Database เหมาะสำหรับการย้ายฐานข้อมูลออเรเคิลจาก on-premises มายัง OCI โดยให้ลูกค้าควบคุมงานดูแลฐานข้อมูลได้เต็มที่ เช่น การแพตช์ การสำรองข้อมูล และการปรับแต่ง ขณะที่แอปพลิเคชันไม่ต้องเปลี่ยนแปลงมาก\n- ตัวเลือก B (Autonomous Database) จัดการงานดูแลโดยอัตโนมัติ ลูกค้าไม่มีการควบคุมงานแพตช์และสำรองข้อมูลในระดับเดียวกัน\n- ตัวเลือก C (MySQL HeatWave) 是สำหรับฐานข้อมูล MySQL ไม่ใช่ Oracle Database\n- ตัวเลือก D (Oracle NoSQL Database) 是ฐานข้อมูล NoSQL ไม่ใช่ฐานข้อมูลเชิงสัมพันธ์ของออเรเคิล",
+      "tags": ["core-services", "base-database", "database-migration", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Base Database",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Database/Concepts/database-overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q024",
+      "domain": "Core OCI Services",
+      "subtopics": ["Containers และ serverless: OKE, Container Instances และ Functions ในระดับ Foundations"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": false,
+      "question": "What is the primary purpose of Oracle Kubernetes Engine (OKE) in OCI?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A managed Kubernetes service for deploying and managing containerized applications"
+        },
+        {
+          "id": "B",
+          "text": "A serverless function service for running code without servers"
+        },
+        {
+          "id": "C",
+          "text": "An object storage service for container images"
+        },
+        {
+          "id": "D",
+          "text": "A load balancer for container traffic"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Oracle Kubernetes Engine (OKE) คือบริการคูเบอร์เนติสที่จัดการอย่างเต็มรูปแบบ (fully managed) ช่วยให้องค์กรสามารถปรับใช้ จัดการ และปรับขนาดแอปพลิเคชันที่อยู่ในคอนเทนเนอร์ได้อย่างง่ายดาย\n- ตัวเลือก B (Oracle Functions) คือบริการเซิร์ฟเวอร์เลสสำหรับรันโค้ดโดยไม่ต้องจัดการเซิร์ฟเวอร์\n- ตัวเลือก C คือ Object Storage หรือ Container Registry ไม่ใช่ OKE\n- ตัวเลือก D คือ Load Balancing ไม่ใช่วัตถุประสงค์หลักของ OKE",
+      "tags": ["core-services", "oke", "kubernetes", "containers"],
+      "references": [
+        {
+          "title": "Overview of Oracle Kubernetes Engine",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/ContEng/Concepts/consoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q025",
+      "domain": "Core OCI Services",
+      "subtopics": ["Monitoring, Logging, Notifications และ Cloud Advisor"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "Which OCI service collects and tracks metrics for cloud resources, enabling users to create alarms based on metric thresholds?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Monitoring"
+        },
+        {
+          "id": "B",
+          "text": "OCI Logging"
+        },
+        {
+          "id": "C",
+          "text": "OCI Notifications"
+        },
+        {
+          "id": "D",
+          "text": "OCI Cloud Advisor"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Monitoring คือบริการที่รวบรวมและติดตามเมตริกสำหรับทรัพยากรคลาวด์ ช่วยให้ผู้ใช้สามารถสร้างการแจ้งเตือน (alarms) ตตามเกณฑ์ที่กำหนด เช่น การแจ้งเมื่อการใช้งาน CPU เกินค่าที่ตั้งไว้\n- ตัวเลือก B (OCI Logging) ใช้สำหรับการจัดการและดูบันทึก (logs) ของระบบ\n- ตัวเลือก C (OCI Notifications) ใช้สำหรับการส่งการแจ้งเตือนผ่านอีเมลหรือการแจ้งเตือนอื่น ๆ\n- ตัวเลือก D (OCI Cloud Advisor) ใช้สำหรับคำแนะนำด้านประสิทธิภาพ ความปลอดภัย และต้นทุน",
+      "tags": ["core-services", "monitoring", "metrics", "alarms", "observability"],
+      "references": [
+        {
+          "title": "Overview of Monitoring",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Monitoring/Concepts/monitoringoverview.htm"
+        }
+      ]
+    },
+{
+      "id": "oci-fnd-002-q026",
+      "domain": "Core OCI Services",
+      "subtopics": ["การเลือกบริการให้เหมาะกับ Use Case"],
+      "difficulty": "hard",
+      "type": "multiple",
+      "scenario": true,
+      "question": "A startup needs to run a containerized application for a few hours each day, with no requirement to manage Kubernetes clusters, worker nodes, or node pools. The application should scale to zero when not in use. Which TWO OCI services are most appropriate? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Container Instances"
+        },
+        {
+          "id": "B",
+          "text": "OCI Functions"
+        },
+        {
+          "id": "C",
+          "text": "Oracle Kubernetes Engine (OKE)"
+        },
+        {
+          "id": "D",
+          "text": "OCI Compute Virtual Machines"
+        },
+        {
+          "id": "E",
+          "text": "OCI Object Storage"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "OCI Container Instances ช่วยให้รันคอนเทนเนอร์ได้ทันทีโดยไม่ต้องจัดการ Kubernetes หรือโหนด และ OCI Functions ช่วยให้รันโค้ดแบบเซิร์ฟเวอร์เลสที่ปรับขนาดเป็นศูนย์เมื่อไม่ใช้งาน ทั้งสองบริการเหมาะสำหรับสตาร์ทอัพที่ต้องการรันแอปฯ ไม่กี่ชั่วโมงต่อวันโดยไม่ต้องดูแลโครงสร้างพื้นฐาน\n- ตัวเลือก C (OKE) ต้องการการจัดการคลัสเตอร์ คูเบอร์เนติส และโหนดพools\n- ตัวเลือก D (Compute VMs) ต้องการการจัดการเซิร์ฟเวอร์และไม่ปรับขนาดเป็นศูนย์โดยอัตโนมัติ\n- ตัวเลือก E (Object Storage) คือสตอเรจ ไม่ใช่บริการรันแอปพลิเคชัน",
+      "tags": ["core-services", "container-instances", "functions", "serverless", "use-case", "scenarios"],
+      "references": [
+        {
+          "title": "Container Instances Overview",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/container-instances/overview.htm"
+        },
+        {
+          "title": "Overview of Functions",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Functions/Concepts/functionsoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q027",
+      "domain": "Core OCI Services",
+      "subtopics": ["การเลือกบริการให้เหมาะกับ Use Case"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": true,
+      "question": "A financial services company needs to store transaction records that must be retained for 7 years for regulatory compliance, with infrequent access after the first 90 days. Which OCI Object Storage tier is most cost-effective for this use case?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Archive Storage"
+        },
+        {
+          "id": "B",
+          "text": "Standard Storage"
+        },
+        {
+          "id": "C",
+          "text": "Infrequent Access Storage"
+        },
+        {
+          "id": "D",
+          "text": "Block Volume"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Archive Storage คือทีย์ที่มีค่าใช้จ่ายต่ำที่สุดสำหรับข้อมูลที่เข้าถึงน้อยมากและต้องเก็บรักษาเป็นเวลานาน เช่น บันทึกธุรกรรมที่ต้องเก็บไว้ 7 ปี โดยค่าใช้จ่ายในการเก็บข้อมูลต่ำกว่า Standard และ Infrequent Access แต่ค่ารีทีฟเวิล (retrieval) จะสูงกว่า\n- ตัวเลือก B (Standard Storage) เหมาะสำหรับข้อมูลที่เข้าถึงบ่อย ค่าใช้จ่ายสูงกว่า Archive\n- ตัวเลือก C (Infrequent Access Storage) เหมาะสำหรับข้อมูลที่เข้าถึงบ้างเป็นครั้งคราว ค่าใช้จ่ายสูงกว่า Archive สำหรับข้อมูลที่เข้าถึงน้อยมาก\n- ตัวเลือก D (Block Volume) 是บล็อกสตอเรจสำหรับ Compute Instance ไม่ใช่สำหรับการเก็บถาวรระยะยาว",
+      "tags": ["core-services", "object-storage", "archive-storage", "cost-effective", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Object Storage Storage Tiers",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/storageclasses.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q028",
+      "domain": "Security and Compliance",
+      "subtopics": ["IAM users, groups, dynamic groups และ compartments"],
+      "difficulty": "easy",
+      "type": "multiple",
+      "scenario": false,
+      "question": "Which TWO statements correctly describe IAM Groups in OCI? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "An IAM Group is used to logically group users so that a single policy can grant permissions to all members at once"
+        },
+        {
+          "id": "B",
+          "text": "A user can be a member of multiple IAM Groups simultaneously"
+        },
+        {
+          "id": "C",
+          "text": "IAM Groups are used to group cloud resources such as compute instances and block volumes"
+        },
+        {
+          "id": "D",
+          "text": "IAM Groups can only contain one user each"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "IAM Group ใช้สำหรับจัดกลุ่มผู้ใช้ (users) ไว้ด้วยกัน เพื่อให้สามารถกำหนดนโยบาย (policy) เดียวเพื่อมอบสิทธิ์ให้กับสมาชิกทั้งหมดในกลุ่มได้ในครั้งเดียว ผู้ใช้หนึ่งคนสามารถเป็นสมาชิกของหลายกลุ่มได้พร้อมกัน\n- ตัวเลือก A ถูกต้อง IAM Group ใช้จัดกลุ่มผู้ใช้เพื่อกำหนดนโยบายร่วมกัน\n- ตัวเลือก B ถูกต้อง ผู้ใช้สามารถอยู่ในหลายกลุ่มได้พร้อมกัน\n- ตัวเลือก C ผิด IAM Group ใช้สำหรับผู้ใช้ ไม่ใช่ทรัพยากรคลาวด์\n- ตัวเลือก D ผิด IAM Group สามารถมีผู้ใช้หลายคนได้",
+      "tags": ["security", "iam", "iam-group", "users"],
+      "references": [
+        {
+          "title": "Overview of IAM",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/overview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q029",
+      "domain": "Security and Compliance",
+      "subtopics": ["IAM policy syntax และ policy evaluation ในระดับพื้นฐาน"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "An administrator writes the following OCI IAM policy statement: 'Allow group Developers to manage instance-family in compartment ProjectA'. Which of the following best describes what this policy allows?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Developers can create, update, and delete compute instances in compartment ProjectA"
+        },
+        {
+          "id": "B",
+          "text": "Developers can only view compute instances in compartment ProjectA"
+        },
+        {
+          "id": "C",
+          "text": "Developers can manage all OCI resources in all compartments"
+        },
+        {
+          "id": "D",
+          "text": "Developers can manage networking resources in compartment ProjectA"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "นโยบาย 'Allow group Developers to manage instance-family in compartment ProjectA' อนุญาตให้กลุ่ม Developers จัดการ (manage) ทรัพยากรในตระกูล instance-family (เช่น การสร้าง แก้ไข และลบ Compute Instance) ใน Compartment ProjectA ได้อย่างเต็มที่\n- ตัวเลือก B ผิด manage ให้สิทธิ์มากกว่าแค่การดู (inspect หรือ read)\n- ตัวเลือก C ผิดนโยบายนี้จำกัดเฉพาะ compartment ProjectA ไม่ใช่ทุก compartment\n- ตัวเลือก D ผิด instance-family เกี่ยวกับ Compute Instance ไม่ใช่ทรัพยากรเครือข่าย",
+      "tags": ["security", "iam-policy", "policy-syntax", "scenarios"],
+      "references": [
+        {
+          "title": "How Policies Work",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Identity/Concepts/policiesoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q030",
+      "domain": "Security and Compliance",
+      "subtopics": ["MFA และ least privilege"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A company wants to enforce an additional verification step for users logging into the OCI Console, requiring something they know (password) and something they have (a one-time code from a mobile app). Which OCI security feature should be enabled?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Multi-Factor Authentication (MFA)"
+        },
+        {
+          "id": "B",
+          "text": "IAM Policies"
+        },
+        {
+          "id": "C",
+          "text": "OCI Vault"
+        },
+        {
+          "id": "D",
+          "text": "Cloud Guard"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Multi-Factor Authentication (MFA) คือคุณลักษณะด้านความปลอดภัยที่กำหนดให้ผู้ใช้ต้องยืนยันตัวตนด้วยปัจจัยสองประการขึ้นไป เช่น รหัสผ่าน (สิ่งที่รู้) และรหัสใช้ครั้งเดียวจากแอปบนมือถือ (สิ่งที่มี) ก่อนเข้าสู่ระบบ OCI Console\n- ตัวเลือก B (IAM Policies) ใช้สำหรับกำหนดสิทธิ์การเข้าถึงทรัพยากร ไม่ใช่การยืนยันตัวตนสองปัจจัย\n- ตัวเลือก C (OCI Vault) ใช้สำหรับการจัดการกุญแจเข้ารหัสและซีเคร็ต\n- ตัวเลือก D (Cloud Guard) ใช้สำหรับการตรวจจับและตอบสนองต่อภัยคุกคามด้านความปลอดภัย",
+      "tags": ["security", "mfa", "multi-factor-authentication", "authentication", "scenarios"],
+      "references": [
+        {
+          "title": "Managing Multi-Factor Authentication",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/managingmfa.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q031",
+      "domain": "Security and Compliance",
+      "subtopics": ["OCI Vault, keys และ secrets ในระดับพื้นฐาน"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": false,
+      "question": "What is the primary difference between a Master Encryption Key and a Secret in OCI Vault?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A Master Encryption Key is used to encrypt and decrypt data, while a Secret stores sensitive information such as passwords or API keys"
+        },
+        {
+          "id": "B",
+          "text": "A Secret is used to encrypt and decrypt data, while a Master Encryption Key stores passwords"
+        },
+        {
+          "id": "C",
+          "text": "Master Encryption Keys and Secrets are identical and interchangeable"
+        },
+        {
+          "id": "D",
+          "text": "Master Encryption Keys are stored outside OCI, while Secrets are stored inside OCI Vault"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Master Encryption Key ใน OCI Vault ใช้สำหรับการเข้ารหัสและถอดรหัสข้อมูล ในขณะที่ Secret ใช้สำหรับจัดเก็บข้อมูลที่ละเอียดอ่อน เช่น รหัสผ่าน คีย์ API หรือข้อมูลรับรองอื่น ๆ\n- ตัวเลือก B สลับบทบาทของ Master Encryption Key และ Secret\n- ตัวเลือก C ผิดทั้งสองมีวัตถุประสงค์ที่แตกต่างกัน\n- ตัวเลือก D ผิดทั้ง Master Encryption Key และ Secret ถูกจัดเก็บภายใน OCI Vault",
+      "tags": ["security", "oci-vault", "master-encryption-key", "secret", "encryption"],
+      "references": [
+        {
+          "title": "Overview of Vault",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/KeyManagement/Concepts/vaultoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q032",
+      "domain": "Security and Compliance",
+      "subtopics": ["Cloud Guard, Security Zones และ WAF ในระดับ Foundations"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A company wants to automatically detect and respond to misconfigured OCI resources that violate security policies, such as open security list rules allowing unrestricted ingress. Which OCI service should they use?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Cloud Guard"
+        },
+        {
+          "id": "B",
+          "text": "OCI WAF"
+        },
+        {
+          "id": "C",
+          "text": "OCI Vault"
+        },
+        {
+          "id": "D",
+          "text": "OCI Monitoring"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Cloud Guard เป็นบริการที่ช่วยให้องค์กรตรวจจับและตอบสนองต่อการกำหนดค่าที่ไม่ถูกต้อง (misconfigurations) ของทรัพยากร OCI ที่ละเมิดนโยบายความปลอดภัย เช่น Security List ที่อนุญาตให้ทราฟฟิกขาเข้าไม่จำกัด Cloud Guard สามารถสร้างการแจ้งเตือนและดำเนินการตอบสนองโดยอัตโนมัติ\n- ตัวเลือก B (OCI WAF) คือ Web Application Firewall ปกป้องเว็บแอปฯ จากการโจมตีทั่วไปบนเว็บ\n- ตัวเลือก C (OCI Vault) ใช้สำหรับจัดการกุญแจเข้ารหัสและซีเคร็ต\n- ตัวเลือก D (OCI Monitoring) ใช้สำหรับรวบรวมเมตริกและสร้างการแจ้งเตือน ไม่ใช่ตรวจจับการกำหนดค่าที่ผิด",
+      "tags": ["security", "cloud-guard", "security-misconfiguration", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Cloud Guard",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/CloudGuard/Concepts/cloudguardoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q033",
+      "domain": "Pricing, Support and Operations",
+      "subtopics": ["OCI pricing concepts"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "Which OCI pricing model allows customers to pay only for the resources they actually consume, without any long-term commitment?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Pay As You Go"
+        },
+        {
+          "id": "B",
+          "text": "Universal Credits"
+        },
+        {
+          "id": "C",
+          "text": "BYOL"
+        },
+        {
+          "id": "D",
+          "text": "Free Tier"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "Pay As You Go คือโมเดลราคาที่ลูกค้าจ่ายเฉพาะทรัพยากรที่ใช้จริงโดยไม่มีพันธผูกพันระยะยาว เหมาะสำหรับลูกค้าที่ต้องการความยืดหยุ่นและไม่ต้องการชำระเงินล่วงหน้าจำนวนมาก\n- ตัวเลือก B (Universal Credits) คือโมเดลที่ชำระเงินล่วงหน้าสำหรับเครดิตที่ใช้กับบริการ OCI ต่าง ๆ ได้หลายบริการ\n- ตัวเลือก C (BYOL) คือการนำใบอนุญาตซอฟต์แวร์ออเรเคิลที่มีอยู่มาใช้กับ OCI\n- ตัวเลือก D (Free Tier) คือบริการฟรีในปริมาณจำกัดสำหรับผู้ใช้ใหม่",
+      "tags": ["pricing", "pay-as-you-go", "pricing-models"],
+      "references": [
+        {
+          "title": "OCI Pricing Overview",
+          "url": "https://www.oracle.com/cloud/pricing/"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q034",
+      "domain": "Pricing, Support and Operations",
+      "subtopics": ["Cost Estimator, Cost Analysis และ budgets"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A cloud architect needs to estimate the monthly cost of a proposed OCI architecture before provisioning any resources. Which OCI tool should they use?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Cost Estimator"
+        },
+        {
+          "id": "B",
+          "text": "OCI Cost Analysis"
+        },
+        {
+          "id": "C",
+          "text": "OCI Budgets"
+        },
+        {
+          "id": "D",
+          "text": "OCI Cloud Advisor"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Cost Estimator เป็นเครื่องมือที่ช่วยให้องค์กรสามารถประมาณค่าใช้จ่ายรายเดือนของสถาปัตยกรรม OCI ที่เสนอก่อนที่จะจัดเตรียมทรัพยากรใด ๆ ช่วยให้สามารถวางแผนงบประมาณได้ล่วงหน้า\n- ตัวเลือก B (OCI Cost Analysis) ใช้สำหรับวิเคราะห์ค่าใช้จ่ายที่เกิดขึ้นจริงแล้ว ไม่ใช่การประมาณล่วงหน้า\n- ตัวเลือก C (OCI Budgets) ใช้สำหรับตั้งขีดจำกัดงบประมาณและรับการแจ้งเตือนเมื่อเกินกำหนด\n- ตัวเลือก D (OCI Cloud Advisor) ใช้สำหรับคำแนะนำด้านประสิทธิภาพ ความปลอดภัย และต้นทุน",
+      "tags": ["pricing", "cost-estimator", "cost-analysis", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Cost Estimator",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Billing/Concepts/costestimatoroverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q035",
+      "domain": "Pricing, Support and Operations",
+      "subtopics": ["Free Tier ในระดับแนวคิด โดยไม่สร้างคำถามที่ผูกกับตัวเลขโปรโมชันซึ่งเปลี่ยนบ่อย"],
+      "difficulty": "medium",
+      "type": "multiple",
+      "scenario": false,
+      "question": "Which TWO statements correctly describe OCI Free Tier? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "Free Tier includes always-free services and a limited-time trial credit for new accounts"
+        },
+        {
+          "id": "B",
+          "text": "Free Tier provides unlimited free resources for all OCI services forever"
+        },
+        {
+          "id": "C",
+          "text": "Free Tier resources are subject to usage limits and may be charged if exceeded"
+        },
+        {
+          "id": "D",
+          "text": "Free Tier requires a long-term commitment contract"
+        },
+        {
+          "id": "E",
+          "text": "Free Tier is only available for Autonomous Database"
+        }
+      ],
+      "correct_answer": ["A", "C"],
+      "explanation": "OCI Free Tier ประกอบด้วย:\n- (A) บริการแบบฟรีตลอดชีพ (always-free services) และเครดิตทดลองใช้แบบจำกัดเวลาสำหรับบัญชีใหม่\n- (C) ทรัพยากรใน Free Tier มีขีดจำกัดการใช้งาน และอาจถูกคิดค่าบริการหากเกินขีดจำกัด\n- ตัวเลือก B ผิด ไม่มีบริการใดที่ฟรีไม่จำกัดตลอดไป\n- ตัวเลือก D ผิด Free Tier ไม่ต้องการสัญญาผูกพันระยะยาว\n- ตัวเลือก E ผิด Free Tier ครอบคลุมบริการหลายอย่าง ไม่ใช่เฉพาะ Autonomous Database",
+      "tags": ["pricing", "free-tier", "always-free", "trial-credits"],
+      "references": [
+        {
+          "title": "Oracle Cloud Free Tier",
+          "url": "https://www.oracle.com/cloud/free/"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q036",
+      "domain": "Pricing, Support and Operations",
+      "subtopics": ["Support plans และการขอ technical support"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": true,
+      "question": "A company with a production workload on OCI needs 24/7 technical support with fast response times for critical issues. Which support plan should they select?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Advanced Support"
+        },
+        {
+          "id": "B",
+          "text": "Basic Support"
+        },
+        {
+          "id": "C",
+          "text": "Community Support"
+        },
+        {
+          "id": "D",
+          "text": "Developer Support"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Advanced Support ให้การสนับสนุนทางเทคนิคตลอด 24 ชั่วโมง 7 วัน มีเวลาตอบสนองที่รวดเร็วสำหรับปัญหาวิกฤต (critical issues) เหมาะสำหรับองค์กรที่มีเวิร์กโหลด produzione ที่ต้องการความมั่นคงสูง\n- ตัวเลือก B (Basic Support) ให้การสนับสนุนพื้นฐานแบบจำกัด ไม่มีการตอบสนองตลอด 24 ชั่วโมงสำหรับปัญหาวิกฤต\n- ตัวเลือก C (Community Support) คือการขอความช่วยเหลือจากชุมชนผู้ใช้ ไม่ใช่การสนับสนุนอย่างเป็นทางการจาก Oracle\n- ตัวเลือก D (Developer Support) มุ่งเน้นนักพัฒนา ไม่ครอบคลุมการสนับสนุนระดับ produzione แบบเต็มรูปแบบ",
+      "tags": ["pricing", "support-plans", "advanced-support", "technical-support", "scenarios"],
+      "references": [
+        {
+          "title": "OCI Support Models",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/GSG/Concepts/support.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q041",
+      "domain": "Core OCI Services",
+      "subtopics": ["Load Balancing และ DNS ในระดับพื้นฐาน"],
+      "difficulty": "medium",
+      "type": "multiple",
+      "scenario": true,
+      "question": "A company needs a highly available DNS service that can route end-user traffic to different endpoints based on geographic proximity and health checks. Which TWO OCI services can help achieve this? (Choose TWO)",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI DNS Traffic Management"
+        },
+        {
+          "id": "B",
+          "text": "OCI Load Balancing"
+        },
+        {
+          "id": "C",
+          "text": "OCI DNS Zones"
+        },
+        {
+          "id": "D",
+          "text": "OCI FastConnect"
+        },
+        {
+          "id": "E",
+          "text": "OCI Internet Gateway"
+        }
+      ],
+      "correct_answer": ["A", "B"],
+      "explanation": "สำหรับการส่งต่อทราฟฟิกผู้ใช้ปลายทางไปยังปลายทางต่าง ๆ ตามความใกล้ชิดทางภูมิศาสตร์และการตรวจสอบสุขภาพ:\n- (A) OCI DNS Traffic Management ช่วยให้กำหนดนโยบายการส่งต่อทราฟฟิก DNS เช่น ตามภูมิภาค (geographic proximity) หรือตามสถานะสุขภาพของจุดปลายทาง (health check)\n- (B) OCI Load Balancing ช่วยกระจายทราฟฟิกไปยังแบ็กเอนด์หลายเครื่องและตรวจสอบสถานะสุขภาพ (health check) ของเซิร์ฟเวอร์\n- ตัวเลือก C (OCI DNS Zones) เป็นการจัดการโซน DNS และเรคคอร์ด DNS ทั่วไป ไม่มีฟีเจอร์การส่งต่อตามภูมิภาคหรือ health check\n- ตัวเลือก D (OCI FastConnect) 是การเชื่อมต่อเครือข่ายส่วนตัวระหว่าง on-premises กับ OCI\n- ตัวเลือก E (OCI Internet Gateway) 是เกตเวย์สำหรับการสื่อสารระหว่าง VCN กับอินเทอร์เน็ต",
+      "tags": ["core-services", "dns", "traffic-management", "load-balancing", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of DNS Traffic Management",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/DNS/Concepts/trafficmanagement.htm"
+        },
+        {
+          "title": "Overview of Load Balancing",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Balance/Concepts/balanceoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q038",
+      "domain": "Security and Compliance",
+      "subtopics": ["Compliance และ auditing ในระดับแนวคิด"],
+      "difficulty": "hard",
+      "type": "single",
+      "scenario": true,
+      "question": "A financial services firm needs to maintain a complete audit trail of all API calls made to OCI services, including who made the call, when, and what resources were affected. Which OCI service provides this capability?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Logging (specifically Audit Logs)"
+        },
+        {
+          "id": "B",
+          "text": "OCI Monitoring"
+        },
+        {
+          "id": "C",
+          "text": "OCI Notifications"
+        },
+        {
+          "id": "D",
+          "text": "OCI Cloud Guard"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Logging รวมถึง Audit Logs ช่วยให้องค์กรสามารถรักษาเส้นทางการตรวจสอบ (audit trail) ที่สมบูรณ์ของการเรียก API ทั้งหมดที่ทำไปยังบริการ OCI รวมถึงผู้ที่เรียก เวลา และทรัพยากรที่ได้รับผลกระทบ ซึ่งเป็นสิ่งสำคัญสำหรับการปฏิบัติตามข้อกำหนดด้านกฎระเบียบในภาคการเงิน\n- ตัวเลือก B (OCI Monitoring) ใช้สำหรับเมตริกและการแจ้งเตือน ไม่ใช่บันทึกการตรวจสอบ API\n- ตัวเลือก C (OCI Notifications) ใช้สำหรับการส่งการแจ้งเตือน\n- ตัวเลือก D (OCI Cloud Guard) ใช้สำหรับการตรวจจับภัยคุกคามและการตอบสนอง ไม่ใช่บันทึกเส้นทางการตรวจสอบ",
+      "tags": ["security", "audit-logs", "logging", "compliance", "auditing", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Logging",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Logging/Concepts/loggingoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q039",
+      "domain": "Core OCI Services",
+      "subtopics": ["การเลือกบริการให้เหมาะกับ Use Case"],
+      "difficulty": "easy",
+      "type": "single",
+      "scenario": false,
+      "question": "Which OCI service provides a fully managed MySQL database service with an integrated in-memory query accelerator for real-time analytics?",
+      "options": [
+        {
+          "id": "A",
+          "text": "MySQL HeatWave"
+        },
+        {
+          "id": "B",
+          "text": "Oracle Autonomous Database"
+        },
+        {
+          "id": "C",
+          "text": "Oracle NoSQL Database"
+        },
+        {
+          "id": "D",
+          "text": "OCI Object Storage"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "MySQL HeatWave คือบริการฐานข้อมูล MySQL ที่จัดการอย่างเต็มรูปแบบ โดยมีเครื่องเร่งคำสั่ง_query แบบอินมะเมมโมรี (in-memory query accelerator) รวมอยู่ในตัวสำหรับการวิเคราะห์ข้อมูลแบบเรียลไทม์\n- ตัวเลือก B (Oracle Autonomous Database) คือฐานข้อมูลออโทนอมัสของออเรเคิล ไม่ใช่ MySQL\n- ตัวเลือก C (Oracle NoSQL Database) คือฐานข้อมูล NoSQL แบบคีย์-แวลู ไม่ใช่ MySQL\n- ตัวเลือก D (OCI Object Storage) คือสตอเรจแบบอ็อบเจ็กต์ ไม่ใช่ฐานข้อมูล",
+      "tags": ["core-services", "mysql-heatwave", "database", "analytics"],
+      "references": [
+        {
+          "title": "Overview of MySQL HeatWave",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Database/Concepts/mysqlheatwaveoverview.htm"
+        }
+      ]
+    },
+    {
+      "id": "oci-fnd-002-q040",
+      "domain": "Core OCI Services",
+      "subtopics": ["การเลือกบริการให้เหมาะกับ Use Case"],
+      "difficulty": "medium",
+      "type": "single",
+      "scenario": true,
+      "question": "A media streaming company needs to store and serve large video files to users worldwide. The files are accessed frequently but the company wants to minimize costs while ensuring low-latency delivery. Which OCI service is most appropriate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "OCI Object Storage"
+        },
+        {
+          "id": "B",
+          "text": "OCI Block Volume"
+        },
+        {
+          "id": "C",
+          "text": "OCI File Storage"
+        },
+        {
+          "id": "D",
+          "text": "OCI Boot Volume"
+        }
+      ],
+      "correct_answer": ["A"],
+      "explanation": "OCI Object Storage เหมาะสำหรับการจัดเก็บและส่งมอบไฟล์ขนาดใหญ่ เช่น วิดีโอสตรีมมิง ให้กับผู้ใช้ทั่วโลก มีค่าใช้จ่ายต่ำและรองรับการเข้าถึงบ่อยครั้งด้วยเวลาตอบสนองที่ต่ำผ่านอินเทอร์เน็ต\n- ตัวเลือก B (Block Volume) เป็นบล็อกสตอเรจที่แนบกับ Compute Instance ไม่เหมาะสำหรับการส่งมอบไฟล์ไปยังผู้ใช้ทั่วโลก\n- ตัวเลือก C (File Storage) ใช้สำหรับระบบไฟล์เครือข่ายที่ติดตั้งโดย Compute Instance หลายเครื่อง ไม่ใช่สำหรับการส่งมอบไฟล์สาธารณะ\n- ตัวเลือก D (Boot Volume) ใช้สำหรับบูตระบบปฏิบัติการของอินสแตนซ์",
+      "tags": ["core-services", "object-storage", "media-streaming", "use-case", "scenarios"],
+      "references": [
+        {
+          "title": "Overview of Object Storage",
+          "url": "https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/objectstorageoverview.htm"
+        }
+      ]
+    }
+  ]
+}

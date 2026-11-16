@@ -1,0 +1,4430 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OCI Foundations Mock Exam</title>
+  <style>
+    /* ==========================================================================
+       CSS VARIABLES & THEMES
+       ========================================================================== */
+    :root {
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Sarabun", "Noto Sans Thai", Tahoma, sans-serif;
+      --bg-body: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #f1f5f9;
+      --bg-surface-hover: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-subtle: #94a3b8;
+      --border: #e2e8f0;
+      --border-focus: #0284c7;
+
+      --oracle-red: #c74634;
+      --oracle-red-hover: #a53626;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --primary-light: #e0f2fe;
+      --primary-subtle: #f0f9ff;
+
+      --success: #10b981;
+      --success-hover: #059669;
+      --success-light: #ecfdf5;
+      --success-border: #a7f3d0;
+      --success-text: #065f46;
+
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --danger-light: #fef2f2;
+      --danger-border: #fecaca;
+      --danger-text: #991b1b;
+
+      --warning: #f59e0b;
+      --warning-hover: #d97706;
+      --warning-light: #fffbeb;
+      --warning-border: #fde68a;
+      --warning-text: #92400e;
+
+      --flag: #ea580c;
+      --flag-light: #fff7ed;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-full: 9999px;
+
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.25s ease;
+    }
+
+    [data-theme="dark"] {
+      --bg-body: #0b1120;
+      --bg-surface: #1e293b;
+      --bg-surface-alt: #0f172a;
+      --bg-surface-hover: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --border: #334155;
+      --border-focus: #38bdf8;
+
+      --primary: #38bdf8;
+      --primary-hover: #0284c7;
+      --primary-light: #082f49;
+      --primary-subtle: #0c1a2e;
+
+      --success-light: #064e3b;
+      --success-border: #059669;
+      --success-text: #a7f3d0;
+
+      --danger-light: #7f1d1d;
+      --danger-border: #dc2626;
+      --danger-text: #fecaca;
+
+      --warning-light: #78350f;
+      --warning-border: #d97706;
+      --warning-text: #fde68a;
+
+      --flag-light: #431407;
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ==========================================================================
+       BASE STYLES & RESETS
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transition-normal), color var(--transition-normal);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: 1rem;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      transition: all var(--transition-fast);
+    }
+
+    button:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 2px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Container */
+    .app-container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.25rem 2.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    .app-header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--oracle-red), #e11d48);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(199, 70, 52, 0.3);
+    }
+
+    .brand-text h1 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .header-center {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .header-badge.practice {
+      background-color: var(--warning-light);
+      color: var(--warning-text);
+      border: 1px solid var(--warning-border);
+    }
+
+    /* Timer Box */
+    .timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      background-color: var(--bg-surface-alt);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      transition: all var(--transition-normal);
+    }
+
+    .timer-badge.warning {
+      background-color: var(--warning-light);
+      border-color: var(--warning-border);
+      color: var(--warning-text);
+      animation: pulseWarning 2s infinite;
+    }
+
+    .timer-badge.danger {
+      background-color: var(--danger-light);
+      border-color: var(--danger-border);
+      color: var(--danger-text);
+      animation: pulseDanger 1s infinite;
+    }
+
+    @keyframes pulseWarning {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.02); }
+    }
+
+    @keyframes pulseDanger {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.03); }
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--radius-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      background-color: var(--bg-surface);
+    }
+
+    .icon-btn:hover {
+      background-color: var(--bg-surface-hover);
+      color: var(--text-main);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-oracle {
+      background-color: var(--oracle-red);
+      color: #ffffff;
+    }
+    .btn-oracle:hover {
+      background-color: var(--oracle-red-hover);
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: #ffffff;
+    }
+    .btn-success:hover {
+      background-color: var(--success-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-surface-alt);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+    .btn-secondary:hover {
+      background-color: var(--bg-surface-hover);
+    }
+
+    .btn-outline-danger {
+      background-color: transparent;
+      color: var(--danger);
+      border-color: var(--danger-border);
+    }
+    .btn-outline-danger:hover {
+      background-color: var(--danger-light);
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8125rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-lg {
+      padding: 0.75rem 1.75rem;
+      font-size: 1.0625rem;
+      border-radius: var(--radius-md);
+    }
+
+    /* ==========================================================================
+       VIEW CONTAINERS
+       ========================================================================== */
+    .view-section {
+      display: none;
+      animation: fadeIn 0.25s ease forwards;
+      padding-top: 1.5rem;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ==========================================================================
+       VIEW 1: IMPORT SCREEN
+       ========================================================================== */
+    .import-hero {
+      text-align: center;
+      max-width: 680px;
+      margin: 1.5rem auto 2rem;
+    }
+
+    .import-hero h2 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .import-hero p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: var(--bg-surface);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      max-width: 720px;
+      margin: 0 auto 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--primary);
+      background-color: var(--primary-subtle);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .dropzone-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background-color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .dropzone-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .dropzone-desc {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Validation Errors Box */
+    .alert-box {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin: 1.25rem auto;
+      max-width: 720px;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .alert-box.danger {
+      background-color: var(--danger-light);
+      border: 1px solid var(--danger-border);
+      color: var(--danger-text);
+    }
+
+    .alert-box.warning {
+      background-color: var(--warning-light);
+      border: 1px solid var(--warning-border);
+      color: var(--warning-text);
+    }
+
+    .alert-box.success {
+      background-color: var(--success-light);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .alert-title {
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .alert-list {
+      margin-left: 1.25rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* Exam Summary Box */
+    .summary-card {
+      max-width: 720px;
+      margin: 1.5rem auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background-color: var(--bg-surface);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .summary-header {
+      background: linear-gradient(135deg, var(--primary), #0284c7);
+      color: #ffffff;
+      padding: 1.5rem;
+    }
+
+    .summary-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .summary-header p {
+      opacity: 0.9;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      padding: 1.25rem;
+      background-color: var(--bg-surface-alt);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-stat {
+      text-align: center;
+      padding: 0.75rem;
+      background-color: var(--bg-surface);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .summary-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .summary-stat-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 0.2rem;
+    }
+
+    .summary-domains {
+      padding: 1.25rem;
+    }
+
+    .summary-domains h4 {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .domain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .domain-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-surface-alt);
+      font-size: 0.875rem;
+    }
+
+    .domain-name {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .domain-count {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       VIEW 2: SETUP SCREEN
+       ========================================================================== */
+    .setup-container {
+      max-width: 760px;
+      margin: 1.5rem auto;
+    }
+
+    .setup-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-main);
+    }
+
+    .form-desc {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    /* Mode Selection Cards */
+    .mode-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .mode-card {
+      border: 2px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      cursor: pointer;
+      background-color: var(--bg-surface);
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .mode-card:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-subtle);
+    }
+
+    .mode-card.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .mode-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .mode-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .mode-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .mode-card p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Domain Selection Grid */
+    .domain-checkboxes {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.65rem;
+      max-height: 240px;
+      overflow-y: auto;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface-alt);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-sm);
+      background-color: var(--bg-surface);
+      cursor: pointer;
+      font-size: 0.875rem;
+      user-select: none;
+      transition: background-color var(--transition-fast);
+    }
+
+    .checkbox-label:hover {
+      background-color: var(--bg-surface-hover);
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+
+    /* Toggle Switches */
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toggle-info h5 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+    }
+
+    .toggle-info p {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: var(--border);
+      transition: .2s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    /* ==========================================================================
+       VIEW 3: EXAM SCREEN
+       ========================================================================== */
+    .exam-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    /* Question Main Card */
+    .question-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .question-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+
+    .question-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .q-number-badge {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge-domain {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .badge-difficulty-easy {
+      background-color: var(--success-light);
+      color: var(--success);
+    }
+
+    .badge-difficulty-medium {
+      background-color: var(--warning-light);
+      color: var(--warning-text);
+    }
+
+    .badge-difficulty-hard {
+      background-color: var(--danger-light);
+      color: var(--danger);
+    }
+
+    .badge-type {
+      background-color: var(--bg-surface-alt);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      background-color: var(--bg-surface);
+    }
+
+    .btn-flag:hover {
+      background-color: var(--flag-light);
+      color: var(--flag);
+      border-color: var(--flag);
+    }
+
+    .btn-flag.flagged {
+      background-color: var(--flag-light);
+      color: var(--flag);
+      border-color: var(--flag);
+    }
+
+    .multiple-hint {
+      margin-bottom: 1rem;
+      padding: 0.6rem 0.9rem;
+      background-color: var(--primary-subtle);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .question-prompt {
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* Options List */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .option-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.95rem 1.15rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface);
+      cursor: pointer;
+      user-select: none;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary);
+      background-color: var(--primary-subtle);
+    }
+
+    .option-card.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      accent-color: var(--primary);
+    }
+
+    .option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--bg-surface-alt);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .option-card.selected .option-letter {
+      background-color: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    .option-text {
+      flex: 1;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      word-break: break-word;
+    }
+
+    /* Option States for Practice / Review */
+    .option-card.option-correct {
+      border-color: var(--success);
+      background-color: var(--success-light);
+    }
+    .option-card.option-correct .option-letter {
+      background-color: var(--success);
+      color: #ffffff;
+      border-color: var(--success);
+    }
+
+    .option-card.option-incorrect {
+      border-color: var(--danger);
+      background-color: var(--danger-light);
+    }
+    .option-card.option-incorrect .option-letter {
+      background-color: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger);
+    }
+
+    .option-card.option-missed {
+      border: 1.5px dashed var(--success);
+      background-color: var(--success-light);
+      opacity: 0.9;
+    }
+
+    .option-status-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .tag-correct {
+      background-color: var(--success);
+      color: white;
+    }
+    .tag-incorrect {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    /* Practice Mode Feedback Panel */
+    .practice-feedback {
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.2s ease;
+      display: none;
+    }
+
+    .practice-feedback.active {
+      display: block;
+    }
+
+    .practice-feedback.correct {
+      background-color: var(--success-light);
+      border: 1px solid var(--success-border);
+      color: var(--success-text);
+    }
+
+    .practice-feedback.incorrect {
+      background-color: var(--danger-light);
+      border: 1px solid var(--danger-border);
+      color: var(--danger-text);
+    }
+
+    .practice-feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .explanation-content {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .explanation-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed rgba(0, 0, 0, 0.15);
+      font-size: 0.8125rem;
+    }
+
+    .meta-chip {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+    }
+
+    .references-list {
+      margin-top: 0.5rem;
+      font-size: 0.8125rem;
+    }
+
+    .references-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-right: 0.75rem;
+      word-break: break-all;
+    }
+
+    /* Question Footer Controls */
+    .question-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-buttons-left, .nav-buttons-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Sidebar: Question Navigator */
+    .navigator-sidebar {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 5rem;
+    }
+
+    .navigator-header {
+      margin-bottom: 1rem;
+    }
+
+    .navigator-title {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background-color: var(--bg-surface-alt);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: 0.4rem;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--oracle-red));
+      width: 0%;
+      transition: width var(--transition-normal);
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Grid of Navigator Buttons */
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.45rem;
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 0.25rem 0.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .nav-item {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background-color: var(--bg-surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: all var(--transition-fast);
+      user-select: none;
+    }
+
+    .nav-item:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .nav-item.current {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-light), 0 0 6px rgba(2, 132, 199, 0.4);
+      color: var(--primary);
+    }
+
+    .nav-item.answered {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .nav-item.current.answered {
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .nav-item.flagged::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--flag);
+    }
+
+    .nav-item.flagged.answered::after {
+      background-color: #ffffff;
+    }
+
+    /* Navigator Legend */
+    .nav-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .legend-dot.answered { background-color: var(--primary); border-color: var(--primary); }
+    .legend-dot.unanswered { background-color: var(--bg-surface); }
+    .legend-dot.current { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary-light); }
+    .legend-dot.flagged { background-color: var(--flag); border-color: var(--flag); border-radius: 50%; }
+
+    /* Mobile Navigator Toggle */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 90;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ==========================================================================
+       VIEW 4: RESULTS SCREEN
+       ========================================================================== */
+    .results-hero {
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .results-hero.passed {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+    }
+
+    .results-hero.failed {
+      background: linear-gradient(135deg, #b91c1c, #ef4444);
+      color: #ffffff;
+    }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      margin-bottom: 1rem;
+    }
+
+    .result-score-large {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .result-score-sub {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .result-target-note {
+      font-size: 0.875rem;
+      opacity: 0.85;
+    }
+
+    /* Results Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .metric-icon.correct { background-color: var(--success-light); color: var(--success); }
+    .metric-icon.incorrect { background-color: var(--danger-light); color: var(--danger); }
+    .metric-icon.unanswered { background-color: var(--bg-surface-alt); color: var(--text-muted); }
+    .metric-icon.time { background-color: var(--primary-light); color: var(--primary); }
+
+    .metric-info h5 {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .metric-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    /* Domain Chart Styles (Vanilla CSS Bar Chart) */
+    .domain-analysis {
+      margin-bottom: 2rem;
+    }
+
+    .domain-analysis h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .domain-chart-item {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .chart-name {
+      font-weight: 700;
+    }
+
+    .chart-score {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .chart-track {
+      width: 100%;
+      height: 12px;
+      background-color: var(--bg-surface-alt);
+      border-radius: var(--radius-full);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0.4rem;
+    }
+
+    .chart-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      transition: width 0.6s ease;
+    }
+
+    .chart-fill.pass { background-color: var(--success); }
+    .chart-fill.fail { background-color: var(--danger); }
+
+    .chart-threshold-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: var(--text-main);
+      opacity: 0.4;
+      z-index: 2;
+    }
+
+    /* Review Recommendation Box */
+    .review-recommendation-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .recommendation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .recommendation-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface-alt);
+      font-size: 0.875rem;
+    }
+
+    .recommendation-item.priority {
+      border-left: 3px solid var(--danger);
+      background-color: var(--danger-light);
+      color: var(--danger-text);
+    }
+
+    /* Action Toolbar */
+    .results-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ==========================================================================
+       VIEW 5: REVIEW SCREEN
+       ========================================================================== */
+    .review-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-pill {
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background-color: var(--bg-surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .filter-pill:hover {
+      background-color: var(--bg-surface-hover);
+      color: var(--text-main);
+    }
+
+    .filter-pill.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+    }
+
+    .filter-select {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background-color: var(--bg-surface);
+      color: var(--text-main);
+      font-size: 0.875rem;
+    }
+
+    .review-card {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+
+    /* ==========================================================================
+       MODALS & DIALOGS
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 480px;
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      animation: modalScaleIn 0.15s ease-out forwards;
+    }
+
+    @keyframes modalScaleIn {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .modal-header h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      background-color: var(--bg-surface-alt);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      pointer-events: none;
+    }
+
+    .toast {
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+      animation: toastSlideUp 0.3s ease;
+      pointer-events: auto;
+    }
+
+    .toast.warning {
+      border-color: var(--warning-border);
+      background-color: var(--warning-light);
+      color: var(--warning-text);
+    }
+
+    .toast.danger {
+      border-color: var(--danger-border);
+      background-color: var(--danger-light);
+      color: var(--danger-text);
+    }
+
+    @keyframes toastSlideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       RESPONSIVE & PRINT MEDIA QUERIES
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .exam-layout {
+        grid-template-columns: 1fr;
+      }
+      .navigator-sidebar {
+        display: none;
+      }
+      .navigator-sidebar.mobile-open {
+        display: block;
+        position: fixed;
+        top: 0; right: 0; bottom: 0;
+        width: 320px;
+        z-index: 150;
+        border-radius: 0;
+        box-shadow: var(--shadow-xl);
+        overflow-y: auto;
+      }
+      .mobile-nav-toggle {
+        display: inline-flex;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .app-container {
+        padding: 0 0.75rem 2rem;
+      }
+      .header-content {
+        padding: 0.5rem 0.75rem;
+      }
+      .mode-cards {
+        grid-template-columns: 1fr;
+      }
+      .results-hero {
+        padding: 1.5rem 1rem;
+      }
+      .result-score-large {
+        font-size: 2.75rem;
+      }
+      .question-footer {
+        flex-direction: column-reverse;
+      }
+      .nav-buttons-left, .nav-buttons-right {
+        width: 100%;
+      }
+      .nav-buttons-left .btn, .nav-buttons-right .btn {
+        flex: 1;
+      }
+    }
+
+    @media print {
+      body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+      }
+      .app-header, .results-actions, .review-filters, .mobile-nav-toggle, .btn-flag, .btn {
+        display: none !important;
+      }
+      .view-section {
+        display: block !important;
+      }
+      #view-import, #view-setup, #view-exam {
+        display: none !important;
+      }
+      .card, .review-card, .results-hero {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER
+       ========================================================================== -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand" id="brand-logo" role="button" tabindex="0" title="กลับหน้าแรก">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>OCI Foundations Mock Exam</h1>
+          <span id="header-subtitle">Oracle Cloud Infrastructure 2026</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <div id="exam-mode-badge" class="header-badge" style="display: none;">Exam Mode</div>
+        <div id="exam-timer-box" class="timer-badge" style="display: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <span id="timer-display">00:00</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Sound Mute/Unmute -->
+        <button id="btn-sound-toggle" class="icon-btn" aria-label="เปิด/ปิดเสียง" title="เปิด/ปิดเสียงเตือน">
+          <svg id="icon-sound-on" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+          </svg>
+          <svg id="icon-sound-off" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        </button>
+
+        <!-- Dark/Light Theme Toggle -->
+        <button id="btn-theme-toggle" class="icon-btn" aria-label="เปลี่ยนธีม" title="สลับธีม สว่าง / มืด">
+          <svg id="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+          <svg id="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+        </button>
+
+        <!-- Header Submit Button (during active exam) -->
+        <button id="btn-header-submit" class="btn btn-oracle btn-sm" style="display: none;">
+          ส่งข้อสอบ
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-container">
+
+    <!-- ==========================================================================
+         VIEW 1: IMPORT & VALIDATION SCREEN
+         ========================================================================== -->
+    <section id="view-import" class="view-section active">
+      <div class="import-hero">
+        <h2>ระบบจำลองการสอบ OCI Foundations Associate</h2>
+        <p>นำเข้าชุดข้อสอบมาตรฐาน JSON เพื่อเริ่มต้นการฝึกฝนหรือทดสอบความพร้อมก่อนสอบจริง</p>
+      </div>
+
+      <!-- Dropzone -->
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="อัปโหลดไฟล์ JSON ข้อสอบ">
+        <input type="file" id="file-input" accept=".json,application/json" style="display: none;">
+        <div class="dropzone-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="dropzone-title">ลากและวางไฟล์ .json ของชุดข้อสอบที่นี่</div>
+        <div class="dropzone-desc">หรือคลิกเพื่อเลือกไฟล์จากเครื่อง (ประมวลผลภายในเครื่องแบบปลอดภัย 100%)</div>
+        <button type="button" class="btn btn-primary" onclick="document.getElementById('file-input').click()">
+          เลือกไฟล์ JSON
+        </button>
+      </div>
+
+      <!-- Validation Errors Box -->
+      <div id="import-error-box" class="alert-box danger" style="display: none;">
+        <div class="alert-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div style="flex: 1;">
+          <div class="alert-title">ไฟล์ไม่ผ่านการตรวจสอบความถูกต้อง</div>
+          <ul id="import-error-list" class="alert-list"></ul>
+        </div>
+      </div>
+
+      <!-- Exam Summary Box (Rendered on valid import) -->
+      <div id="exam-summary-card" class="summary-card" style="display: none;">
+        <div class="summary-header">
+          <h3 id="sum-title">OCI Foundations Associate</h3>
+          <p id="sum-code">รหัสวิชา: 1Z0-1085-26</p>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-stat">
+            <div class="summary-stat-label">จำนวนข้อสอบ</div>
+            <div id="sum-count" class="summary-stat-val">0 ข้อ</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat-label">เวลาทำข้อสอบ</div>
+            <div id="sum-time" class="summary-stat-val">0 นาที</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-stat-label">เกณฑ์ผ่าน</div>
+            <div id="sum-pass" class="summary-stat-val">68%</div>
+          </div>
+        </div>
+        <div class="summary-domains">
+          <h4>สัดส่วนข้อสอบแยกตาม Domain</h4>
+          <div id="sum-domains-list" class="domain-list"></div>
+        </div>
+        <div style="padding: 1.25rem; text-align: center; background-color: var(--bg-surface);">
+          <button id="btn-proceed-setup" class="btn btn-primary btn-lg" style="width: 100%;">
+            ดำเนินการตั้งค่าการสอบ ▶
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 2: SETUP SCREEN
+         ========================================================================== -->
+    <section id="view-setup" class="view-section">
+      <div class="setup-container card">
+        <h2 class="setup-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+          ตั้งค่าก่อนเริ่มทำข้อสอบ
+        </h2>
+
+        <!-- Mode Selection -->
+        <div class="form-group">
+          <label class="form-label">โหมดการทำข้อสอบ</label>
+          <div class="mode-cards">
+            <div id="mode-card-exam" class="mode-card selected" onclick="App.setMode('exam')">
+              <div class="mode-card-header">
+                <div class="mode-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <h4>Exam Mode</h4>
+              </div>
+              <p>จำลองบรรยากาศสอบจริง ไม่แสดงเฉลยระหว่างทำ จับเวลาตามจริง และแสดงผลวิเคราะห์เมื่อส่งข้อสอบ</p>
+            </div>
+
+            <div id="mode-card-practice" class="mode-card" onclick="App.setMode('practice')">
+              <div class="mode-card-header">
+                <div class="mode-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                  </svg>
+                </div>
+                <h4>Practice Mode</h4>
+              </div>
+              <p>โหมดฝึกฝน สามารถกดตรวจคำตอบทีละข้อ ดูคำอธิบายเฉลยและเอกสารอ้างอิงได้ทันที</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Question Count Selector -->
+        <div class="form-group">
+          <label class="form-label">จำนวนข้อสอบที่ต้องการทำ</label>
+          <div style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 0.5rem;">
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="opt-qcount" id="qcount-all" value="all" checked onchange="App.onQuestionCountModeChange()">
+              <span>ทำข้อสอบทั้งหมด (<span id="setup-total-q-label">0</span> ข้อ)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+              <input type="radio" name="opt-qcount" id="qcount-custom" value="custom" onchange="App.onQuestionCountModeChange()">
+              <span>ระบุจำนวนข้อ:</span>
+            </label>
+            <input type="number" id="input-custom-qcount" min="1" max="100" value="20" disabled style="width: 90px; padding: 0.35rem 0.65rem; border: 1px solid var(--border); border-radius: var(--radius-sm);">
+          </div>
+        </div>
+
+        <!-- Domain Selection -->
+        <div class="form-group">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <label class="form-label" style="margin-bottom: 0;">เลือก Domain ที่ต้องการสอบ</label>
+            <div style="font-size: 0.8125rem;">
+              <button type="button" class="btn-sm btn-secondary" onclick="App.toggleAllDomains(true)">เลือกทั้งหมด</button>
+              <button type="button" class="btn-sm btn-secondary" onclick="App.toggleAllDomains(false)">ล้าง</button>
+            </div>
+          </div>
+          <div id="setup-domains-list" class="domain-checkboxes"></div>
+        </div>
+
+        <!-- Randomization Toggles -->
+        <div class="form-group">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h5>สุ่มลำดับคำถาม (Shuffle Questions)</h5>
+              <p>สลับลำดับข้อสอบไม่ให้ตรงกับไฟล์ต้นฉบับ</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-shuffle-q">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h5>สุ่มลำดับตัวเลือก (Shuffle Options)</h5>
+              <p>สลับลำดับตัวเลือก A, B, C, D (รักษาระบบเฉลยอย่างแม่นยำ)</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-shuffle-opt">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="toggle-row" id="row-toggle-timer">
+            <div class="toggle-info">
+              <h5>เปิดใช้งานตัวจับเวลานับถอยหลัง</h5>
+              <p id="timer-toggle-desc">นับถอยหลังตามเกณฑ์เวลาที่กำหนดในชุดข้อสอบ</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-enable-timer" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Setup Action Buttons -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 2rem;">
+          <button type="button" class="btn btn-secondary" onclick="App.showView('view-import')">
+            ◀ ย้อนกลับ
+          </button>
+          <button type="button" id="btn-start-exam" class="btn btn-oracle btn-lg" onclick="App.startExam()">
+            เริ่มทำข้อสอบ 🚀
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 3: EXAM SCREEN
+         ========================================================================== -->
+    <section id="view-exam" class="view-section">
+      <div class="exam-layout">
+
+        <!-- Question Main Area -->
+        <div class="question-card">
+          <!-- Question Meta Bar -->
+          <div class="question-header">
+            <div class="question-meta">
+              <span id="q-counter" class="q-number-badge">ข้อที่ 1 จาก 40</span>
+              <span id="q-domain-badge" class="badge badge-domain">Domain Name</span>
+              <span id="q-difficulty-badge" class="badge badge-difficulty-easy">Easy</span>
+              <span id="q-type-badge" class="badge badge-type">Single Choice</span>
+            </div>
+            <button id="btn-flag-toggle" class="btn-flag" type="button" onclick="App.toggleFlagCurrentQuestion()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/>
+              </svg>
+              <span id="flag-btn-text">ทำเครื่องหมายเพื่อตรวจสอบ</span>
+            </button>
+          </div>
+
+          <!-- Multiple Choice Selection Hint -->
+          <div id="multiple-choice-hint" class="multiple-hint" style="display: none;">
+            💡 ข้อนี้เป็นแบบหลายคำตอบ: โปรดเลือก <span id="multiple-needed-count">2</span> คำตอบ
+          </div>
+
+          <!-- Question Prompt Text -->
+          <div id="q-prompt" class="question-prompt"></div>
+
+          <!-- Options Container -->
+          <div id="q-options" class="options-list" role="group" aria-label="ตัวเลือกคำตอบ"></div>
+
+          <!-- Practice Mode Feedback Box -->
+          <div id="practice-feedback-panel" class="practice-feedback">
+            <div class="practice-feedback-header">
+              <span id="feedback-icon"></span>
+              <span id="feedback-title">ผลการตรวจคำตอบ</span>
+            </div>
+            <div id="feedback-explanation" class="explanation-content"></div>
+            <div id="feedback-meta" class="explanation-meta" style="display: none;"></div>
+            <div id="feedback-refs" class="references-list" style="display: none;"></div>
+          </div>
+
+          <!-- Question Navigation & Action Footer -->
+          <div class="question-footer">
+            <div class="nav-buttons-left">
+              <button id="btn-prev" class="btn btn-secondary" onclick="App.navigateQuestion(-1)">
+                ◀ ข้อก่อนหน้า
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <!-- Practice Mode Check Button -->
+              <button id="btn-practice-check" class="btn btn-primary" onclick="App.checkCurrentPracticeAnswer()" style="display: none;">
+                ตรวจคำตอบ
+              </button>
+              <button id="btn-practice-reset" class="btn btn-secondary" onclick="App.resetCurrentQuestionAnswer()" style="display: none;">
+                ล้างคำตอบ
+              </button>
+            </div>
+
+            <div class="nav-buttons-right">
+              <button id="btn-next" class="btn btn-secondary" onclick="App.navigateQuestion(1)">
+                ข้อถัดไป ▶
+              </button>
+              <button id="btn-submit-exam" class="btn btn-oracle" onclick="App.promptSubmitExam()">
+                ส่งข้อสอบ
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar: Question Navigator -->
+        <aside id="navigator-sidebar" class="navigator-sidebar">
+          <div class="navigator-header">
+            <div class="navigator-title">
+              <span>Question Navigator</span>
+              <span id="nav-answered-summary" style="font-size: 0.8125rem; color: var(--primary);">0/0</span>
+            </div>
+            <div class="progress-bar-container">
+              <div id="nav-progress-fill" class="progress-bar-fill"></div>
+            </div>
+            <div class="progress-stats">
+              <span id="nav-progress-percent">0% สำเร็จ</span>
+              <span id="nav-flagged-count">ทำเครื่องหมาย 0 ข้อ</span>
+            </div>
+          </div>
+
+          <!-- Grid of Question Buttons -->
+          <div id="nav-grid" class="nav-grid"></div>
+
+          <!-- Navigator Legend -->
+          <div class="nav-legend">
+            <div class="legend-item"><div class="legend-dot current"></div><span>ข้อปัจจุบัน</span></div>
+            <div class="legend-item"><div class="legend-dot answered"></div><span>ตอบแล้ว</span></div>
+            <div class="legend-item"><div class="legend-dot unanswered"></div><span>ยังไม่ตอบ</span></div>
+            <div class="legend-item"><div class="legend-dot flagged"></div><span>ทำเครื่องหมาย</span></div>
+          </div>
+
+          <div style="margin-top: 1rem; text-align: center;">
+            <button class="btn btn-outline-danger btn-sm" style="width: 100%;" onclick="App.promptSubmitExam()">
+              ส่งข้อสอบทันที
+            </button>
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- Mobile Navigator Toggle Floating Button -->
+      <button id="btn-mobile-nav" class="btn btn-primary mobile-nav-toggle" onclick="App.toggleMobileNavigator()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        <span>ข้อสอบ (<span id="mobile-nav-count">0/0</span>)</span>
+      </button>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 4: RESULTS SCREEN
+         ========================================================================== -->
+    <section id="view-results" class="view-section">
+      <!-- Hero Banner -->
+      <div id="results-hero-card" class="results-hero passed">
+        <div id="result-badge-text" class="result-badge">ผ่านการทดสอบ (PASSED)</div>
+        <div id="result-score-main" class="result-score-large">85%</div>
+        <div id="result-score-detail" class="result-score-sub">คะแนนดิบ: 34 / 40 ข้อ</div>
+        <div id="result-target-info" class="result-target-note">เกณฑ์ผ่านการสอบ: 68%</div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon correct">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <h5>ตอบถูกต้อง</h5>
+            <div id="metric-correct" class="metric-val">0</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon incorrect">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <h5>ตอบผิด</h5>
+            <div id="metric-incorrect" class="metric-val">0</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon unanswered">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <h5>ไม่ได้ตอบ</h5>
+            <div id="metric-unanswered" class="metric-val">0</div>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon time">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="metric-info">
+            <h5>เวลาที่ใช้</h5>
+            <div id="metric-time" class="metric-val">00:00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Domain Performance Charts -->
+      <div class="domain-analysis">
+        <h3>คะแนนแยกตาม Domain</h3>
+        <div id="domain-charts-container"></div>
+      </div>
+
+      <!-- Recommendations / Priority Review -->
+      <div id="review-recommendations-card" class="review-recommendation-card">
+        <h3>รายการ Domain ที่ควรทบทวน (เรียงจากคะแนนต่ำไปสูง)</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 0.25rem;">
+          แนะนำให้เน้นอ่านและทำความเข้าใจ Domain ที่ได้คะแนนน้อยกว่าเกณฑ์ผ่านก่อนลงสอบจริง
+        </p>
+        <div id="recommendations-container" class="recommendation-list"></div>
+      </div>
+
+      <!-- Result Action Buttons -->
+      <div class="results-actions">
+        <button class="btn btn-primary btn-lg" onclick="App.showReviewView()">
+          🔍 ดูเฉลยและทบทวนคำตอบ
+        </button>
+        <button id="btn-retake-wrong" class="btn btn-oracle" onclick="App.retakeWrongQuestions()">
+          ทำเฉพาะข้อที่ตอบผิด
+        </button>
+        <button class="btn btn-secondary" onclick="App.retakeFullExam()">
+          ทำข้อสอบใหม่ทั้งหมด
+        </button>
+        <button class="btn btn-secondary" onclick="App.exportResultsJSON()">
+          Export ผลสอบ (JSON)
+        </button>
+        <button class="btn btn-secondary" onclick="App.exportResultsCSV()">
+          Export สรุปผล (CSV)
+        </button>
+        <button class="btn btn-secondary" onclick="window.print()">
+          พิมพ์ผลสอบ (Print)
+        </button>
+        <button class="btn btn-secondary" onclick="App.showView('view-import')">
+          นำเข้าชุดข้อสอบใหม่
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         VIEW 5: ANSWER REVIEW SCREEN
+         ========================================================================== -->
+    <section id="view-review" class="view-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <h2>ทบทวนเฉลยคำตอบ</h2>
+        <button class="btn btn-secondary btn-sm" onclick="App.showView('view-results')">
+          ◀ กลับไปหน้าสรุปผล
+        </button>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="review-filters">
+        <div class="filter-pills">
+          <button class="filter-pill active" onclick="App.setReviewFilter('all', this)">ทั้งหมด (<span id="rf-count-all">0</span>)</button>
+          <button class="filter-pill" onclick="App.setReviewFilter('incorrect', this)">เฉพาะข้อที่ผิด (<span id="rf-count-wrong">0</span>)</button>
+          <button class="filter-pill" onclick="App.setReviewFilter('unanswered', this)">ไม่ได้ตอบ (<span id="rf-count-unanswered">0</span>)</button>
+          <button class="filter-pill" onclick="App.setReviewFilter('flagged', this)">ทำเครื่องหมายไว้ (<span id="rf-count-flagged">0</span>)</button>
+        </div>
+
+        <div>
+          <select id="review-domain-filter" class="filter-select" onchange="App.onReviewDomainChange(this.value)">
+            <option value="all">ทุก Domain</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Question Cards List -->
+      <div id="review-cards-list"></div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn btn-primary" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          ขึ้นไปด้านบนสุด ↑
+        </button>
+        <button class="btn btn-secondary" onclick="App.showView('view-results')" style="margin-left: 0.5rem;">
+          กลับไปหน้าสรุปผล
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       MODALS & DIALOGS
+       ========================================================================== -->
+
+  <!-- Submit Confirmation Modal -->
+  <div id="modal-submit-confirm" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <h3>ยืนยันการส่งข้อสอบ</h3>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.75rem;">คุณต้องการยืนยันการส่งข้อสอบหรือไม่?</p>
+        <div style="background-color: var(--bg-surface-alt); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+            <span>ตอบแล้ว:</span>
+            <strong id="modal-answered-count" style="color: var(--success);">0 ข้อ</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+            <span>ยังไม่ได้ตอบ:</span>
+            <strong id="modal-unanswered-count" style="color: var(--danger);">0 ข้อ</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>ทำเครื่องหมายไว้:</span>
+            <strong id="modal-flagged-count" style="color: var(--flag);">0 ข้อ</strong>
+          </div>
+        </div>
+        <p id="modal-submit-warning" style="font-size: 0.875rem; color: var(--danger); display: none;">
+          ⚠️ คุณยังมีข้อที่ยังไม่ได้ตอบ หากส่งข้อสอบตอนนี้ ข้อที่ไม่ได้ตอบจะคิดเป็น 0 คะแนน
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeSubmitModal()">
+          กลับไปทำต่อ
+        </button>
+        <button type="button" id="btn-modal-confirm-submit" class="btn btn-oracle" onclick="App.executeSubmitExam()">
+          ยืนยันส่งข้อสอบ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time Up Modal -->
+  <div id="modal-time-up" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <h3>หมดเวลาทำข้อสอบ!</h3>
+      </div>
+      <div class="modal-body">
+        <p>เวลาการสอบสิ้นสุดลงแล้ว ระบบได้ทำการบันทึกและส่งคำตอบของคุณโดยอัตโนมัติ</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="App.closeTimeUpModal()">
+          ดูผลคะแนน ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resume Unfinished Session Modal -->
+  <div id="modal-resume-session" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2">
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/>
+        </svg>
+        <h3>พบข้อสอบที่ยังทำไม่เสร็จ</h3>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 0.5rem;">ระบบพบข้อสอบที่คุณกำลังทำค้างไว้ในระบบ:</p>
+        <div style="background-color: var(--bg-surface-alt); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem; font-size: 0.875rem;">
+          <div><strong>ชุดข้อสอบ:</strong> <span id="resume-set-title">-</span></div>
+          <div><strong>โหมด:</strong> <span id="resume-mode">-</span></div>
+          <div><strong>ความคืบหน้า:</strong> <span id="resume-progress">-</span></div>
+          <div><strong>เวลาที่เหลือ:</strong> <span id="resume-time">-</span></div>
+        </div>
+        <p style="font-size: 0.875rem; color: var(--text-muted);">คุณต้องการทำข้อสอบต่อจากเดิม หรือเริ่มทำใหม่?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.discardSavedSession()">
+          เริ่มใหม่ / ล้างข้อมูล
+        </button>
+        <button type="button" class="btn btn-primary" onclick="App.resumeSavedSession()">
+          ทำต่อจากเดิม ▶
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT APPLICATION CODE
+       ========================================================================== -->
+  <script>
+    "use strict";
+
+    /* ==========================================================================
+       1. SECURITY & SAFE DOM UTILITIES
+       ========================================================================== */
+    const DOM = {
+      // Safe text node setter (prevents XSS completely)
+      setText(element, text) {
+        if (!element) return;
+        element.textContent = (text !== null && text !== undefined) ? String(text) : "";
+      },
+
+      // Create element with attributes and safe text content
+      create(tag, attributes = {}, textContent = null) {
+        const el = document.createElement(tag);
+        for (const [key, val] of Object.entries(attributes)) {
+          if (key === "className") {
+            el.className = val;
+          } else if (key.startsWith("on") && typeof val === "function") {
+            el.addEventListener(key.substring(2).toLowerCase(), val);
+          } else if (val !== null && val !== undefined) {
+            el.setAttribute(key, val);
+          }
+        }
+        if (textContent !== null) {
+          el.textContent = textContent;
+        }
+        return el;
+      },
+
+      // Sanitize URL for safe external anchor tags
+      sanitizeUrl(url) {
+        if (!url || typeof url !== "string") return "#";
+        const trimmed = url.trim();
+        if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+          return trimmed;
+        }
+        return "#";
+      }
+    };
+
+    /* ==========================================================================
+       2. SOUND EFFECTS (Web Audio API - Pure Offline)
+       ========================================================================== */
+    const Sound = {
+      enabled: true,
+      ctx: null,
+
+      init() {
+        if (!this.ctx && (window.AudioContext || window.webkitAudioContext)) {
+          try {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+          } catch (e) {
+            this.enabled = false;
+          }
+        }
+      },
+
+      playBeep(frequency = 600, duration = 0.15, type = "sine") {
+        if (!this.enabled) return;
+        try {
+          this.init();
+          if (this.ctx && this.ctx.state === "suspended") {
+            this.ctx.resume();
+          }
+          if (!this.ctx) return;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(frequency, this.ctx.currentTime);
+          gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          // Audio play failure ignored silently
+        }
+      },
+
+      playWarning() {
+        this.playBeep(520, 0.15, "triangle");
+        setTimeout(() => this.playBeep(520, 0.25, "triangle"), 180);
+      },
+
+      playDanger() {
+        this.playBeep(880, 0.2, "sawtooth");
+        setTimeout(() => this.playBeep(880, 0.3, "sawtooth"), 220);
+      }
+    };
+
+    /* ==========================================================================
+       3. VALIDATOR MODULE
+       ========================================================================== */
+    const Validator = {
+      validate(json) {
+        const errors = [];
+
+        if (!json || typeof json !== "object") {
+          return { valid: false, errors: ["ข้อมูลในไฟล์ JSON ต้องเป็น Object"] };
+        }
+
+        // 1. Root fields validation
+        if (json.schema_version === undefined || json.schema_version === null || String(json.schema_version).trim() === "") {
+          errors.push("ไม่พบฟิลด์สำคัญ: 'schema_version' ที่ระดับบนสุด");
+        }
+        if (!json.exam) {
+          errors.push("ไม่พบฟิลด์สำคัญ: 'exam' ที่ระดับบนสุด");
+        }
+        if (!json.set || typeof json.set !== "object") {
+          errors.push("ไม่พบฟิลด์สำคัญ: 'set' (ต้องเป็น Object)");
+        } else {
+          // set sub-fields
+          const count = Number(json.set.question_count);
+          if (!Number.isInteger(count) || count <= 0) {
+            errors.push("ฟิลด์ 'set.question_count' ต้องเป็นจำนวนเต็มที่มากกว่า 0");
+          }
+          const time = Number(json.set.time_limit_minutes);
+          if (isNaN(time) || time <= 0) {
+            errors.push("ฟิลด์ 'set.time_limit_minutes' ต้องเป็นตัวเลขเวลาที่มากกว่า 0");
+          }
+          const passing = Number(json.set.passing_score_percent);
+          if (isNaN(passing) || passing <= 0 || passing > 100) {
+            errors.push("ฟิลด์ 'set.passing_score_percent' ต้องเป็นตัวเลขเปอร์เซ็นต์ระหว่าง 1 ถึง 100");
+          }
+          if (json.set.blueprint === undefined || json.set.blueprint === null) {
+            errors.push("ไม่พบฟิลด์ 'set.blueprint'");
+          }
+        }
+
+        // 2. questions array validation
+        if (!Array.isArray(json.questions) || json.questions.length === 0) {
+          errors.push("ฟิลด์ 'questions' ต้องเป็น Array และมีคำถามอย่างน้อย 1 ข้อ");
+          return { valid: false, errors };
+        }
+
+        const seenQuestionIds = new Set();
+
+        json.questions.forEach((q, idx) => {
+          const qPos = `คำถามลำดับที่ ${idx + 1}`;
+
+          if (!q || typeof q !== "object") {
+            errors.push(`${qPos}: ข้อมูลคำถามไม่ถูกต้อง (ไม่ใช่ Object)`);
+            return;
+          }
+
+          // Check ID
+          if (q.id === undefined || q.id === null || String(q.id).trim() === "") {
+            errors.push(`${qPos}: ไม่มีค่า 'id'`);
+            return;
+          }
+          const qIdStr = String(q.id).trim();
+          if (seenQuestionIds.has(qIdStr)) {
+            errors.push(`ข้อ ID '${qIdStr}': พบ 'id' ซ้ำกับคำถามข้ออื่น`);
+          } else {
+            seenQuestionIds.add(qIdStr);
+          }
+
+          const prefix = `ข้อ ID '${qIdStr}'`;
+
+          // Check domain
+          if (!q.domain || typeof q.domain !== "string" || q.domain.trim() === "") {
+            errors.push(`${prefix}: ไม่มีค่า 'domain'`);
+          }
+
+          // Check type
+          if (q.type !== "single" && q.type !== "multiple") {
+            errors.push(`${prefix}: 'type' ต้องเป็น 'single' หรือ 'multiple' เท่านั้น (พบ '${q.type}')`);
+          }
+
+          // Check question text
+          let hasQuestionText = false;
+          if (typeof q.question === "string" && q.question.trim() !== "") {
+            hasQuestionText = true;
+          } else if (q.question && typeof q.question === "object") {
+            hasQuestionText = Object.values(q.question).some(v => typeof v === "string" && v.trim() !== "");
+          } else if (typeof q.q_en === "string" || typeof q.q_th === "string") {
+            hasQuestionText = true;
+          }
+          if (!hasQuestionText) {
+            errors.push(`${prefix}: ไม่มีข้อความคำถาม ('question')`);
+          }
+
+          // Check options
+          if (!Array.isArray(q.options)) {
+            errors.push(`${prefix}: ไม่มีตัวเลือก ('options') หรือไม่ใช่ Array`);
+          } else if (q.options.length < 4) {
+            errors.push(`${prefix}: ต้องมีตัวเลือกอย่างน้อย 4 ข้อ (พบ ${q.options.length} ข้อ)`);
+          } else {
+            const seenOptionIds = new Set();
+
+            q.options.forEach((opt, optIdx) => {
+              let optId = null;
+              if (typeof opt === "object" && opt !== null) {
+                if (opt.id !== undefined && opt.id !== null) optId = String(opt.id).trim();
+                else if (opt.key !== undefined && opt.key !== null) optId = String(opt.key).trim();
+              } else if (typeof opt === "string") {
+                optId = String.fromCharCode(65 + optIdx);
+              }
+
+              if (!optId) {
+                errors.push(`${prefix}: ตัวเลือกลำดับที่ ${optIdx + 1} ไม่มี ID หรือ key`);
+              } else if (seenOptionIds.has(optId)) {
+                errors.push(`${prefix}: พบ Option ID ซ้ำกันภายในข้อ: '${optId}'`);
+              } else {
+                seenOptionIds.add(optId);
+              }
+            });
+
+            // Check correct_answer
+            const rawAns = q.correct_answer ?? q.answer;
+            if (!Array.isArray(rawAns)) {
+              errors.push(`${prefix}: ฟิลด์ 'correct_answer' ต้องเป็น Array`);
+            } else {
+              if (rawAns.length === 0) {
+                errors.push(`${prefix}: 'correct_answer' ต้องมีคำตอบที่ถูกต้องอย่างน้อย 1 ข้อ`);
+              }
+
+              // Verify references exist
+              rawAns.forEach(ans => {
+                const ansStr = String(ans).trim();
+                if (!seenOptionIds.has(ansStr)) {
+                  errors.push(`${prefix}: correct_answer '${ansStr}' ไม่อยู่ในรายการตัวเลือกของข้อนี้`);
+                }
+              });
+
+              // Check single vs multiple constraints
+              if (q.type === "single" && rawAns.length !== 1) {
+                errors.push(`${prefix}: ข้อสอบประเภท single ต้องมีคำตอบถูก 1 ข้อเท่านั้น (พบ ${rawAns.length} ข้อ)`);
+              } else if (q.type === "multiple" && rawAns.length < 2) {
+                errors.push(`${prefix}: ข้อสอบประเภท multiple ต้องมีคำตอบถูกอย่างน้อย 2 ข้อ (พบ ${rawAns.length} ข้อ)`);
+              }
+            }
+          }
+
+          // Check explanation
+          let hasExplanation = false;
+          if (typeof q.explanation === "string" && q.explanation.trim() !== "") {
+            hasExplanation = true;
+          } else if (q.explanation && typeof q.explanation === "object") {
+            hasExplanation = Object.values(q.explanation).some(v => typeof v === "string" && v.trim() !== "");
+          } else if (typeof q.explanation_th === "string" || typeof q.explanation_en === "string") {
+            hasExplanation = true;
+          }
+          if (!hasExplanation) {
+            errors.push(`${prefix}: ไม่มีคำอธิบายเฉลย ('explanation')`);
+          }
+        });
+
+        return {
+          valid: errors.length === 0,
+          errors
+        };
+      }
+    };
+
+    /* ==========================================================================
+       4. DATA NORMALIZER
+       ========================================================================== */
+    const Normalizer = {
+      normalizeExamData(json) {
+        const examObj = (typeof json.exam === "object") ? json.exam : { code: String(json.exam), title: String(json.exam) };
+        const examCode = examObj.code || examObj.exam_code || "1Z0-1085-26";
+        const examTitle = examObj.title || examObj.name || "Oracle Cloud Infrastructure Foundations Associate";
+
+        const setObj = json.set || {};
+        const setId = setObj.id || "oci-foundations-set-default";
+        const setName = setObj.name || setObj.title || "ชุดข้อสอบ OCI Foundations";
+        const questionCount = Number(setObj.question_count) || json.questions.length;
+        const timeLimit = Number(setObj.time_limit_minutes) || 60;
+        const passingScore = Number(setObj.passing_score_percent) || 68;
+
+        const normalizedQuestions = json.questions.map((q, idx) => {
+          // Normalize prompt text
+          let promptText = "";
+          if (typeof q.question === "string") {
+            promptText = q.question;
+          } else if (q.question && typeof q.question === "object") {
+            promptText = q.question.th || q.question.en || Object.values(q.question)[0] || "";
+          } else if (q.q_en && q.q_th) {
+            promptText = `${q.q_en}\n\n[คำแปลไทย]\n${q.q_th}`;
+          } else {
+            promptText = q.q_en || q.q_th || "";
+          }
+
+          // Normalize options
+          const options = q.options.map((opt, optIdx) => {
+            let id = "";
+            let text = "";
+            if (typeof opt === "object" && opt !== null) {
+              id = String(opt.id ?? opt.key ?? String.fromCharCode(65 + optIdx)).trim();
+              if (opt.text_en && opt.text_th) {
+                text = `${opt.text_en} (${opt.text_th})`;
+              } else {
+                text = String(opt.text ?? opt.text_en ?? opt.text_th ?? opt.label ?? opt.value ?? "").trim();
+              }
+            } else {
+              id = String.fromCharCode(65 + optIdx);
+              text = String(opt).trim();
+            }
+            return { id, text };
+          });
+
+          // Normalize correct_answer
+          const rawAns = q.correct_answer ?? q.answer ?? [];
+          const correct_answer = (Array.isArray(rawAns) ? rawAns : [rawAns]).map(a => String(a).trim());
+
+          // Normalize explanation
+          let explanationText = "";
+          if (typeof q.explanation === "string") {
+            explanationText = q.explanation;
+          } else if (q.explanation && typeof q.explanation === "object") {
+            explanationText = q.explanation.th || q.explanation.en || Object.values(q.explanation)[0] || "";
+          } else if (q.explanation_th) {
+            explanationText = q.explanation_th;
+          } else if (q.explanation_en) {
+            explanationText = q.explanation_en;
+          }
+
+          // Normalize subtopics & tags
+          const subtopics = Array.isArray(q.subtopics) ? q.subtopics : (q.subtopic ? [q.subtopic] : []);
+          const tags = Array.isArray(q.tags) ? q.tags : (q.tag ? [q.tag] : []);
+
+          // Normalize references
+          const references = [];
+          const rawRefs = q.references ?? q.reference ?? [];
+          const refArr = Array.isArray(rawRefs) ? rawRefs : [rawRefs];
+          refArr.forEach(r => {
+            if (typeof r === "object" && r !== null) {
+              references.push({
+                title: r.title || r.name || r.url || "เอกสารอ้างอิง Oracle",
+                url: r.url || r.link || "#"
+              });
+            } else if (typeof r === "string" && r.trim() !== "") {
+              references.push({
+                title: r,
+                url: r.startsWith("http") ? r : `https://docs.oracle.com/search/?q=${encodeURIComponent(r)}`
+              });
+            }
+          });
+
+          return {
+            id: String(q.id),
+            domain: String(q.domain).trim(),
+            difficulty: String(q.difficulty || "medium").toLowerCase(),
+            type: q.type === "multiple" ? "multiple" : "single",
+            question: promptText,
+            options,
+            correct_answer,
+            explanation: explanationText,
+            subtopics,
+            tags,
+            references
+          };
+        });
+
+        // Compute domain breakdown
+        const domainCounts = {};
+        normalizedQuestions.forEach(q => {
+          domainCounts[q.domain] = (domainCounts[q.domain] || 0) + 1;
+        });
+
+        return {
+          examCode,
+          examTitle,
+          setId,
+          setName,
+          questionCount,
+          timeLimit,
+          passingScore,
+          blueprint: setObj.blueprint || domainCounts,
+          domainCounts,
+          questions: normalizedQuestions
+        };
+      }
+    };
+
+    /* ==========================================================================
+       5. LOCAL STORAGE SESSION MANAGER
+       ========================================================================== */
+    const Storage = {
+      KEY: "oci_foundations_mock_session_v1",
+
+      saveSession(sessionData) {
+        try {
+          localStorage.setItem(this.KEY, JSON.stringify(sessionData));
+        } catch (e) {
+          console.warn("Storage save error:", e);
+        }
+      },
+
+      loadSession() {
+        try {
+          const raw = localStorage.getItem(this.KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      },
+
+      clearSession() {
+        try {
+          localStorage.removeItem(this.KEY);
+        } catch (e) {
+          console.warn("Storage clear error:", e);
+        }
+      }
+    };
+
+    /* ==========================================================================
+       6. CENTRAL APPLICATION CONTROLLER & STATE
+       ========================================================================== */
+    const App = {
+      // Raw imported data
+      rawExamData: null,
+
+      // Pre-exam settings
+      settings: {
+        mode: "exam",             // 'exam' | 'practice'
+        questionCountMode: "all", // 'all' | 'custom'
+        customQuestionCount: 20,
+        selectedDomains: [],
+        shuffleQuestions: false,
+        shuffleOptions: false,
+        enableTimer: true
+      },
+
+      // Active Exam Runtime State
+      state: {
+        active: false,
+        setId: "",
+        examTitle: "",
+        examCode: "",
+        mode: "exam",
+        questions: [],            // Array of questions in current test (possibly shuffled)
+        userAnswers: {},          // { [qId]: ["A", "B"] }
+        flagged: new Set(),       // Set of qIds
+        currentIndex: 0,
+        remainingSeconds: 0,
+        totalSeconds: 0,
+        timerEnabled: true,
+        timerInterval: null,
+        startTime: 0,
+        elapsedSeconds: 0,
+        warned10m: false,
+        warned5m: false,
+        practiceChecked: {},      // { [qId]: true }
+        isSubmitting: false
+      },
+
+      // Completed Exam Results
+      results: null,
+
+      // Review View Filter State
+      reviewFilter: {
+        type: "all",              // 'all' | 'incorrect' | 'unanswered' | 'flagged'
+        domain: "all"
+      },
+
+      /* ==========================================================================
+         INITIALIZATION & EVENT BINDINGS
+         ========================================================================== */
+      init() {
+        this.initTheme();
+        this.initDragAndDrop();
+        this.initKeyboardNav();
+        this.initBeforeUnload();
+        this.checkSavedSessionOnStartup();
+
+        // Sound button toggle
+        document.getElementById("btn-sound-toggle").addEventListener("click", () => {
+          Sound.enabled = !Sound.enabled;
+          document.getElementById("icon-sound-on").style.display = Sound.enabled ? "block" : "none";
+          document.getElementById("icon-sound-off").style.display = Sound.enabled ? "none" : "block";
+          this.showToast(Sound.enabled ? "เปิดเสียงเตือนแล้ว" : "ปิดเสียงเตือนแล้ว");
+          if (Sound.enabled) Sound.playBeep(700, 0.1);
+        });
+
+        // Theme button toggle
+        document.getElementById("btn-theme-toggle").addEventListener("click", () => {
+          const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          this.setTheme(newTheme);
+        });
+
+        // Brand click
+        document.getElementById("brand-logo").addEventListener("click", () => {
+          if (this.state.active) {
+            if (confirm("การสอบกำลังดำเนินอยู่ คุณต้องการออกจากหน้าข้อสอบหรือไม่?")) {
+              this.showView("view-import");
+            }
+          } else {
+            this.showView("view-import");
+          }
+        });
+
+        // Proceed to setup button
+        document.getElementById("btn-proceed-setup").addEventListener("click", () => {
+          this.prepareSetupScreen();
+          this.showView("view-setup");
+        });
+
+        // Header Submit Button
+        document.getElementById("btn-header-submit").addEventListener("click", () => {
+          this.promptSubmitExam();
+        });
+
+        // Submit Confirm Modal Direct Event Listeners
+        const confirmSubmitBtn = document.getElementById("btn-modal-confirm-submit");
+        if (confirmSubmitBtn) {
+          confirmSubmitBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            this.executeSubmitExam();
+          });
+        }
+
+        // Close submit modal on backdrop click
+        const submitModal = document.getElementById("modal-submit-confirm");
+        if (submitModal) {
+          submitModal.addEventListener("click", (e) => {
+            if (e.target === submitModal) {
+              this.closeSubmitModal();
+            }
+          });
+        }
+      },
+
+      /* ==========================================================================
+         THEME HANDLING
+         ========================================================================== */
+      initTheme() {
+        const savedTheme = localStorage.getItem("oci_mock_theme");
+        if (savedTheme === "dark" || savedTheme === "light") {
+          this.setTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          this.setTheme("dark");
+        } else {
+          this.setTheme("light");
+        }
+      },
+
+      setTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("oci_mock_theme", theme);
+        document.getElementById("icon-sun").style.display = theme === "dark" ? "block" : "none";
+        document.getElementById("icon-moon").style.display = theme === "dark" ? "none" : "block";
+      },
+
+      /* ==========================================================================
+         VIEW SWITCHER
+         ========================================================================== */
+      showView(viewId) {
+        document.querySelectorAll(".view-section").forEach(sec => sec.classList.remove("active"));
+        const target = document.getElementById(viewId);
+        if (target) {
+          target.classList.add("active");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // Header controls visibility
+        const isExamActive = (viewId === "view-exam" && this.state.active);
+        document.getElementById("exam-timer-box").style.display = isExamActive && this.state.timerEnabled ? "inline-flex" : "none";
+        document.getElementById("exam-mode-badge").style.display = isExamActive ? "inline-flex" : "none";
+        document.getElementById("btn-header-submit").style.display = isExamActive ? "inline-flex" : "none";
+
+        if (isExamActive) {
+          const modeBadge = document.getElementById("exam-mode-badge");
+          if (this.state.mode === "practice") {
+            modeBadge.textContent = "Practice Mode";
+            modeBadge.className = "header-badge practice";
+          } else {
+            modeBadge.textContent = "Exam Mode";
+            modeBadge.className = "header-badge";
+          }
+        }
+      },
+
+      /* ==========================================================================
+         DRAG AND DROP & FILE READING
+         ========================================================================== */
+      initDragAndDrop() {
+        const dropzone = document.getElementById("dropzone");
+        const fileInput = document.getElementById("file-input");
+
+        ["dragenter", "dragover"].forEach(evt => {
+          dropzone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.add("dragover");
+          });
+        });
+
+        ["dragleave", "drop"].forEach(evt => {
+          dropzone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropzone.classList.remove("dragover");
+          });
+        });
+
+        dropzone.addEventListener("drop", (e) => {
+          const files = e.dataTransfer.files;
+          if (files && files.length > 0) {
+            this.handleSelectedFile(files[0]);
+          }
+        });
+
+        fileInput.addEventListener("change", (e) => {
+          if (e.target.files && e.target.files.length > 0) {
+            this.handleSelectedFile(e.target.files[0]);
+          }
+        });
+      },
+
+      handleSelectedFile(file) {
+        if (!file.name.toLowerCase().endsWith(".json")) {
+          this.showImportErrors(["ไฟล์ที่เลือกไม่ใช่ไฟล์ .json กรุณาเลือกไฟล์ JSON เท่านั้น"]);
+          return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const parsed = JSON.parse(e.target.result);
+            this.processLoadedJSON(parsed, file.name);
+          } catch (err) {
+            this.showImportErrors([`ไฟล์ JSON มีรูปแบบไวยากรณ์ไม่ถูกต้อง (JSON Parse Error): ${err.message}`]);
+          }
+        };
+        reader.onerror = () => {
+          this.showImportErrors(["เกิดข้อผิดพลาดในการอ่านไฟล์จากเครื่อง"]);
+        };
+        reader.readAsText(file, "UTF-8");
+      },
+
+      processLoadedJSON(json, fileName = "exam.json") {
+        const validation = Validator.validate(json);
+        if (!validation.valid) {
+          this.showImportErrors(validation.errors);
+          document.getElementById("exam-summary-card").style.display = "none";
+          return;
+        }
+
+        // Hide errors
+        document.getElementById("import-error-box").style.display = "none";
+
+        // Normalize data
+        const normalized = Normalizer.normalizeExamData(json);
+        this.rawExamData = normalized;
+
+        // Render Summary Card
+        this.renderExamSummary(normalized);
+
+        // Check if there was an active saved session matching this Set ID
+        const saved = Storage.loadSession();
+        if (saved && saved.active && saved.setId === normalized.setId) {
+          this.promptResumeExistingSession(saved);
+        } else if (saved && saved.active && saved.setId !== normalized.setId) {
+          // If set ID differs, prompt user or clear old session safely
+          this.showToast("ตรวจพบไฟล์ชุดใหม่ ระบบจะเริ่มเซสชันใหม่สำหรับชุดนี้");
+          Storage.clearSession();
+        }
+      },
+
+      showImportErrors(errors) {
+        const box = document.getElementById("import-error-box");
+        const list = document.getElementById("import-error-list");
+        list.innerHTML = "";
+
+        errors.forEach(err => {
+          const li = DOM.create("li", {}, err);
+          list.appendChild(li);
+        });
+
+        box.style.display = "flex";
+        box.scrollIntoView({ behavior: "smooth", block: "center" });
+        Sound.playDanger();
+      },
+
+      renderExamSummary(data) {
+        DOM.setText(document.getElementById("sum-title"), data.setName);
+        DOM.setText(document.getElementById("sum-code"), `รหัสวิชา: ${data.examCode} • ${data.examTitle}`);
+        DOM.setText(document.getElementById("sum-count"), `${data.questions.length} ข้อ`);
+        DOM.setText(document.getElementById("sum-time"), `${data.timeLimit} นาที`);
+        DOM.setText(document.getElementById("sum-pass"), `${data.passingScore}%`);
+
+        const domainList = document.getElementById("sum-domains-list");
+        domainList.innerHTML = "";
+
+        Object.entries(data.domainCounts).forEach(([domain, count]) => {
+          const item = DOM.create("div", { className: "domain-item" });
+          const nameSpan = DOM.create("span", { className: "domain-name" }, domain);
+          const countSpan = DOM.create("span", { className: "domain-count" }, `${count} ข้อ`);
+          item.appendChild(nameSpan);
+          item.appendChild(countSpan);
+          domainList.appendChild(item);
+        });
+
+        const card = document.getElementById("exam-summary-card");
+        card.style.display = "block";
+        card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      },
+
+      /* ==========================================================================
+         SETUP SCREEN LOGIC
+         ========================================================================== */
+      prepareSetupScreen() {
+        if (!this.rawExamData) return;
+
+        const totalQ = this.rawExamData.questions.length;
+        DOM.setText(document.getElementById("setup-total-q-label"), totalQ);
+
+        const customInput = document.getElementById("input-custom-qcount");
+        customInput.max = totalQ;
+        customInput.value = Math.min(20, totalQ);
+
+        // Populate Domain Checkboxes
+        const domainContainer = document.getElementById("setup-domains-list");
+        domainContainer.innerHTML = "";
+        this.settings.selectedDomains = Object.keys(this.rawExamData.domainCounts);
+
+        Object.entries(this.rawExamData.domainCounts).forEach(([domain, count]) => {
+          const label = DOM.create("label", { className: "checkbox-label" });
+          const chk = DOM.create("input", {
+            type: "checkbox",
+            value: domain,
+            checked: true,
+            onchange: () => this.onDomainCheckboxChange()
+          });
+          const textSpan = DOM.create("span", { style: "flex: 1;" }, domain);
+          const badge = DOM.create("span", { className: "badge badge-domain" }, `${count} ข้อ`);
+
+          label.appendChild(chk);
+          label.appendChild(textSpan);
+          label.appendChild(badge);
+          domainContainer.appendChild(label);
+        });
+
+        // Set Default Mode
+        this.setMode(this.settings.mode);
+      },
+
+      setMode(mode) {
+        this.settings.mode = mode;
+        const examCard = document.getElementById("mode-card-exam");
+        const practiceCard = document.getElementById("mode-card-practice");
+        const timerToggleDesc = document.getElementById("timer-toggle-desc");
+
+        if (mode === "practice") {
+          practiceCard.classList.add("selected");
+          examCard.classList.remove("selected");
+          timerToggleDesc.textContent = "ใน Practice Mode สามารถปิดตัวจับเวลาเพื่อทำข้อสอบแบบไม่จำกัดเวลาได้";
+        } else {
+          examCard.classList.add("selected");
+          practiceCard.classList.remove("selected");
+          timerToggleDesc.textContent = "นับถอยหลังตามเกณฑ์เวลาที่กำหนดในชุดข้อสอบ";
+          document.getElementById("toggle-enable-timer").checked = true;
+        }
+      },
+
+      onQuestionCountModeChange() {
+        const isCustom = document.getElementById("qcount-custom").checked;
+        document.getElementById("input-custom-qcount").disabled = !isCustom;
+      },
+
+      toggleAllDomains(select) {
+        const chks = document.querySelectorAll("#setup-domains-list input[type='checkbox']");
+        chks.forEach(c => c.checked = select);
+        this.onDomainCheckboxChange();
+      },
+
+      onDomainCheckboxChange() {
+        const chks = document.querySelectorAll("#setup-domains-list input[type='checkbox']");
+        this.settings.selectedDomains = Array.from(chks).filter(c => c.checked).map(c => c.value);
+
+        // Calculate available questions matching selected domains
+        const availableCount = this.rawExamData.questions.filter(q => this.settings.selectedDomains.includes(q.domain)).length;
+        DOM.setText(document.getElementById("setup-total-q-label"), availableCount);
+
+        const customInput = document.getElementById("input-custom-qcount");
+        customInput.max = availableCount;
+        if (Number(customInput.value) > availableCount) {
+          customInput.value = availableCount;
+        }
+      },
+
+      /* ==========================================================================
+         START EXAM ENGINE
+         ========================================================================== */
+      startExam() {
+        if (!this.rawExamData) return;
+
+        // Collect domain filters
+        if (this.settings.selectedDomains.length === 0) {
+          alert("กรุณาเลือกอย่างน้อย 1 Domain เพื่อเริ่มทำข้อสอบ");
+          return;
+        }
+
+        // Filter pool by domains
+        let questionPool = this.rawExamData.questions.filter(q => this.settings.selectedDomains.includes(q.domain));
+        if (questionPool.length === 0) {
+          alert("ไม่มีข้อสอบใน Domain ที่เลือก");
+          return;
+        }
+
+        // Question count determination
+        const isCustomCount = document.getElementById("qcount-custom").checked;
+        let countToTake = questionPool.length;
+        if (isCustomCount) {
+          const val = Number(document.getElementById("input-custom-qcount").value);
+          if (val > 0 && val <= questionPool.length) {
+            countToTake = val;
+          }
+        }
+
+        // Randomize questions if requested
+        const shuffleQ = document.getElementById("toggle-shuffle-q").checked;
+        const shuffleOpt = document.getElementById("toggle-shuffle-opt").checked;
+        this.settings.shuffleQuestions = shuffleQ;
+        this.settings.shuffleOptions = shuffleOpt;
+
+        let examQuestions = questionPool.map(q => ({
+          ...q,
+          options: q.options.map(opt => ({ ...opt })) // deep copy options
+        }));
+
+        if (shuffleQ) {
+          examQuestions = this.shuffleArray(examQuestions);
+        }
+
+        // Slice to requested count
+        examQuestions = examQuestions.slice(0, countToTake);
+
+        // Shuffle options if requested (CRITICAL: preserve underlying option IDs!)
+        if (shuffleOpt) {
+          examQuestions.forEach(q => {
+            q.options = this.shuffleArray(q.options);
+          });
+        }
+
+        // Timer calculation
+        const enableTimer = document.getElementById("toggle-enable-timer").checked;
+        let examDurationMinutes = this.rawExamData.timeLimit;
+        // If taking partial questions, pro-rate time proportionally (minimum 5 minutes)
+        if (countToTake < this.rawExamData.questions.length) {
+          examDurationMinutes = Math.max(5, Math.round((this.rawExamData.timeLimit / this.rawExamData.questions.length) * countToTake));
+        }
+
+        const totalSeconds = examDurationMinutes * 60;
+
+        // Initialize state
+        this.state = {
+          active: true,
+          setId: this.rawExamData.setId,
+          examTitle: this.rawExamData.setName,
+          examCode: this.rawExamData.examCode,
+          mode: this.settings.mode,
+          questions: examQuestions,
+          userAnswers: {},
+          flagged: new Set(),
+          currentIndex: 0,
+          remainingSeconds: totalSeconds,
+          totalSeconds: totalSeconds,
+          timerEnabled: enableTimer,
+          timerInterval: null,
+          startTime: Date.now(),
+          elapsedSeconds: 0,
+          warned10m: false,
+          warned5m: false,
+          practiceChecked: {},
+          isSubmitting: false
+        };
+
+        // Ensure submit button in modal is enabled
+        const confirmBtn = document.getElementById("btn-modal-confirm-submit");
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.removeAttribute("disabled");
+        }
+
+        // Start timer
+        this.startTimer();
+
+        // Save session
+        this.persistActiveSession();
+
+        // Render exam UI
+        this.showView("view-exam");
+        this.renderCurrentQuestion();
+        this.renderNavigator();
+      },
+
+      shuffleArray(arr) {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      },
+
+      /* ==========================================================================
+         EXAM TIMER
+         ========================================================================== */
+      startTimer() {
+        if (this.state.timerInterval) {
+          clearInterval(this.state.timerInterval);
+        }
+
+        const timerBox = document.getElementById("exam-timer-box");
+        const timerDisplay = document.getElementById("timer-display");
+
+        if (!this.state.timerEnabled) {
+          timerBox.style.display = "none";
+          return;
+        }
+
+        timerBox.style.display = "inline-flex";
+        this.updateTimerDisplay();
+
+        this.state.timerInterval = setInterval(() => {
+          this.state.remainingSeconds--;
+          this.state.elapsedSeconds++;
+
+          this.updateTimerDisplay();
+
+          // Warnings at 10m and 5m
+          if (this.state.remainingSeconds === 600 && !this.state.warned10m) {
+            this.state.warned10m = true;
+            this.showToast("เตือน: เหลือเวลาทำข้อสอบอีก 10 นาที!", "warning");
+            Sound.playWarning();
+          } else if (this.state.remainingSeconds === 300 && !this.state.warned5m) {
+            this.state.warned5m = true;
+            this.showToast("เตือน: เหลือเวลาทำข้อสอบอีก 5 นาทีสุดท้าย!", "danger");
+            Sound.playDanger();
+          }
+
+          // Timeout auto-submit
+          if (this.state.remainingSeconds <= 0) {
+            this.handleTimeout();
+          }
+
+          // Auto-save progress every 5 seconds
+          if (this.state.remainingSeconds % 5 === 0) {
+            this.persistActiveSession();
+          }
+        }, 1000);
+      },
+
+      updateTimerDisplay() {
+        const timerBox = document.getElementById("exam-timer-box");
+        const timerDisplay = document.getElementById("timer-display");
+        const sec = Math.max(0, this.state.remainingSeconds);
+
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        const timeStr = `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+
+        timerDisplay.textContent = timeStr;
+
+        if (sec <= 300) {
+          timerBox.className = "timer-badge danger";
+        } else if (sec <= 600) {
+          timerBox.className = "timer-badge warning";
+        } else {
+          timerBox.className = "timer-badge";
+        }
+      },
+
+      handleTimeout() {
+        if (this.state.timerInterval) {
+          clearInterval(this.state.timerInterval);
+          this.state.timerInterval = null;
+        }
+        Sound.playDanger();
+        const modal = document.getElementById("modal-time-up");
+        modal.classList.add("active");
+      },
+
+      closeTimeUpModal() {
+        document.getElementById("modal-time-up").classList.remove("active");
+        this.executeSubmitExam();
+      },
+
+      /* ==========================================================================
+         RENDER QUESTION
+         ========================================================================== */
+      renderCurrentQuestion() {
+        const q = this.state.questions[this.state.currentIndex];
+        if (!q) return;
+
+        const totalQ = this.state.questions.length;
+        const curNum = this.state.currentIndex + 1;
+
+        // Meta tags
+        DOM.setText(document.getElementById("q-counter"), `ข้อที่ ${curNum} จาก ${totalQ}`);
+        DOM.setText(document.getElementById("q-domain-badge"), q.domain);
+
+        const diffBadge = document.getElementById("q-difficulty-badge");
+        DOM.setText(diffBadge, q.difficulty.toUpperCase());
+        diffBadge.className = `badge badge-difficulty-${q.difficulty}`;
+
+        const typeBadge = document.getElementById("q-type-badge");
+        const hintBox = document.getElementById("multiple-choice-hint");
+
+        if (q.type === "multiple") {
+          DOM.setText(typeBadge, "Multiple Choice");
+          const correctCount = q.correct_answer.length;
+          DOM.setText(document.getElementById("multiple-needed-count"), correctCount);
+          hintBox.style.display = "block";
+        } else {
+          DOM.setText(typeBadge, "Single Choice");
+          hintBox.style.display = "none";
+        }
+
+        // Flag button state
+        const flagBtn = document.getElementById("btn-flag-toggle");
+        const isFlagged = this.state.flagged.has(q.id);
+        if (isFlagged) {
+          flagBtn.classList.add("flagged");
+          DOM.setText(document.getElementById("flag-btn-text"), "ทำเครื่องหมายไว้แล้ว");
+        } else {
+          flagBtn.classList.remove("flagged");
+          DOM.setText(document.getElementById("flag-btn-text"), "ทำเครื่องหมายทบทวน");
+        }
+
+        // Question Prompt
+        DOM.setText(document.getElementById("q-prompt"), q.question);
+
+        // Options List
+        const optionsContainer = document.getElementById("q-options");
+        optionsContainer.innerHTML = "";
+
+        const userSelected = this.state.userAnswers[q.id] || [];
+        const isPracticeChecked = (this.state.mode === "practice" && !!this.state.practiceChecked[q.id]);
+
+        q.options.forEach((opt, optIndex) => {
+          const isSelected = userSelected.includes(opt.id);
+          const isCorrectAnswer = q.correct_answer.includes(opt.id);
+
+          const optionCard = DOM.create("div", {
+            className: `option-card ${isSelected ? "selected" : ""}`,
+            onclick: (e) => {
+              if (isPracticeChecked) return; // Locked if checked in practice mode
+              this.toggleOptionSelection(q.id, opt.id, q.type);
+            }
+          });
+
+          // Input control (Radio or Checkbox)
+          const inputEl = DOM.create("input", {
+            type: q.type === "multiple" ? "checkbox" : "radio",
+            name: `opt_group_${q.id}`,
+            id: `opt_${q.id}_${opt.id}`,
+            checked: isSelected,
+            disabled: isPracticeChecked,
+            tabindex: "0"
+          });
+
+          // Display Letter (A, B, C, D...)
+          const letter = String.fromCharCode(65 + optIndex);
+          const letterBadge = DOM.create("div", { className: "option-letter" }, letter);
+
+          // Option Text
+          const textSpan = DOM.create("div", { className: "option-text" }, opt.text);
+
+          optionCard.appendChild(inputEl);
+          optionCard.appendChild(letterBadge);
+          optionCard.appendChild(textSpan);
+
+          // Visual Feedback for Practice Mode
+          if (isPracticeChecked) {
+            if (isCorrectAnswer && isSelected) {
+              optionCard.classList.add("option-correct");
+              const tag = DOM.create("span", { className: "option-status-tag tag-correct" }, "ถูกต้อง ✓");
+              optionCard.appendChild(tag);
+            } else if (!isCorrectAnswer && isSelected) {
+              optionCard.classList.add("option-incorrect");
+              const tag = DOM.create("span", { className: "option-status-tag tag-incorrect" }, "คุณเลือกข้อนี้ ✕");
+              optionCard.appendChild(tag);
+            } else if (isCorrectAnswer && !isSelected) {
+              optionCard.classList.add("option-missed");
+              const tag = DOM.create("span", { className: "option-status-tag tag-correct" }, "คำตอบที่ถูก");
+              optionCard.appendChild(tag);
+            }
+          }
+
+          optionsContainer.appendChild(optionCard);
+        });
+
+        // Practice Mode Feedback Panel
+        const feedbackPanel = document.getElementById("practice-feedback-panel");
+        const btnPracticeCheck = document.getElementById("btn-practice-check");
+        const btnPracticeReset = document.getElementById("btn-practice-reset");
+
+        if (this.state.mode === "practice") {
+          btnPracticeCheck.style.display = isPracticeChecked ? "none" : "inline-flex";
+          btnPracticeReset.style.display = isPracticeChecked ? "inline-flex" : "none";
+
+          if (isPracticeChecked) {
+            this.renderPracticeFeedback(q);
+            feedbackPanel.classList.add("active");
+          } else {
+            feedbackPanel.classList.remove("active");
+          }
+        } else {
+          btnPracticeCheck.style.display = "none";
+          btnPracticeReset.style.display = "none";
+          feedbackPanel.classList.remove("active");
+        }
+
+        // Previous & Next Button States
+        document.getElementById("btn-prev").disabled = (this.state.currentIndex === 0);
+        document.getElementById("btn-next").disabled = (this.state.currentIndex === totalQ - 1);
+
+        // Update Navigator highlights
+        this.updateNavigatorStates();
+      },
+
+      toggleOptionSelection(qId, optId, type) {
+        if (!this.state.userAnswers[qId]) {
+          this.state.userAnswers[qId] = [];
+        }
+
+        if (type === "single") {
+          this.state.userAnswers[qId] = [optId];
+        } else {
+          const current = this.state.userAnswers[qId];
+          const idx = current.indexOf(optId);
+          if (idx > -1) {
+            current.splice(idx, 1);
+          } else {
+            current.push(optId);
+          }
+          this.state.userAnswers[qId] = current;
+        }
+
+        // Re-render question options and navigator
+        this.renderCurrentQuestion();
+        this.updateNavigatorStates();
+        this.persistActiveSession();
+      },
+
+      toggleFlagCurrentQuestion() {
+        const q = this.state.questions[this.state.currentIndex];
+        if (!q) return;
+
+        if (this.state.flagged.has(q.id)) {
+          this.state.flagged.delete(q.id);
+          this.showToast("ยกเลิกการทำเครื่องหมายข้อนี้แล้ว");
+        } else {
+          this.state.flagged.add(q.id);
+          this.showToast("ทำเครื่องหมายข้อนี้แล้ว", "warning");
+        }
+
+        this.renderCurrentQuestion();
+        this.updateNavigatorStates();
+        this.persistActiveSession();
+      },
+
+      navigateQuestion(direction) {
+        const nextIndex = this.state.currentIndex + direction;
+        if (nextIndex >= 0 && nextIndex < this.state.questions.length) {
+          this.state.currentIndex = nextIndex;
+          this.renderCurrentQuestion();
+          this.persistActiveSession();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      },
+
+      jumpToQuestion(index) {
+        if (index >= 0 && index < this.state.questions.length) {
+          this.state.currentIndex = index;
+          this.renderCurrentQuestion();
+          this.persistActiveSession();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+
+          // Close mobile drawer if open
+          document.getElementById("navigator-sidebar").classList.remove("mobile-open");
+        }
+      },
+
+      /* ==========================================================================
+         PRACTICE MODE ACTIONS
+         ========================================================================== */
+      checkCurrentPracticeAnswer() {
+        const q = this.state.questions[this.state.currentIndex];
+        if (!q) return;
+
+        const userAns = this.state.userAnswers[q.id] || [];
+        if (userAns.length === 0) {
+          alert("กรุณาเลือกคำตอบก่อนกดตรวจคำตอบ");
+          return;
+        }
+
+        this.state.practiceChecked[q.id] = true;
+        this.renderCurrentQuestion();
+        this.persistActiveSession();
+
+        // Sound effect
+        const isCorrect = this.isQuestionAnswerCorrect(q, userAns);
+        if (isCorrect) {
+          Sound.playBeep(880, 0.15);
+        } else {
+          Sound.playBeep(350, 0.2);
+        }
+      },
+
+      resetCurrentQuestionAnswer() {
+        const q = this.state.questions[this.state.currentIndex];
+        if (!q) return;
+
+        delete this.state.practiceChecked[q.id];
+        this.state.userAnswers[q.id] = [];
+        this.renderCurrentQuestion();
+        this.updateNavigatorStates();
+        this.persistActiveSession();
+      },
+
+      renderPracticeFeedback(q) {
+        const userAns = this.state.userAnswers[q.id] || [];
+        const isCorrect = this.isQuestionAnswerCorrect(q, userAns);
+
+        const panel = document.getElementById("practice-feedback-panel");
+        panel.className = `practice-feedback active ${isCorrect ? "correct" : "incorrect"}`;
+
+        const iconSpan = document.getElementById("feedback-icon");
+        const titleSpan = document.getElementById("feedback-title");
+        if (isCorrect) {
+          iconSpan.textContent = "✓";
+          titleSpan.textContent = "ตอบถูกต้อง!";
+        } else {
+          iconSpan.textContent = "✕";
+          titleSpan.textContent = "ยังไม่ถูกต้อง";
+        }
+
+        DOM.setText(document.getElementById("feedback-explanation"), q.explanation);
+
+        // Subtopics & tags
+        const metaBox = document.getElementById("feedback-meta");
+        metaBox.innerHTML = "";
+        const allMeta = [...(q.subtopics || []), ...(q.tags || [])];
+        if (allMeta.length > 0) {
+          metaBox.style.display = "flex";
+          allMeta.forEach(m => {
+            const chip = DOM.create("span", { className: "meta-chip" }, m);
+            metaBox.appendChild(chip);
+          });
+        } else {
+          metaBox.style.display = "none";
+        }
+
+        // References
+        const refsBox = document.getElementById("feedback-refs");
+        refsBox.innerHTML = "";
+        if (q.references && q.references.length > 0) {
+          refsBox.style.display = "block";
+          const header = DOM.create("div", { style: "font-weight: 600; margin-bottom: 0.25rem;" }, "เอกสารอ้างอิง:");
+          refsBox.appendChild(header);
+
+          q.references.forEach(ref => {
+            const safeHref = DOM.sanitizeUrl(ref.url);
+            const a = DOM.create("a", {
+              href: safeHref,
+              target: "_blank",
+              rel: "noopener noreferrer"
+            }, `🔗 ${ref.title}`);
+            refsBox.appendChild(a);
+          });
+        } else {
+          refsBox.style.display = "none";
+        }
+      },
+
+      isQuestionAnswerCorrect(q, userAns) {
+        if (!userAns || userAns.length === 0) return false;
+        if (q.type === "single") {
+          return (userAns.length === 1 && userAns[0] === q.correct_answer[0]);
+        } else {
+          // Multiple choice: exactly all correct chosen and no wrong chosen
+          if (userAns.length !== q.correct_answer.length) return false;
+          return q.correct_answer.every(ans => userAns.includes(ans));
+        }
+      },
+
+      /* ==========================================================================
+         QUESTION NAVIGATOR
+         ========================================================================== */
+      renderNavigator() {
+        const grid = document.getElementById("nav-grid");
+        grid.innerHTML = "";
+
+        this.state.questions.forEach((q, idx) => {
+          const btn = DOM.create("button", {
+            type: "button",
+            className: "nav-item",
+            id: `nav_btn_${idx}`,
+            onclick: () => this.jumpToQuestion(idx),
+            "aria-label": `ไปยังข้อที่ ${idx + 1}`
+          }, String(idx + 1));
+
+          grid.appendChild(btn);
+        });
+
+        this.updateNavigatorStates();
+      },
+
+      updateNavigatorStates() {
+        const total = this.state.questions.length;
+        let answeredCount = 0;
+        let flaggedCount = this.state.flagged.size;
+
+        this.state.questions.forEach((q, idx) => {
+          const btn = document.getElementById(`nav_btn_${idx}`);
+          if (!btn) return;
+
+          const isCurrent = (idx === this.state.currentIndex);
+          const userAns = this.state.userAnswers[q.id];
+          const isAnswered = (userAns && userAns.length > 0);
+          const isFlagged = this.state.flagged.has(q.id);
+
+          if (isAnswered) answeredCount++;
+
+          let cls = "nav-item";
+          if (isCurrent) cls += " current";
+          if (isAnswered) cls += " answered";
+          if (isFlagged) cls += " flagged";
+
+          btn.className = cls;
+        });
+
+        const pct = total > 0 ? Math.round((answeredCount / total) * 100) : 0;
+        DOM.setText(document.getElementById("nav-answered-summary"), `${answeredCount}/${total}`);
+        DOM.setText(document.getElementById("mobile-nav-count"), `${answeredCount}/${total}`);
+        DOM.setText(document.getElementById("nav-progress-percent"), `${pct}% สำเร็จ`);
+        DOM.setText(document.getElementById("nav-flagged-count"), `ทำเครื่องหมาย ${flaggedCount} ข้อ`);
+        document.getElementById("nav-progress-fill").style.width = `${pct}%`;
+      },
+
+      toggleMobileNavigator() {
+        const sidebar = document.getElementById("navigator-sidebar");
+        sidebar.classList.toggle("mobile-open");
+      },
+
+      /* ==========================================================================
+         SUBMIT EXAM MODAL & GRADING
+         ========================================================================== */
+      promptSubmitExam() {
+        // Reset submitting flag and enable button
+        this.state.isSubmitting = false;
+        const confirmBtn = document.getElementById("btn-modal-confirm-submit");
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.removeAttribute("disabled");
+        }
+
+        const total = this.state.questions.length;
+        let answered = 0;
+        this.state.questions.forEach(q => {
+          if (this.state.userAnswers[q.id] && this.state.userAnswers[q.id].length > 0) {
+            answered++;
+          }
+        });
+
+        const unanswered = total - answered;
+        const flagged = this.state.flagged.size;
+
+        DOM.setText(document.getElementById("modal-answered-count"), `${answered} ข้อ`);
+        DOM.setText(document.getElementById("modal-unanswered-count"), `${unanswered} ข้อ`);
+        DOM.setText(document.getElementById("modal-flagged-count"), `${flagged} ข้อ`);
+
+        const warningEl = document.getElementById("modal-submit-warning");
+        warningEl.style.display = (unanswered > 0) ? "block" : "none";
+
+        const modal = document.getElementById("modal-submit-confirm");
+        modal.classList.add("active");
+
+        // Auto-focus confirm button for immediate keyboard Enter/Space response
+        setTimeout(() => {
+          if (confirmBtn) confirmBtn.focus();
+        }, 50);
+      },
+
+      closeSubmitModal() {
+        this.state.isSubmitting = false;
+        const confirmBtn = document.getElementById("btn-modal-confirm-submit");
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.removeAttribute("disabled");
+        }
+        document.getElementById("modal-submit-confirm").classList.remove("active");
+      },
+
+      executeSubmitExam() {
+        if (this.state.isSubmitting) return; // Prevent double submit
+        this.state.isSubmitting = true;
+
+        const confirmBtn = document.getElementById("btn-modal-confirm-submit");
+        if (confirmBtn) {
+          confirmBtn.disabled = true;
+          confirmBtn.setAttribute("disabled", "true");
+        }
+
+        document.getElementById("modal-submit-confirm").classList.remove("active");
+
+        // Stop Timer
+        if (this.state.timerInterval) {
+          clearInterval(this.state.timerInterval);
+          this.state.timerInterval = null;
+        }
+
+        // Calculate Scores
+        this.calculateAndShowResults();
+
+        // Clear active session from storage
+        Storage.clearSession();
+        this.state.active = false;
+      },
+
+      calculateAndShowResults() {
+        const questions = this.state.questions;
+        const total = questions.length;
+        let correctCount = 0;
+        let incorrectCount = 0;
+        let unansweredCount = 0;
+
+        const domainStats = {};
+        const questionResults = [];
+
+        questions.forEach((q, idx) => {
+          const userAns = this.state.userAnswers[q.id] || [];
+          const hasAnswered = (userAns.length > 0);
+
+          if (!domainStats[q.domain]) {
+            domainStats[q.domain] = { total: 0, correct: 0 };
+          }
+          domainStats[q.domain].total++;
+
+          let isCorrect = false;
+          if (!hasAnswered) {
+            unansweredCount++;
+          } else {
+            isCorrect = this.isQuestionAnswerCorrect(q, userAns);
+            if (isCorrect) {
+              correctCount++;
+              domainStats[q.domain].correct++;
+            } else {
+              incorrectCount++;
+            }
+          }
+
+          questionResults.push({
+            originalIndex: idx + 1,
+            question: q,
+            userAns,
+            isCorrect,
+            status: !hasAnswered ? "unanswered" : (isCorrect ? "correct" : "incorrect"),
+            isFlagged: this.state.flagged.has(q.id)
+          });
+        });
+
+        const percent = total > 0 ? Math.round((correctCount / total) * 1000) / 10 : 0;
+        const passingPercent = this.rawExamData ? this.rawExamData.passingScore : 68;
+        const isPassed = (percent >= passingPercent);
+
+        this.results = {
+          examTitle: this.state.examTitle,
+          examCode: this.state.examCode,
+          setId: this.state.setId,
+          date: new Date().toISOString(),
+          mode: this.state.mode,
+          totalQuestions: total,
+          correctCount,
+          incorrectCount,
+          unansweredCount,
+          scorePercent: percent,
+          passingPercent,
+          isPassed,
+          elapsedSeconds: this.state.elapsedSeconds,
+          domainStats,
+          questionResults
+        };
+
+        this.renderResultsScreen();
+        this.showView("view-results");
+      },
+
+      /* ==========================================================================
+         RENDER RESULTS VIEW
+         ========================================================================== */
+      renderResultsScreen() {
+        const r = this.results;
+        if (!r) return;
+
+        // Hero Banner
+        const hero = document.getElementById("results-hero-card");
+        hero.className = `results-hero ${r.isPassed ? "passed" : "failed"}`;
+
+        DOM.setText(document.getElementById("result-badge-text"), r.isPassed ? "ผ่านการทดสอบ (PASSED)" : "ยังไม่ผ่านเกณฑ์ (FAILED)");
+        DOM.setText(document.getElementById("result-score-main"), `${r.scorePercent}%`);
+        DOM.setText(document.getElementById("result-score-detail"), `คะแนนดิบ: ${r.correctCount} จาก ${r.totalQuestions} ข้อ`);
+        DOM.setText(document.getElementById("result-target-info"), `เกณฑ์ผ่านการสอบ: ${r.passingPercent}% (คุณได้ ${r.scorePercent >= r.passingPercent ? "+" : ""}${(r.scorePercent - r.passingPercent).toFixed(1)}% จากเกณฑ์)`);
+
+        // Metrics
+        DOM.setText(document.getElementById("metric-correct"), r.correctCount);
+        DOM.setText(document.getElementById("metric-incorrect"), r.incorrectCount);
+        DOM.setText(document.getElementById("metric-unanswered"), r.unansweredCount);
+
+        const m = Math.floor(r.elapsedSeconds / 60);
+        const s = r.elapsedSeconds % 60;
+        DOM.setText(document.getElementById("metric-time"), `${m} นาที ${s} วินาที`);
+
+        // Domain Performance Charts (CSS Bar Chart)
+        const chartContainer = document.getElementById("domain-charts-container");
+        chartContainer.innerHTML = "";
+
+        const domainArray = [];
+
+        Object.entries(r.domainStats).forEach(([domain, stat]) => {
+          const domPercent = stat.total > 0 ? Math.round((stat.correct / stat.total) * 1000) / 10 : 0;
+          domainArray.push({
+            domain,
+            total: stat.total,
+            correct: stat.correct,
+            percent: domPercent
+          });
+
+          const item = DOM.create("div", { className: "domain-chart-item" });
+
+          const header = DOM.create("div", { className: "chart-header" });
+          const nameSpan = DOM.create("span", { className: "chart-name" }, domain);
+          const scoreSpan = DOM.create("span", { className: "chart-score" }, `${stat.correct}/${stat.total} ข้อ (${domPercent}%)`);
+          header.appendChild(nameSpan);
+          header.appendChild(scoreSpan);
+
+          const track = DOM.create("div", { className: "chart-track" });
+          const fill = DOM.create("div", {
+            className: `chart-fill ${domPercent >= r.passingPercent ? "pass" : "fail"}`,
+            style: `width: ${domPercent}%;`
+          });
+          const threshold = DOM.create("div", {
+            className: "chart-threshold-line",
+            style: `left: ${r.passingPercent}%;`,
+            title: `เกณฑ์ผ่าน ${r.passingPercent}%`
+          });
+
+          track.appendChild(fill);
+          track.appendChild(threshold);
+          item.appendChild(header);
+          item.appendChild(track);
+          chartContainer.appendChild(item);
+        });
+
+        // Recommendations List: sorted from LOWEST percent to HIGHEST percent
+        domainArray.sort((a, b) => a.percent - b.percent);
+
+        const recContainer = document.getElementById("recommendations-container");
+        recContainer.innerHTML = "";
+
+        domainArray.forEach(item => {
+          const isWeak = item.percent < r.passingPercent;
+          const recDiv = DOM.create("div", {
+            className: `recommendation-item ${isWeak ? "priority" : ""}`
+          });
+
+          const left = DOM.create("div");
+          const nameText = DOM.create("strong", {}, item.domain);
+          const descText = DOM.create("div", { style: "font-size: 0.8125rem; color: var(--text-muted);" },
+            isWeak ? `ได้เพียง ${item.percent}% (ต่ำกว่าเกณฑ์ ${r.passingPercent}%) ควรทบทวนหัวข้อนี้เป็นพิเศษ` : `ได้ ${item.percent}% (ผ่านเกณฑ์มาตรฐาน)`
+          );
+          left.appendChild(nameText);
+          left.appendChild(descText);
+
+          const rightBadge = DOM.create("span", {
+            className: `badge ${isWeak ? "badge-difficulty-hard" : "badge-difficulty-easy"}`
+          }, `${item.percent}%`);
+
+          recDiv.appendChild(left);
+          recDiv.appendChild(rightBadge);
+          recContainer.appendChild(recDiv);
+        });
+
+        // Hide retake wrong button if all correct
+        const btnRetakeWrong = document.getElementById("btn-retake-wrong");
+        const wrongOrUnansweredCount = r.incorrectCount + r.unansweredCount;
+        btnRetakeWrong.style.display = (wrongOrUnansweredCount > 0) ? "inline-flex" : "none";
+        btnRetakeWrong.textContent = `ทำเฉพาะข้อที่ตอบผิด (${wrongOrUnansweredCount} ข้อ)`;
+      },
+
+      /* ==========================================================================
+         REVIEW VIEW SCREEN & FILTERS
+         ========================================================================== */
+      showReviewView() {
+        this.populateReviewDomainDropdown();
+        this.renderReviewCards();
+        this.showView("view-review");
+      },
+
+      populateReviewDomainDropdown() {
+        if (!this.results) return;
+        const select = document.getElementById("review-domain-filter");
+        select.innerHTML = '<option value="all">ทุก Domain</option>';
+
+        Object.keys(this.results.domainStats).forEach(dom => {
+          const opt = DOM.create("option", { value: dom }, dom);
+          select.appendChild(opt);
+        });
+        select.value = this.reviewFilter.domain;
+      },
+
+      setReviewFilter(filterType, pillElement) {
+        this.reviewFilter.type = filterType;
+        document.querySelectorAll(".filter-pill").forEach(p => p.classList.remove("active"));
+        if (pillElement) pillElement.classList.add("active");
+        this.renderReviewCards();
+      },
+
+      onReviewDomainChange(domain) {
+        this.reviewFilter.domain = domain;
+        this.renderReviewCards();
+      },
+
+      renderReviewCards() {
+        if (!this.results) return;
+        const list = document.getElementById("review-cards-list");
+        list.innerHTML = "";
+
+        const allItems = this.results.questionResults;
+
+        // Update counts in filter pills
+        DOM.setText(document.getElementById("rf-count-all"), allItems.length);
+        DOM.setText(document.getElementById("rf-count-wrong"), allItems.filter(i => i.status === "incorrect").length);
+        DOM.setText(document.getElementById("rf-count-unanswered"), allItems.filter(i => i.status === "unanswered").length);
+        DOM.setText(document.getElementById("rf-count-flagged"), allItems.filter(i => i.isFlagged).length);
+
+        // Filter items
+        const filtered = allItems.filter(item => {
+          if (this.reviewFilter.domain !== "all" && item.question.domain !== this.reviewFilter.domain) {
+            return false;
+          }
+          if (this.reviewFilter.type === "incorrect") return item.status === "incorrect";
+          if (this.reviewFilter.type === "unanswered") return item.status === "unanswered";
+          if (this.reviewFilter.type === "flagged") return item.isFlagged;
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          const emptyCard = DOM.create("div", { className: "card", style: "text-align: center; color: var(--text-muted);" }, "ไม่มีข้อสอบที่ตรงกับตัวกรองนี้");
+          list.appendChild(emptyCard);
+          return;
+        }
+
+        filtered.forEach(item => {
+          const q = item.question;
+          const card = DOM.create("div", { className: "review-card" });
+
+          // Header
+          const header = DOM.create("div", { className: "review-card-header" });
+          const leftMeta = DOM.create("div", { style: "display: flex; gap: 0.5rem; align-items: center;" });
+          const numSpan = DOM.create("strong", {}, `ข้อที่ ${item.originalIndex}`);
+          const domBadge = DOM.create("span", { className: "badge badge-domain" }, q.domain);
+          const diffBadge = DOM.create("span", { className: `badge badge-difficulty-${q.difficulty}` }, q.difficulty.toUpperCase());
+
+          leftMeta.appendChild(numSpan);
+          leftMeta.appendChild(domBadge);
+          leftMeta.appendChild(diffBadge);
+
+          if (item.isFlagged) {
+            const flagBadge = DOM.create("span", { className: "badge", style: "background-color: var(--flag-light); color: var(--flag);" }, "🚩 ทำเครื่องหมายไว้");
+            leftMeta.appendChild(flagBadge);
+          }
+
+          let statusClass = "badge-difficulty-easy";
+          let statusText = "ถูกต้อง ✓";
+          if (item.status === "incorrect") {
+            statusClass = "badge-difficulty-hard";
+            statusText = "ตอบผิด ✕";
+          } else if (item.status === "unanswered") {
+            statusClass = "badge-type";
+            statusText = "ไม่ได้ตอบ ◯";
+          }
+
+          const statusBadge = DOM.create("span", { className: `badge ${statusClass}`, style: "font-size: 0.8125rem; font-weight: 700;" }, statusText);
+
+          header.appendChild(leftMeta);
+          header.appendChild(statusBadge);
+          card.appendChild(header);
+
+          // Prompt
+          const promptEl = DOM.create("div", { className: "question-prompt", style: "font-size: 1.05rem; margin-bottom: 1rem;" }, q.question);
+          card.appendChild(promptEl);
+
+          // Options List
+          const optionsList = DOM.create("div", { className: "options-list", style: "margin-bottom: 1rem;" });
+
+          q.options.forEach((opt, optIdx) => {
+            const isUserChoice = item.userAns.includes(opt.id);
+            const isCorrect = q.correct_answer.includes(opt.id);
+
+            let optClass = "option-card";
+            let tagText = "";
+            let tagClass = "";
+
+            if (isCorrect && isUserChoice) {
+              optClass += " option-correct";
+              tagText = "คำตอบของคุณ (ถูกต้อง) ✓";
+              tagClass = "tag-correct";
+            } else if (!isCorrect && isUserChoice) {
+              optClass += " option-incorrect";
+              tagText = "คำตอบของคุณ (ผิด) ✕";
+              tagClass = "tag-incorrect";
+            } else if (isCorrect && !isUserChoice) {
+              optClass += " option-missed";
+              tagText = "คำตอบที่ถูกต้อง";
+              tagClass = "tag-correct";
+            }
+
+            const optCard = DOM.create("div", { className: optClass });
+            const letter = DOM.create("div", { className: "option-letter" }, String.fromCharCode(65 + optIdx));
+            const textEl = DOM.create("div", { className: "option-text" }, opt.text);
+
+            optCard.appendChild(letter);
+            optCard.appendChild(textEl);
+
+            if (tagText) {
+              const tag = DOM.create("span", { className: `option-status-tag ${tagClass}` }, tagText);
+              optCard.appendChild(tag);
+            }
+
+            optionsList.appendChild(optCard);
+          });
+
+          card.appendChild(optionsList);
+
+          // Explanation Box
+          const explBox = DOM.create("div", { className: "practice-feedback active", style: "background-color: var(--bg-surface-alt); border: 1px solid var(--border);" });
+          const explTitle = DOM.create("div", { className: "practice-feedback-header", style: "color: var(--text-main);" }, "💡 คำอธิบายเฉลย");
+          const explContent = DOM.create("div", { className: "explanation-content" }, q.explanation);
+
+          explBox.appendChild(explTitle);
+          explBox.appendChild(explContent);
+
+          // Subtopics & tags
+          const allMeta = [...(q.subtopics || []), ...(q.tags || [])];
+          if (allMeta.length > 0) {
+            const metaBox = DOM.create("div", { className: "explanation-meta" });
+            allMeta.forEach(m => {
+              const chip = DOM.create("span", { className: "meta-chip" }, m);
+              metaBox.appendChild(chip);
+            });
+            explBox.appendChild(metaBox);
+          }
+
+          // References
+          if (q.references && q.references.length > 0) {
+            const refBox = DOM.create("div", { className: "references-list" });
+            const refHeader = DOM.create("div", { style: "font-weight: 600; margin-bottom: 0.25rem;" }, "เอกสารอ้างอิง:");
+            refBox.appendChild(refHeader);
+            q.references.forEach(ref => {
+              const safeHref = DOM.sanitizeUrl(ref.url);
+              const a = DOM.create("a", {
+                href: safeHref,
+                target: "_blank",
+                rel: "noopener noreferrer"
+              }, `🔗 ${ref.title}`);
+              refBox.appendChild(a);
+            });
+            explBox.appendChild(refBox);
+          }
+
+          card.appendChild(explBox);
+          list.appendChild(card);
+        });
+      },
+
+      /* ==========================================================================
+         RETAKE ACTIONS
+         ========================================================================== */
+      retakeFullExam() {
+        if (!confirm("คุณต้องการทำข้อสอบชุดนี้ใหม่อีกครั้งใช่หรือไม่?")) return;
+        this.prepareSetupScreen();
+        this.showView("view-setup");
+      },
+
+      retakeWrongQuestions() {
+        if (!this.results) return;
+
+        // Filter wrong or unanswered questions
+        const wrongQuestions = this.results.questionResults
+          .filter(item => item.status === "incorrect" || item.status === "unanswered")
+          .map(item => item.question);
+
+        if (wrongQuestions.length === 0) {
+          alert("ยอดเยี่ยมมาก! ไม่มีข้อที่ตอบผิด");
+          return;
+        }
+
+        // Initialize sub-exam with exact questions
+        const countToTake = wrongQuestions.length;
+        const examDurationMinutes = Math.max(5, Math.round((this.rawExamData.timeLimit / this.rawExamData.questions.length) * countToTake));
+        const totalSeconds = examDurationMinutes * 60;
+
+        this.state = {
+          active: true,
+          setId: this.rawExamData.setId,
+          examTitle: `${this.rawExamData.setName} (ทบทวนข้อที่ผิด)`,
+          examCode: this.rawExamData.examCode,
+          mode: "exam",
+          questions: wrongQuestions,
+          userAnswers: {},
+          flagged: new Set(),
+          currentIndex: 0,
+          remainingSeconds: totalSeconds,
+          totalSeconds: totalSeconds,
+          timerEnabled: true,
+          timerInterval: null,
+          startTime: Date.now(),
+          elapsedSeconds: 0,
+          warned10m: false,
+          warned5m: false,
+          practiceChecked: {},
+          isSubmitting: false
+        };
+
+        this.startTimer();
+        this.persistActiveSession();
+        this.showView("view-exam");
+        this.renderCurrentQuestion();
+        this.renderNavigator();
+      },
+
+      /* ==========================================================================
+         EXPORTS (JSON & CSV with BOM)
+         ========================================================================== */
+      exportResultsJSON() {
+        if (!this.results) return;
+        const jsonStr = JSON.stringify(this.results, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8" });
+        this.downloadBlob(blob, `OCI_Exam_Result_${this.getTimestamp()}.json`);
+      },
+
+      exportResultsCSV() {
+        if (!this.results) return;
+        const r = this.results;
+
+        let csv = "\uFEFF"; // UTF-8 BOM for Thai support in Microsoft Excel
+        csv += "=== สรุปผลการสอบ OCI Foundations Mock Exam ===\n";
+        csv += `ชุดข้อสอบ,"${r.examTitle}"\n`;
+        csv += `รหัสวิชา,"${r.examCode}"\n`;
+        csv += `วันที่ทดสอบ,"${new Date(r.date).toLocaleString('th-TH')}"\n`;
+        csv += `โหมด,"${r.mode}"\n`;
+        csv += `คะแนนดิบ,"${r.correctCount} / ${r.totalQuestions}"\n`;
+        csv += `คะแนนร้อยละ,"${r.scorePercent}%"\n`;
+        csv += `ผลการทดสอบ,"${r.isPassed ? 'ผ่าน' : 'ไม่ผ่าน'}"\n`;
+        csv += `เกณฑ์ผ่าน,"${r.passingPercent}%"\n`;
+        csv += `เวลาที่ใช้,"${Math.floor(r.elapsedSeconds / 60)} นาที ${r.elapsedSeconds % 60} วินาที"\n\n`;
+
+        csv += "=== รายละเอียดรายข้อ ===\n";
+        csv += "ข้อที่,Question ID,Domain,Difficulty,ประเภท,คำตอบของคุณ,คำตอบที่ถูกต้อง,ผลลัพธ์\n";
+
+        r.questionResults.forEach(item => {
+          const q = item.question;
+          const userAnsStr = item.userAns.join("; ");
+          const correctAnsStr = q.correct_answer.join("; ");
+          let resText = "ถูกต้อง";
+          if (item.status === "incorrect") resText = "ตอบผิด";
+          else if (item.status === "unanswered") resText = "ไม่ได้ตอบ";
+
+          csv += `${item.originalIndex},"${q.id}","${q.domain}","${q.difficulty}","${q.type}","${userAnsStr}","${correctAnsStr}","${resText}"\n`;
+        });
+
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        this.downloadBlob(blob, `OCI_Exam_Summary_${this.getTimestamp()}.csv`);
+      },
+
+      downloadBlob(blob, filename) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      },
+
+      getTimestamp() {
+        const d = new Date();
+        return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}_${String(d.getHours()).padStart(2, "0")}${String(d.getMinutes()).padStart(2, "0")}`;
+      },
+
+      /* ==========================================================================
+         SESSION STORAGE PERSISTENCE & RECOVERY
+         ========================================================================== */
+      persistActiveSession() {
+        if (!this.state.active) return;
+
+        const sessionPayload = {
+          active: true,
+          setId: this.state.setId,
+          examTitle: this.state.examTitle,
+          examCode: this.state.examCode,
+          mode: this.state.mode,
+          questions: this.state.questions,
+          userAnswers: this.state.userAnswers,
+          flagged: Array.from(this.state.flagged),
+          currentIndex: this.state.currentIndex,
+          remainingSeconds: this.state.remainingSeconds,
+          totalSeconds: this.state.totalSeconds,
+          timerEnabled: this.state.timerEnabled,
+          startTime: this.state.startTime,
+          elapsedSeconds: this.state.elapsedSeconds,
+          practiceChecked: this.state.practiceChecked,
+          timestamp: Date.now()
+        };
+
+        Storage.saveSession(sessionPayload);
+      },
+
+      checkSavedSessionOnStartup() {
+        const saved = Storage.loadSession();
+        if (saved && saved.active && saved.questions && saved.questions.length > 0) {
+          this.promptResumeExistingSession(saved);
+        }
+      },
+
+      promptResumeExistingSession(saved) {
+        DOM.setText(document.getElementById("resume-set-title"), saved.examTitle || "ชุดข้อสอบ");
+        DOM.setText(document.getElementById("resume-mode"), saved.mode === "practice" ? "Practice Mode" : "Exam Mode");
+
+        const answeredCount = Object.values(saved.userAnswers || {}).filter(a => a && a.length > 0).length;
+        DOM.setText(document.getElementById("resume-progress"), `ตอบแล้ว ${answeredCount} จาก ${saved.questions.length} ข้อ`);
+
+        const m = Math.floor(Math.max(0, saved.remainingSeconds) / 60);
+        const s = Math.max(0, saved.remainingSeconds) % 60;
+        DOM.setText(document.getElementById("resume-time"), `${m} นาที ${s} วินาที`);
+
+        document.getElementById("modal-resume-session").classList.add("active");
+      },
+
+      resumeSavedSession() {
+        const saved = Storage.loadSession();
+        if (!saved) return;
+
+        document.getElementById("modal-resume-session").classList.remove("active");
+
+        this.state = {
+          active: true,
+          setId: saved.setId,
+          examTitle: saved.examTitle,
+          examCode: saved.examCode,
+          mode: saved.mode,
+          questions: saved.questions,
+          userAnswers: saved.userAnswers || {},
+          flagged: new Set(saved.flagged || []),
+          currentIndex: saved.currentIndex || 0,
+          remainingSeconds: saved.remainingSeconds,
+          totalSeconds: saved.totalSeconds,
+          timerEnabled: saved.timerEnabled,
+          timerInterval: null,
+          startTime: saved.startTime,
+          elapsedSeconds: saved.elapsedSeconds || 0,
+          warned10m: (saved.remainingSeconds < 600),
+          warned5m: (saved.remainingSeconds < 300),
+          practiceChecked: saved.practiceChecked || {},
+          isSubmitting: false
+        };
+
+        this.startTimer();
+        this.showView("view-exam");
+        this.renderCurrentQuestion();
+        this.renderNavigator();
+        this.showToast("กู้คืนข้อสอบเดิมสำเร็จ");
+      },
+
+      discardSavedSession() {
+        Storage.clearSession();
+        document.getElementById("modal-resume-session").classList.remove("active");
+        this.showToast("ล้างข้อมูลเซสชันเดิมแล้ว");
+      },
+
+      /* ==========================================================================
+         KEYBOARD NAVIGATION & UNLOAD GUARDS
+         ========================================================================== */
+      initKeyboardNav() {
+        window.addEventListener("keydown", (e) => {
+          // If Submit Confirm Modal is open, handle Enter and Escape
+          const submitModal = document.getElementById("modal-submit-confirm");
+          if (submitModal && submitModal.classList.contains("active")) {
+            if (e.key === "Escape") {
+              e.preventDefault();
+              this.closeSubmitModal();
+              return;
+            }
+            if (e.key === "Enter") {
+              e.preventDefault();
+              this.executeSubmitExam();
+              return;
+            }
+            return;
+          }
+
+          // If other modal is open or not on exam view, ignore
+          if (!this.state.active) return;
+          if (document.querySelector(".modal-overlay.active")) return;
+          if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA" || e.target.tagName === "SELECT") return;
+
+          const key = e.key.toLowerCase();
+
+          if (key === "arrowleft" || key === "p") {
+            e.preventDefault();
+            this.navigateQuestion(-1);
+          } else if (key === "arrowright" || key === "n") {
+            e.preventDefault();
+            this.navigateQuestion(1);
+          } else if (key === "m" || key === "f") {
+            e.preventDefault();
+            this.toggleFlagCurrentQuestion();
+          } else if (["1", "2", "3", "4", "5", "6"].includes(key)) {
+            const optIndex = parseInt(key, 10) - 1;
+            const q = this.state.questions[this.state.currentIndex];
+            if (q && q.options && q.options[optIndex]) {
+              e.preventDefault();
+              this.toggleOptionSelection(q.id, q.options[optIndex].id, q.type);
+            }
+          }
+        });
+      },
+
+      initBeforeUnload() {
+        window.addEventListener("beforeunload", (e) => {
+          if (this.state.active && !this.state.isSubmitting) {
+            e.preventDefault();
+            e.returnValue = "การสอบยังไม่เสร็จสิ้น คุณต้องการออกจากหน้านี้หรือไม่?";
+            return e.returnValue;
+          }
+        });
+      },
+
+      /* ==========================================================================
+         TOAST NOTIFICATIONS
+         ========================================================================== */
+      showToast(message, type = "normal") {
+        const container = document.getElementById("toast-container");
+        const toast = DOM.create("div", { className: `toast ${type}` }, message);
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+          toast.style.opacity = "0";
+          toast.style.transform = "translateY(10px)";
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 300);
+        }, 3200);
+      }
+    };
+
+    // Expose modules globally for testing and inspection
+    window.DOM = DOM;
+    window.Sound = Sound;
+    window.Validator = Validator;
+    window.Normalizer = Normalizer;
+    window.Storage = Storage;
+    window.App = App;
+
+    // Initialize application on DOM ready
+    document.addEventListener("DOMContentLoaded", () => {
+      App.init();
+    });
+  </script>
+</body>
+</html>
