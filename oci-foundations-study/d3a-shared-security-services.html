@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3.1–3.2 Shared Security Model &amp; Security Services | OCI Foundations Study</title>
+<meta name="description" content="OCI Shared Security Model (of-the-cloud vs in-the-cloud), defense in depth, least privilege, zero trust, compliance; Cloud Guard, Security Zones, Vault, WAF, DDoS, Network Firewall, Bastion, Data Safe, Vulnerability Scanning, Audit/Logging/Monitoring, Certificates, encryption at rest/in transit">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2" aria-current="page"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#shared-model">3.1 Shared Security Model</a></li>
+      <li><a href="#compliance">Compliance programs</a></li>
+      <li><a href="#cloud-guard">Cloud Guard</a></li>
+      <li><a href="#security-zones">Security Zones</a></li>
+      <li><a href="#vault">Vault (Keys &amp; Secrets)</a></li>
+      <li><a href="#webapp">WAF &amp; DDoS</a></li>
+      <li><a href="#other-services">Bastion, Data Safe, อื่น ๆ</a></li>
+      <li><a href="#audit-logging">Audit / Logging / Monitoring</a></li>
+      <li><a href="#encryption">Encryption at rest / in transit</a></li>
+      <li><a href="#compare">ตารางเทียบบริการที่สับสน</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d3">Domain 3</span> 3.1–3.2 Security</nav>
+<article class="article">
+
+  <h1>3.1–3.2 Shared Security Model และ Security Services <span class="badge badge-d3">D3 · 25%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 55–70 นาที · objectives 3.1 (Shared Security Model) และ 3.2 (Security services)</p>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="3.1"> อ่าน 3.1 จบแล้ว</label>
+    <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s)"><input type="checkbox" data-objective-id="3.2"> อ่าน 3.2 จบแล้ว</label>
+  </div>
+
+  <h2 id="why">Why it matters</h2>
+  <p>Security เป็นโดเมนน้ำหนัก 25% และเป็นสิ่งที่ "ข้อสอบจริงถามเพื่อแยกคนที่เข้าใจงานจริงออกจากคนท่องชื่อ" — โจทย์มักเล่าสถานการณ์แล้วยื่นบริการ security มาให้เลือก ถ้าจำได้ว่าแต่ละตัวทำหน้าที่อะไร ก็ตอบได้เลย</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  เช่าคอนโด: เจ้าของอาคาร (Oracle) รับผิดชอบ <em>ตัวอาคาร</em> — โครงสร้าง ประตูหลัก ไฟ ระบบน้ำดับเพลิง นั่นคือ <strong>security OF the cloud</strong> ส่วนคุณรับผิดชอบ <em>ในห้องของคุณ</em> — ล็อกประตูห้อง เก็บของมีค่า ใครเข้าออกได้บ้าง นั่นคือ <strong>security IN the cloud</strong></div>
+
+  <h2 id="shared-model">3.1 Shared Security Model</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ความรับผิดชอบ</th><th>Oracle ดูแล (security <em>of</em> the cloud)</th><th>คุณดูแล (security <em>in</em> the cloud)</th></tr></thead>
+    <tbody>
+      <tr><td>Physical / Data center</td><td>ความปลอดภัยของ datacenter, rack, power, network backbone, hypervisor</td><td>—</td></tr>
+      <tr><td>Network / Hypervisor</td><td>Oracle Cloud Network แยก tenant, off-box virtualization</td><td>VCN design, security lists/NSG, route tables</td></tr>
+      <tr><td>IaaS (เช่น Compute VM)</td><td>hardware + hypervisor</td><td><strong>OS, patching, firewall, ข้อมูล, access control</strong> ทั้งหมด</td></tr>
+      <tr><td>PaaS (เช่น Autonomous DB)</td><td>hardware + OS + database engine + patch อัตโนมัติ</td><td>ข้อมูล, สิทธิ์ผู้ใช้ DB, network access ของ DB, การตั้งค่า encryption key</td></tr>
+      <tr><td>SaaS (เช่น Fusion Apps)</td><td>เกือบทั้งหมด (infra + app)</td><td>ข้อมูลที่ป้อนเข้า, user access, การตั้งค่าความปลอดภัยของแอป</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-tip"><span class="callout-title">หลักจำ</span><br>
+  ยิ่งเป็น SaaS ยิ่ง Oracle ดูแลเยอะ ยิ่งเป็น IaaS ยิ่งคุณดูแลเยอะ — แต่ <strong>ข้อมูลของคุณเป็นความรับผิดชอบของคุณเสมอ</strong> ไม่ว่าโมเดลไหน (รวมถึงการจัดการ access)</div>
+
+  <h3>หลักการออกแบบ security</h3>
+  <ul>
+    <li><strong>Defense in Depth</strong> — หลายชั้นซ้อนกัน (network → host → app → data) ชั้นใดชั้นหนึ่งแตก ยังมีชั้นอื่นกันต่อ</li>
+    <li><strong>Least Privilege</strong> — ให้สิทธิ์น้อยที่สุดที่จำเป็นต้องใช้ และ<em>เท่าที่จำเป็นเท่านั้น</em>; ทบทวนสิทธิ์สม่ำเสมอ</li>
+    <li><strong>Zero Trust</strong> — ไม่ไว้ใจใครโดยอัตโนมัติ แม้แต่ในเครือข่ายภายใน — verify explicitly, least privilege access, assume breach; บน OCI ใช้ร่วมกับ IAM conditions, Bastion, WAF และ ZTPR</li>
+  </ul>
+
+  <h2 id="compliance">Compliance programs และวิธีเข้าถึงเอกสาร</h2>
+  <ul>
+    <li>OCI ผ่านการตรวจรับรองระดับสากล เช่น <strong>ISO 27001/27017/27018, SOC 1/2/3, PCI-DSS, HIPAA, FedRAMP, GDPR, CSA STAR</strong> ฯลฯ (รายการจริงและระดับที่ยืนยันได้ เปลี่ยนได้ — ตรวจสอบกับ Oracle)</li>
+    <li>เอกสาร compliance และรายงาน audit อยู่ที่ <strong>Oracle Cloud Infrastructure Trust Center</strong> (cloud.oracle.com/iaas/compliance) และใน Console: <em>Governance → Compliance</em> — ลูกค้าที่มี contract เข้าดู/ดาวน์โหลดรายงานได้</li>
+    <li><strong>Data residency</strong> — ข้อมูลอยู่ใน region ที่คุณเลือกเสมอ (ไม่ย้ายข้าม region/realm เอง); บางประเทศมีข้อบังคับเฉพาะ (เช่น ข้อมูลส่วนบุคคลในไทย/ยุโรป)</li>
+  </ul>
+
+  <h2 id="cloud-guard">Cloud Guard (ด่านตรวจจับ + ตอบสนอง)</h2>
+  <ul>
+    <li><strong>Cloud Guard</strong> = บริการ <strong>detect + respond</strong> ภัยคุกคามอัตโนมัติ ทำงานแบบ "detector ตรวจเจอปัญหา → responder แก้ให้อัตโนมัติ"</li>
+    <li>องค์ประกอบหลัก:
+      <ul>
+        <li><strong>Target</strong> — สิ่งที่ Cloud Guard มอนิเตอร์ (เช่น tenancy หรือ compartment)</li>
+        <li><strong>Recipe</strong> — ชุดของ rules สำเร็จรูป (Detector recipe / Responder recipe); เลือกระดับ managed (Oracle อัปเดตให้) หรือ custom</li>
+        <li><strong>Detector rule</strong> — กฎตรวจจับ (เช่น "มี bucket public", "มี VCN เปิด 0.0.0.0/0 ไปทุกพอร์ต", "มี user พยายาม MFA ไม่ผ่านหลายครั้ง")</li>
+        <li><strong>Responder rule</strong> — การตอบสนองอัตโนมัติ (เช่น "ปิด public bucket อัตโนมัติ", "ตัดสิทธิ์ user", "แจ้งเตือน")</li>
+        <li><strong>Problem</strong> — รายการปัญหาที่ตรวจพบ มี severity และสถานะ</li>
+      </ul></li>
+    <li>ทำงานจาก activity logs และ configuration (รวมถึง Audit logs) — มอนิเตอร์แบบต่อเนื่อง</li>
+    <li>แนวทางสอบ: "ตรวจจับการตั้งค่าผิด + แก้อัตโนมัติ" → Cloud Guard; "ป้องกันไม่ให้ตั้งค่าผิดตั้งแต่แรก" → Security Zones</li>
+  </ul>
+
+  <h2 id="security-zones">Security Zones (บังคับ posture ตั้งแต่สร้างทรัพยากร)</h2>
+  <ul>
+    <li><strong>Security Zone</strong> = compartment พิเศษที่มี <strong>security policies บังคับ</strong> ว่าสร้างทรัพยากรแบบไหนได้/ไม่ได้ — ป้องกัน <em>ตั้งแต่ก่อนเกิด</em> (proactive)</li>
+    <li>ตัวอย่างกฎ: ห้ามสร้าง public bucket, ห้ามปิด encryption, ห้ามเปิด security list กว้างเกิน, ห้ามสร้างฐานข้อมูลที่ไม่มี backup — สร้างแล้วขัดกับกฎ = ถูกปฏิเสธทันที</li>
+    <li>ต่างจาก Cloud Guard: Security Zone ป้องกัน <em>ก่อน</em> (preventive), Cloud Guard ตรวจจับ <em>หลัง</em> (detective) — ประกอบกันเป็น defense in depth</li>
+  </ul>
+
+  <h2 id="vault">Vault — กุญแจและความลับ (Key Management &amp; Secrets)</h2>
+  <ul>
+    <li><strong>Vault</strong> = ที่เก็บ encryption keys และ secrets อย่างปลอดภัย</li>
+    <li><strong>Master Encryption Keys</strong> — กุญแจสำหรับเข้ารหัสข้อมูล (เช่น block volume, object storage, database) เลือกชนิด:
+      <ul>
+        <li><strong>Software-protected keys</strong> — เก็บในซอฟต์แวร์ HSM จำลอง (HSM ระดับซอฟต์แวร์)</li>
+        <li><strong>HSM keys</strong> — เก็บใน Hardware Security Module จริง (FIPS 140-2 Level 3) — แข็งแรงกว่า ราคา/ข้อจำกัดมากกว่า</li>
+      </ul></li>
+    <li><strong>Secrets</strong> — เก็บรหัสผ่าน, API keys, connection strings; เข้าผ่าน API/CLI; รองรับ versioning ของ secret; ใส่ใน instance ผ่าน instance principals/secrets โดยไม่ hardcode</li>
+    <li><strong>Customer-managed keys (CMK)</strong> — คุณเป็นเจ้าของ/จัดการกุญแจเอง (แทนที่จะใช้ Oracle-managed keys) สำหรับ compliance ที่ต้องการควบคุมวงจรชีวิตกุญแจ</li>
+    <li>ถอดกุญแจ = ข้อมูลถอดรหัสไม่ได้ (Cryptographic erasure) ใช้ตอนเลิกใช้ข้อมูลตาม policy</li>
+  </ul>
+
+  <h2 id="webapp">WAF และ DDoS Protection</h2>
+  <ul>
+    <li><strong>Web Application Firewall (WAF)</strong> — ป้องกันเว็บแอปที่ชั้น L7: กัน OWASP Top 10 (SQL injection, XSS), bot management, rate limiting, geo-blocking; แนบได้กับ public Load Balancer; มี rule สำเร็จรูปและ custom rules</li>
+    <li><strong>DDoS Protection</strong> — ป้องกัน Distributed Denial of Service ที่ชั้นเครือข่าย; OCI มี always-on DDoS mitigation สำหรับ public endpoints โดยอัตโนมัติ (ไม่ต้องตั้งค่า) + สามารถตรวจการโจมตีผ่าน WAF/Logging</li>
+  </ul>
+
+  <h2 id="other-services">Bastion, Data Safe, Vulnerability Scanning, Certificates</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>บริการ</th><th>หน้าที่ / เมื่อไหร่ใช้</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bastion</strong></td><td>ทางเข้า managed ไปยัง private subnet — session จำกัดเวลา (เช่น 3 ชั่วโมง), audit ทุก session, ไม่ต้องมี jump box เอง; รองรับ SSH (Linux) และ RDP (Windows)</td></tr>
+      <tr><td><strong>Data Safe</strong></td><td>จัดการ security ของ <em>ฐานข้อมูล</em> โดยเฉพาะ: ค้นหา sensitive data, ประเมินสิทธิ์ผู้ใช้ DB, data masking สำหรับ non-production, audit trail ของ DB</td></tr>
+      <tr><td><strong>Vulnerability Scanning</strong></td><td>สแกน VM/container images หา CVE ที่รู้อยู่แล้ว — รายงานและแจ้งเตือน แพตช์ตามผล</td></tr>
+      <tr><td><strong>Certificates</strong></td><td>ออก/เก็บ/ต่ออายุใบรับรองดิจิทัล (TLS) แบบ managed; ใช้กับ LB/API Gateway</td></tr>
+      <tr><td><strong>Network Firewall</strong></td><td>stateful firewall ชั้น L3–L7 จัดการโดย Oracle — IDS/IPS, TLS inspection, วางหน้า subnet</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="audit-logging">Audit / Logging / Monitoring</h2>
+  <ul>
+    <li><strong>Audit</strong> — บันทึกทุก API call ที่เกิดใน tenancy (ใครทำอะไร เมื่อไหร่ จากที่ไหน) เก็บใน Logging service โดยอัตโนมัติ — พระเอกของ forensic/compliance</li>
+    <li><strong>Logging</strong> — ศูนย์รวม log (service logs + custom logs) — ค้น, สำรอง, ตั้ง alarm ได้</li>
+    <li><strong>Monitoring</strong> — metrics ทุกบริการ + alarms (เช่น CPU &gt; 80% นาน 5 นาที → trigger notification) และ dashboards</li>
+    <li><strong>Events + Notifications</strong> — automation เมื่อเกิดเหตุการณ์ (เช่น bucket ถูกเขียน → เรียก Functions)</li>
+  </ul>
+
+  <h2 id="encryption">Encryption — at rest และ in transit</h2>
+  <ul>
+    <li><strong>At rest</strong> — ข้อมูลทุกอย่างเข้ารหัส AES-256 เป็นค่า default (block/boot volume, object, database, backups) โดยไม่ต้องตั้งค่า; เลือกใช้ customer-managed keys ผ่าน Vault ได้</li>
+    <li><strong>In transit</strong> — ทราฟฟิกระหว่างลูกค้า↔OCI และระหว่าง AD/region เข้ารหัส TLS/เส้นทาง backbone เสมอ; OCI บล็อก plaintext ของ data plane ไม่ให้วิ่งบนเน็ตสาธารณะโดยไม่เข้ารหัส</li>
+  </ul>
+
+  <h2 id="compare">ตารางเปรียบเทียบบริการที่สับสนบ่อย</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>บริการ</th><th>ทำหน้าที่</th><th>จังหวะ</th><th>ตอบโจทย์แบบ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Security Zones</strong></td><td>บังคับนโยบายตั้งแต่สร้างทรัพยากร</td><td>ป้องกันก่อน (proactive)</td><td>"ห้ามสร้าง public bucket เลย"</td></tr>
+      <tr><td><strong>Cloud Guard</strong></td><td>ตรวจจับการตั้งค่า/พฤติกรรมผิดปกติ + แก้อัตโนมัติ</td><td>ตรวจจับหลัง (reactive)</td><td>"มีใครเปิด bucket สาธารณะ — ปิดให้อัตโนมัติ"</td></tr>
+      <tr><td><strong>Data Safe</strong></td><td>ความปลอดภัยของฐานข้อมูล (mask, audit, assess)</td><td>ทั้งก่อนและหลัง</td><td>"ปิดบังข้อมูลจริงใน DB ตอนเอาไปเทส"</td></tr>
+      <tr><td><strong>Vulnerability Scanning</strong></td><td>สแกน CVE บน host/images</td><td>ตามรอบ</td><td>"image นี้มีช่องโหว่ที่รู้แล้วไหม"</td></tr>
+      <tr><td><strong>WAF</strong></td><td>กันการโจมตีเว็บที่ L7</td><td> real-time</td><td>"กัน SQL injection ที่หน้า login"</td></tr>
+      <tr><td><strong>Bastion</strong></td><td>ทางเข้า private subnet แบบมี audit</td><td>real-time (session)</td><td>"SSH เข้าเครื่องใน private subnet อย่างปลอดภัย"</td></tr>
+      <tr><td><strong>Vault</strong></td><td>เก็บกุญแจและความลับ</td><td>—</td><td>"เก็บ DB password / encryption key ที่ไหนดี"</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>ใครรับผิดชอบอะไร: IaaS แล้วลูกค้าดูแล OS; SaaS แล้ว Oracle ดูแลเกือบหมด; <strong>ข้อมูลของลูกค้า = ลูกค้าดูแลเสมอ</strong></li>
+      <li>"ตรวจจับ + ตอบสนองอัตโนมัติ" = <strong>Cloud Guard</strong>; "ห้ามสร้างสิ่งผิดตั้งแต่แรก" = <strong>Security Zones</strong>; "ฐานข้อมูล: masking/audit" = <strong>Data Safe</strong></li>
+      <li>เก็บ encryption keys ใน <strong>Vault</strong>; ต้องการ FIPS 140-2 Level 3 → <strong>HSM keys</strong>; ทั่วไป → software keys</li>
+      <li>"SSH เข้า private subnet โดยไม่เปิด port 22 สาธารณะ + audit ครบ" → <strong>Bastion</strong></li>
+      <li>"ป้องกัน DDoS" → มี built-in always-on; เว็บที่ต้องการ rule ละเอียด → <strong>WAF</strong></li>
+      <li>Audit logs บันทึก API calls ทุกตัวอัตโนมัติ → ใช้เป็นหลักฐาน/forensic</li>
+      <li>การเข้ารหัส at rest เป็น <strong>default</strong> ไม่ต้องเปิดเอง</li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"Cloud Guard ป้องกันก่อนสร้างทรัพยากร"</strong> — ไม่: Cloud Guard ตรวจจับหลังจากมีอยู่แล้ว (detective); preventive คือ Security Zones</li>
+      <li><strong>"Data Safe = Cloud Guard สำหรับ DB"</strong> — ครึ่งเดียว: Data Safe โฟกัสข้อมูล/สิทธิ์/audit ในฐานข้อมูลโดยเฉพาะ ไม่ใช่ config ของ cloud ทั่วไป</li>
+      <li><strong>"Vault เก็บ certificate ของเว็บ"</strong> — ใบรับรอง TLS อยู่ที่ <strong>Certificates</strong> service; Vault เก็บ encryption keys และ secrets</li>
+      <li><strong>"ลูกค้าไม่ต้องทำอะไรเลยกับ SaaS"</strong> — ยังต้องจัดการ user access และข้อมูลของตัวเอง</li>
+      <li><strong>"WAF กันได้ทุกอย่าง"</strong> — WAF กัน L7 web attacks; ไม่ใช่ firewall เครือข่าย (Network Firewall) ไม่ใช่ DDoS (always-on mitigation)</li>
+      <li><strong>"Audit ต้องเปิดเอง"</strong> — ไม่: Audit เก็บอัตโนมัติสำหรับทุก API call; แค่ดูได้ใน Logging</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  ฝ่ายความปลอดภัยอยากได้ระบบที่ "ถ้ามีใครเผลอสร้าง bucket public ใน tenancy ให้ปิดให้ทันทีและแจ้งเตือน security team" — ใช้อะไร?<br>
+  <strong>วิธีคิด:</strong> คีย์ = detect + ตอบสนองอัตโนมัติ → <strong>Cloud Guard</strong> (detector rule หา public bucket + responder rule ปิดให้อัตโนมัติ) ไม่ใช่ Security Zones (กันตั้งแต่สร้าง) — ใช้สองอย่างคู่กันได้แต่คำตอบเดี่ยวคือ Cloud Guard</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ทีม dev ต้องการสำเนาฐานข้อมูล production ไปทดสอบ โดยห้ามมีข้อมูลจริงของลูกค้าปนไป — ใช้บริการใด?<br>
+  <strong>วิธีคิด:</strong> คีย์ = ข้อมูลจริงต้องถูกปิดบังใน non-production → <strong>Data Safe</strong> (data masking) ไม่ใช่ Vault (กุญแจ) ไม่ใช่ Cloud Guard (ตรวจ config)</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. บน IaaS ใครรับผิดชอบการ patch OS ของ VM?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">คุณ (ลูกค้า) — Oracle ดูแลแค่ hardware/hypervisor; OS, patch, firewall, ข้อมูล เป็นของคุณ</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. "ปิด public bucket ที่เผลอสร้างอัตโนมัติ" ใช้บริการไหน?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Cloud Guard — detector rule ตรวจพบ + responder rule แก้อัตโนมัติ</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. ต้องการให้สร้าง public bucket ไม่ได้เลยใน compartment นี้ ใช้อะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Security Zones — บังคับ posture ก่อนสร้างทรัพยากร; สร้างผิดกฎจะถูกปฏิเสธ</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. keys ที่ certify FIPS 140-2 Level 3 เก็บใน Vault แบบใด?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">HSM keys (hardware security module) — แข็งแรงกว่า software-protected keys</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. log ของทุก API call ใน tenancy เก็บอัตโนมัติที่ไหน?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Audit service → เก็บใน Logging service — ค้นย้อนหลังได้โดยไม่ต้องตั้งค่าเพิ่ม</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Security/Concepts/security.htm" target="_blank" rel="noopener">OCI Security overview (Shared security model)</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/cloud-guard/home.htm" target="_blank" rel="noopener">Cloud Guard</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/security-zones/home.htm" target="_blank" rel="noopener">Security Zones</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/KeyManagement/home.htm" target="_blank" rel="noopener">Vault</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/WAF/home.htm" target="_blank" rel="noopener">WAF</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/network-firewall/home.htm" target="_blank" rel="noopener">Network Firewall</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Bastion/home.htm" target="_blank" rel="noopener">Bastion</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/datasafe/home.htm" target="_blank" rel="noopener">Data Safe</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Audit/home.htm" target="_blank" rel="noopener">Audit</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Logging/home.htm" target="_blank" rel="noopener">Logging</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Monitoring/home.htm" target="_blank" rel="noopener">Monitoring</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/vuln-scanning/home.htm" target="_blank" rel="noopener">Vulnerability Scanning</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/certificates/home.htm" target="_blank" rel="noopener">Certificates</a></li>
+    <li><a href="https://www.oracle.com/cloud/cloud-infrastructure/compliance/" target="_blank" rel="noopener">Oracle OCI Compliance / Trust Center</a> (อาจเข้าไม่ได้จากทุกเครือข่าย — หา "Oracle Cloud compliance" จากเบราว์เซอร์)</li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="d2c-storage-database.html"><small>ก่อนหน้า</small>← 2.3 Storage &amp; Database</a>
+    <a href="d3b-iam.html" style="text-align:right"><small>ถัดไป</small>3.3 IAM →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · รายชื่อ compliance และ SLA เปลี่ยนได้ ตรวจกับ Oracle Trust Center และเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

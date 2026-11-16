@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.2 Networking | OCI Foundations Study</title>
+<meta name="description" content="OCI Networking: VCN, subnet (public/private, regional/AD-specific), route tables, Internet/NAT/Service Gateway, DRG, peering, Security Lists vs NSG, Load Balancer vs Network Load Balancer, FastConnect vs VPN, public IP, VNIC, Flow Logs">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2" aria-current="page"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#vcn">VCN &amp; Subnets</a></li>
+      <li><a href="#gateways">Gateways (IGW/NAT/SGW/DRG)</a></li>
+      <li><a href="#routes">Route Tables</a></li>
+      <li><a href="#seclist-nsg">Security Lists vs NSG</a></li>
+      <li><a href="#lb">Load Balancer vs NLB</a></li>
+      <li><a href="#peering">Peering &amp; DNS</a></li>
+      <li><a href="#connect">FastConnect vs VPN</a></li>
+      <li><a href="#publicip-vnic">Public IP &amp; VNIC</a></li>
+      <li><a href="#flowlogs">Flow Logs &amp; Network Firewall</a></li>
+      <li><a href="#gateway-flowchart">Flowchart: ทราฟฟิกต้องผ่านอะไร?</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d2">Domain 2</span> 2.2 Networking</nav>
+<article class="article">
+
+  <h1>2.2 Networking <span class="badge badge-d2">D2 · 50%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 60–75 นาที · objective 2.2 — หัวข้อที่ข้อสอบถามลึกและถี่ที่สุดเรื่องหนึ่ง</p>
+
+  <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s);margin:.5rem 0 1rem">
+    <input type="checkbox" data-objective-id="2.2"> ทำเครื่องหมายว่าอ่าน objective 2.2 จบแล้ว
+  </label>
+
+  <h2 id="why">Why it matters</h2>
+  <p>ทุก instance, database และโหลดงานที่คุณรัน ล้วนอยู่ในเครือข่าย — ถ้าเครือข่ายออกแบบผิด แอปจะเข้าไม่ถึงหรือเปิดเกินจำเป็น (เสี่ยงความปลอดภัย) ข้อสอบถามลักษณะ "traffic จาก A ไป B ต้องผ่านอะไรบ้าง" เสมอ</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  VCN = อาคารสำนักงานของคุณ · subnet = ห้องแต่ละห้อง (ห้องรับแขก = public subnet, ห้องเก็บเอกสาร = private subnet) · route table = ป้ายบอกทาง · gateway = ประตูแต่ละประเภท (ประตูหน้าตึก = Internet Gateway, ประตูที่ให้ออกไปซื้อของข้างนอกแต่ไม่ให้ใครเข้ามา = NAT Gateway, ประตูพิเศษไปคลังสินค้าของ Oracle = Service Gateway) · Security List/NSG = รปภ. ตรวจก่อนเข้าห้อง</div>
+
+  <h2 id="vcn">VCN และ Subnets</h2>
+  <ul>
+    <li><strong>Virtual Cloud Network (VCN)</strong> — เครือข่ายส่วนตัวแบบ customizable ของคุณ ใน Compartment หนึ่งเดียว <em>เป็น regional resource</em> (ครอบคลุมทุก AD ใน region เดียว)</li>
+    <li>IPv4 CIDR ของ VCN อยู่ในช่วง <strong>/16 ถึง /30</strong> (เช่น 10.0.0.0/16) เลือกขนาดให้พอใช้; IPv6 รองรับแยก (โดยทั่วไป /56 สำหรับ VCN)</li>
+    <li>หนึ่ง region มีได้หลาย VCN (ค่า default limit มักอ้างถึง 5 — เปลี่ยนได้ ตรวจ Service Limits)</li>
+    <li><strong>Subnet</strong> เป็นส่วนย่อยของ VCN CIDR ห้ามซ้อนกัน:
+      <ul>
+        <li><strong>Public subnet</strong> — subnet ที่ route table ชี้ <code>0.0.0.0/0</code> ไป <strong>Internet Gateway</strong> (ไม่ใช่ checkbox แยกต่างหาก)</li>
+        <li><strong>Private subnet</strong> — ไม่มี route ออก IGW; ขาออกใช้ NAT/Service Gateway</li>
+        <li><strong>Regional subnet</strong> — ครอบคลุมทุก AD (Oracle แนะนำให้ใช้แบบนี้)</li>
+        <li><strong>AD-specific subnet</strong> — ผูกกับ AD เดียว (แบบเก่า, ยังใช้ได้)</li>
+      </ul></li>
+    <li>แต่ละ subnet ผูกกับ <strong>route table</strong> และ <strong>security list</strong> หนึ่งตัวขึ้นไป (ระบุได้หลายตัว แต่ rule จะรวมกัน)</li>
+    <li>แต่ละ VCN มี <strong>default route table / default security list / default DHCP options</strong> มาให้ตั้งแต่สร้าง</li>
+  </ul>
+
+  <figure class="diagram" role="img" aria-label="แผนภาพ VCN แบบครบวงจร: VCN 10.0.0.0/16 มี public subnet และ private subnet พร้อม gateway ต่าง ๆ">
+    <svg viewBox="0 0 660 330" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+      <!-- VCN boundary -->
+      <rect x="10" y="10" width="640" height="310" rx="12" fill="none" stroke="#c74634" stroke-width="2" stroke-dasharray="8 5"/>
+      <text x="330" y="32" text-anchor="middle" font-size="14" font-weight="bold" fill="currentColor">VCN 10.0.0.0/16 (regional)</text>
+
+      <!-- public subnet -->
+      <rect x="30" y="50" width="285" height="120" rx="8" fill="#c74634" opacity="0.07" stroke="#c74634" stroke-width="1.5"/>
+      <text x="172" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Public Subnet 10.0.1.0/24</text>
+      <text x="172" y="92" text-anchor="middle" font-size="11" fill="currentColor">Web tier instances</text>
+      <text x="172" y="110" text-anchor="middle" font-size="11" fill="currentColor">route: 0.0.0.0/0 → IGW</text>
+      <rect x="70" y="124" width="205" height="30" rx="5" fill="#c74634" opacity="0.18" stroke="#c74634"/>
+      <text x="172" y="144" text-anchor="middle" font-size="11" fill="currentColor">Load Balancer (public)</text>
+
+      <!-- private subnet -->
+      <rect x="345" y="50" width="285" height="120" rx="8" fill="#3f5f8a" opacity="0.07" stroke="#3f5f8a" stroke-width="1.5"/>
+      <text x="487" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Private Subnet 10.0.2.0/24</text>
+      <text x="487" y="92" text-anchor="middle" font-size="11" fill="currentColor">App/DB tier instances</text>
+      <text x="487" y="110" text-anchor="middle" font-size="11" fill="currentColor">route: 0.0.0.0/0 → NAT · services → SGW · on-prem → DRG</text>
+      <rect x="385" y="124" width="205" height="30" rx="5" fill="#3f5f8a" opacity="0.18" stroke="#3f5f8a"/>
+      <text x="487" y="144" text-anchor="middle" font-size="11" fill="currentColor">DB System (no public IP)</text>
+
+      <!-- gateways row -->
+      <rect x="20" y="205" width="140" height="44" rx="6" fill="#7a6a1f" opacity="0.15" stroke="#7a6a1f"/>
+      <text x="90" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Internet GW</text>
+      <text x="90" y="241" text-anchor="middle" font-size="10" fill="currentColor">2 ทาง สาธารณะ</text>
+
+      <rect x="175" y="205" width="140" height="44" rx="6" fill="#7a6a1f" opacity="0.15" stroke="#7a6a1f"/>
+      <text x="245" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">NAT GW</text>
+      <text x="245" y="241" text-anchor="middle" font-size="10" fill="currentColor">ออกได้อย่างเดียว</text>
+
+      <rect x="330" y="205" width="140" height="44" rx="6" fill="#0f6f6b" opacity="0.15" stroke="#0f6f6b"/>
+      <text x="400" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Service GW</text>
+      <text x="400" y="241" text-anchor="middle" font-size="10" fill="currentColor">ไป Oracle Services</text>
+
+      <rect x="485" y="205" width="155" height="44" rx="6" fill="#3f5f8a" opacity="0.15" stroke="#3f5f8a"/>
+      <text x="562" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">DRG</text>
+      <text x="562" y="241" text-anchor="middle" font-size="10" fill="currentColor">เชื่อม on-prem / VCN อื่น</text>
+
+      <!-- arrows -->
+      <line x1="172" y1="154" x2="110" y2="205" stroke="currentColor" stroke-width="1.4" opacity="0.7"/>
+      <line x1="487" y1="154" x2="280" y2="205" stroke="currentColor" stroke-width="1.4" opacity="0.7"/>
+      <line x1="487" y1="154" x2="410" y2="205" stroke="currentColor" stroke-width="1.4" opacity="0.7"/>
+      <line x1="520" y1="154" x2="555" y2="205" stroke="currentColor" stroke-width="1.4" opacity="0.7"/>
+      <text x="330" y="285" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.75">ทราฟฟิกทุกเส้นต้องตรงทั้ง route table (ไปไหน?) และ security rules (ผ่านไหม?)</text>
+    </svg>
+    <figcaption>VCN มาตรฐาน 2-tier: public subnet วาง LB/web, private subnet วางแอป/DB — ขาออกแต่ละแบบใช้ gateway ต่างกัน</figcaption>
+  </figure>
+
+  <h2 id="gateways">Gateways — ใครทำอะไรได้บ้าง</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Gateway</th><th>ทิศทาง</th><th>ใช้กับ</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Internet Gateway (IGW)</strong></td><td>เข้า–ออก สองทาง</td><td>public subnet ที่ต้องการติดต่ออินเทอร์เน็ตโดยตรง ( instance ต้องมี public IP ด้วย )</td></tr>
+      <tr><td><strong>NAT Gateway</strong></td><td>ออกได้อย่างเดียว (outbound-only)</td><td>private subnet ต้องการออกอินเทอร์เน็ต (เช่น โหลด package) แต่ไม่อนุญาตการเชื่อมต่อขาเข้าจากอินเทอร์เน็ต</td></tr>
+      <tr><td><strong>Service Gateway (SGW)</strong></td><td>เข้าถึง Oracle Services จาก VCN โดยไม่ผ่านอินเทอร์เน็ต</td><td>private subnet เรียก Object Storage / OCI services อื่นผ่าน Oracle backbone — ไม่ต้องมี public IP, ไม่ต้องผ่าน NAT</td></tr>
+      <tr><td><strong>Dynamic Routing Gateway (DRG)</strong></td><td>เข้า–ออก (เครือข่ายส่วนตัว)</td><td>Site-to-Site VPN, FastConnect, remote VCN peering, เชื่อมหลาย VCN แบบ hub-and-spoke</td></tr>
+      <tr><td><strong>Local Peering Gateway (LPG)</strong></td><td>เข้า–ออก ภายใน region เดียว</td><td>เชื่อม 2 VCN ใน region เดียวกัน (CIDR ห้ามซ้อน)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="routes">Route Tables</h2>
+  <ul>
+    <li>ทุก subnet ต้องผูก route table (ถ้าไม่ระบุ ใช้ default ของ VCN)</li>
+    <li>การเลือก route ใช้ <strong>longest prefix match</strong> (เฉพาะเจาะจงที่สุดชนะ) — <code>10.0.0.0/8</code> ชนะ <code>0.0.0.0/0</code> สำหรับปลายทางในช่วงนั้น</li>
+    <li>ตัวอย่าง route มาตรฐาน:
+      <pre><code>0.0.0.0/0            → Internet Gateway     (public subnet)
+0.0.0.0/0            → NAT Gateway          (private subnet ออกอินเทอร์เน็ต)
+OCI Services CIDR    → Service Gateway      (private → Object Storage)
+on-premises CIDR     → DRG                  (private → datacenter)
+VCN อื่น CIDR        → LPG                  (local peering)</code></pre></li>
+    <li>route เปลี่ยนแล้วมีผลกับ instance ใหม่-เก่าทันที (ไม่ต้อง reboot)</li>
+  </ul>
+
+  <h2 id="seclist-nsg">Security Lists vs Network Security Groups (NSG)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Security List</th><th>Network Security Group (NSG)</th></tr></thead>
+    <tbody>
+      <tr><td>ขอบเขตใช้</td><td>ระดับ <strong>subnet</strong> (ทุก VNIC/instance ใน subnet ถูกบังคับ)</td><td>ระดับ <strong>VNIC</strong> (เลือกเฉพาะ instance ที่ต้องการ, ข้าม subnet ใน VCN เดียวกันได้)</td></tr>
+      <tr><td>Stateful/Stateless</td><td>ค่า default <strong>stateful</strong> (return traffic อนุญาตอัตโนมัติ); กำหนด stateless ได้ต่อ rule</td><td>ค่า default <strong>stateful</strong> เช่นกัน; กำหนด stateless ได้ต่อ rule</td></tr>
+      <tr><td>เหมาะกับ</td><td>baseline กว้าง ๆ ของ subnet (เช่น อนุญาต 22 จาก Bastion เท่านั้น)</td><td>least-privilege ต่อ tier/แอป (เช่น อนุญาต 8080 จาก NSG ของ web เท่านั้น)</td></tr>
+      <tr><td>จำนวนต่อ subnet</td><td>แนบได้หลาย security list (rule รวมกัน)</td><td>VNIC หนึ่งอยู่ได้หลาย NSG (rule รวมกัน)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout callout-tip"><span class="callout-title">หลักจำ</span><br>
+  Security List ถามว่า "ห้องนี้ทุกคนเข้าได้ไหม" · NSG ถามว่า "คนกลุ่มนี้เข้าได้ไหม" — มักใช้คู่กัน: security list วาง baseline, NSG วางกฎเฉพาะแอป</div>
+
+  <h2 id="lb">Load Balancer (L7) vs Network Load Balancer (L3/L4)</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Load Balancer</th><th>Network Load Balancer (NLB)</th></tr></thead>
+    <tbody>
+      <tr><td>Layer</td><td>L7 (HTTP/HTTPS) — รู้จัก path, header, cookie</td><td>L3/L4 (TCP/UDP/ICMP) — ไม่ parse payload, latency ต่ำมาก</td></tr>
+      <tr><td>เหมาะกับ</td><td>เว็บ/API ที่ต้อง path-based routing, SSL termination, WAF แนบได้</td><td>งานที่ต้องการ ultra-low latency หรือ protocol ที่ไม่ใช่ HTTP (เช่น game, DNS, syslog) หรือ throughput สูง</td></tr>
+      <tr><td>Health check</td><td>HTTP path ได้ (เช่น <code>/health</code>)</td><td>TCP/UDP level</td></tr>
+      <tr><td>SSL</td><td>terminate ที่ LB ได้</td><td>ไม่ terminate (ส่งผ่านอย่างเดียว)</td></tr>
+      <tr><td>Public/Private</td><td>เลือกได้ทั้งสองแบบ</td><td>เลือกได้ทั้งสองแบบ</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="peering">Peering และ DNS</h2>
+  <ul>
+    <li><strong>Local peering</strong> — 2 VCN ใน region เดียวกัน เชื่อมผ่าน LPG; CIDR ห้ามซ้อน; traffic วิ่งบน backbone ของ Oracle</li>
+    <li><strong>Remote peering</strong> — VCN ข้าม region เชื่อมผ่าน DRG ทั้งสองฝั่ง</li>
+    <li>Peering <em>ไม่ transitive</em> — A↔B และ B↔C ไม่ได้แปลว่า A↔C</li>
+    <li><strong>VCN DNS</strong> — ชื่อ <code>instance-name.subnet-name.vcn-name.oraclevcn.com</code> resolve ได้ภายใน VCN (DHCP options ควบคุม DNS server)</li>
+    <li><strong>OCI DNS</strong> — authoritative DNS hosting + <strong>Traffic Management</strong> (steering policies: failover, geolocation, latency-based) สำหรับ global traffic routing</li>
+  </ul>
+
+  <h2 id="connect">FastConnect vs Site-to-Site VPN</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>FastConnect</th><th>Site-to-Site VPN</th></tr></thead>
+    <tbody>
+      <tr><td>ชนิด</td><td>วงจรส่วนตัว dedicated (direct / via partner)</td><td>IPsec tunnel ผ่านอินเทอร์เน็ตสาธารณะ</td></tr>
+      <tr><td>แบนด์วิดท์</td><td>สูงมาก (ระดับ Gbps), latency ต่ำ เสถียร</td><td>จำกัดตาม tunnel, latency ขึ้นกับอินเทอร์เน็ต</td></tr>
+      <tr><td>การตั้ง</td><td>ใช้เวลา provisioning (ผู้ให้บริการ/partner), ค่าใช้จ่ายวงจร</td><td>ตั้งได้เร็ว ใช้แค่ VPN customer-premises equipment (CPE) + OCI DRG</td></tr>
+      <tr><td>เหมาะกับ</td><td>production ใหญ่ ๆ, ข้อมูลเยอะ, ต้องการ SLA เครือข่าย</td><td>เริ่มต้นเร็ว, backup ของ FastConnect, site เล็ก</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="publicip-vnic">Public IP (Ephemeral / Reserved) และ VNIC</h2>
+  <ul>
+    <li><strong>Ephemeral public IP</strong> — ผูกกับ instance/resource ชั่วคราว หายไปเมื่อ terminate หรือถอดออก</li>
+    <li><strong>Reserved public IP</strong> — จองแบบ persistent เข้า/ออก instance ไหนก็ได้, เป็น <em>regional</em> resource</li>
+    <li><strong>VNIC</strong> — virtual network interface card: instance ทุกตัวมี primary VNIC + เลือก subnet ได้ กำหนด private IP, NSG, source/dest check (ปิดเมื่อทำ router/NAT VM)</li>
+    <li>instance หนึ่งแนบ secondary VNIC ได้หลายใบ (จำนวนตาม shape) แต่ละใบอยู่คนละ subnet ได้ — ใช้ทำ network appliance</li>
+  </ul>
+
+  <h2 id="flowlogs">VCN Flow Logs และ Network Firewall</h2>
+  <ul>
+    <li><strong>Flow logs</strong> — บันทึก metadata ของทราฟฟิก (ไม่ใช่ payload) ที่เข้า/ออก VNIC ไปยัง Logging service — ใช้ตรวจสอบ, troubleshoot, security audit</li>
+    <li><strong>Network Firewall</strong> — managed stateful firewall แบบ next-generation ทำ IDS/IPS และ TLS inspection ได้ วางเป็นจุดตรวจทราฟฟิกของ subnet/VCN (ต่างจาก security list/NSG ที่เป็นแค่ rule allow/deny)</li>
+  </ul>
+
+  <h2 id="gateway-flowchart">Flowchart — "ทราฟฟิกนี้ต้องผ่าน gateway ไหน?"</h2>
+  <figure class="diagram" role="img" aria-label="ผังตัดสินใจเลือก gateway ตามปลายทางและทิศทางทราฟฟิก">
+    <svg viewBox="0 0 660 300" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+      <rect x="240" y="8" width="180" height="38" rx="19" fill="#c74634" opacity="0.15" stroke="#c74634"/>
+      <text x="330" y="32" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">ทราฟฟิกจะไปไหน?</text>
+
+      <line x1="330" y1="46" x2="110" y2="80" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="46" x2="280" y2="80" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="46" x2="450" y2="80" stroke="currentColor" opacity="0.6"/>
+      <line x1="330" y1="46" x2="590" y2="80" stroke="currentColor" opacity="0.6"/>
+
+      <rect x="20" y="80" width="180" height="52" rx="8" fill="#c74634" opacity="0.1" stroke="#c74634"/>
+      <text x="110" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">อินเทอร์เน็ตสาธารณะ</text>
+      <text x="110" y="120" text-anchor="middle" font-size="10" fill="currentColor">ขาออกจาก private subnet?</text>
+
+      <rect x="205" y="80" width="150" height="52" rx="8" fill="#0f6f6b" opacity="0.1" stroke="#0f6f6b"/>
+      <text x="280" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">Object Storage /</text>
+      <text x="280" y="120" text-anchor="middle" font-size="10" fill="currentColor">OCI services จาก private</text>
+
+      <rect x="360" y="80" width="180" height="52" rx="8" fill="#3f5f8a" opacity="0.1" stroke="#3f5f8a"/>
+      <text x="450" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">On-premises / VCN อื่น</text>
+      <text x="450" y="120" text-anchor="middle" font-size="10" fill="currentColor">(VPN / FastConnect / peering)</text>
+
+      <rect x="545" y="80" width="100" height="52" rx="8" fill="#7a6a1f" opacity="0.12" stroke="#7a6a1f"/>
+      <text x="595" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="currentColor">VCN อื่น</text>
+      <text x="595" y="120" text-anchor="middle" font-size="10" fill="currentColor">ใน region เดียวกัน</text>
+
+      <line x1="110" y1="132" x2="110" y2="168" stroke="currentColor" opacity="0.6"/>
+      <line x1="280" y1="132" x2="280" y2="168" stroke="currentColor" opacity="0.6"/>
+      <line x1="450" y1="132" x2="450" y2="168" stroke="currentColor" opacity="0.6"/>
+      <line x1="595" y1="132" x2="595" y2="168" stroke="currentColor" opacity="0.6"/>
+
+      <rect x="20" y="168" width="180" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="110" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">NAT Gateway</text>
+
+      <rect x="205" y="168" width="150" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="280" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Service Gateway</text>
+
+      <rect x="360" y="168" width="180" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="450" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">DRG</text>
+
+      <rect x="545" y="168" width="100" height="40" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <text x="595" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">LPG</text>
+
+      <text x="330" y="245" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.75">public subnet ขาเข้าจากอินเทอร์เน็ต → Internet Gateway · private subnet ไม่มีทางเข้าจากอินเทอร์เน็ตตรง ๆ</text>
+      <text x="330" y="270" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.75">ทราฟฟิกทุกเส้นต้องผ่านทั้ง route table (พาไป) และ security list/NSG (อนุญาต)</text>
+    </svg>
+    <figcaption>กฎทอง: "public subnet = route 0.0.0.0/0 → IGW + instance มี public IP" · ที่เหลือ private ใช้ NAT/SGW/DRG/LPG ตามปลายทาง</figcaption>
+  </figure>
+
+  <h2 id="exam-focus">Exam Focus</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li>"private subnet ต้องออกอินเทอร์เน็ตได้ แต่อินเทอร์เน็ตเข้ามาไม่ได้" → <strong>NAT Gateway</strong></li>
+      <li>"private subnet ต้องอ่าน/เขียน Object Storage โดยไม่ผ่านอินเทอร์เน็ต" → <strong>Service Gateway</strong></li>
+      <li>"เชื่อม on-premises กับ OCI แบบ dedicated แบนด์วิดท์สูง" → <strong>FastConnect</strong>; "เร็วและถูก/สำรอง" → <strong>Site-to-Site VPN</strong></li>
+      <li>"อนุญาตเฉพาะบาง instance ในหลาย subnet" → <strong>NSG</strong>; "กฎเดียวทั้ง subnet" → <strong>Security List</strong></li>
+      <li>"ต้องรับ HTTP path-based routing" → <strong>Load Balancer</strong>; "UDP, ultra-low latency" → <strong>NLB</strong></li>
+      <li>"ชื่อโดเมนที่ resolve ได้เฉพาะใน VCN" → VCN DNS / DHCP options ไม่ใช่ OCI DNS สาธารณะ</li>
+      <li>Reserved public IP = regional; ephemeral public IP = ผูกกับ resource และหายเมื่อถอด</li>
+      <li>VCN เป็น <strong>regional</strong>; subnet เป็นได้ทั้ง regional และ AD-specific</li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"public subnet = instance เข้าจากเน็ตได้ทุกตัว"</strong> — ไม่: instance ต้องมี public IP ด้วย และ security rules ต้องอนุญาต</li>
+      <li><strong>"Security list stateless ต้องเปิด 2 ทาง"</strong> — ใช่: stateful เปิดครั้งเดียว return อนุญาตให้เลย; stateless ต้องเปิดทั้ง ingress และ egress เอง</li>
+      <li><strong>"Peering transitive"</strong> — ผิด: A↔B↔C ไม่ได้ทำให้ A↔C คุยกันได้</li>
+      <li><strong>"NAT Gateway เป็นสองทาง"</strong> — ผิด: outbound-only; การเชื่อมต่อที่เริ่มจากอินเทอร์เน็ตเข้ามาไม่ได้</li>
+      <li><strong>"Service Gateway คือ VPN ไป on-prem"</strong> — ผิด: SGW คือทางไป <em>Oracle Services Network</em> (เช่น Object Storage) เท่านั้น ไม่ใช่ไป on-prem (นั่นคือ DRG)</li>
+      <li><strong>"Load Balancer รองรับ UDP"</strong> — ไม่: UDP ต้อง NLB (L3/L4)</li>
+      <li><strong>"DRG ใช้ peer VCN ใน region เดียว"</strong> — ใช้ได้แต่ overkill; region เดียวใช้ LPG ง่ายกว่า; DRG ใช้สำหรับ remote peering / VPN / FastConnect</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  ทีมวาง DB ใน private subnet ต้อง backup ขึ้น Object Storage ทุกคืน โดยห้ามออกอินเทอร์เน็ตสาธารณะเลย ต้องตั้งค่าอะไร?<br>
+  <strong>วิธีคิด:</strong> ปลายทาง = Oracle Services Network → สร้าง <strong>Service Gateway</strong> + route <code>OCI Services CIDR → SGW</code> ใน route table ของ private subnet — ไม่ต้องมี NAT ไม่ต้องมี public IP และข้อมูลไม่ผ่านอินเทอร์เน็ต</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ต้องการเปิดเว็บให้ลูกค้าเข้า โดยให้เฉพาะพอร์ต 443 เข้าถึงได้ และอยาก terminate TLS พร้อมเลือก backend ตาม path (/api ไปเซิร์ฟเวอร์ชุดหนึ่ง, /static ไปอีกชุด) ใช้อะไร?<br>
+  <strong>วิธีคิด:</strong> ต้องการ L7 + path routing + TLS termination → <strong>Load Balancer</strong> (public) หน้า instance ใน private subnet ผ่าน NSG ที่อนุญาตเฉพาะพอร์ตจาก LB</div>
+
+  <h2 id="check">Check yourself</h2>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. VCN เป็น resource ระดับใด — regional, AD-specific หรือ global?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Region — VCN ครอบคลุมทุก Availability Domain ใน region เดียว ใช้ข้าม region ไม่ได้</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. Private subnet จะ "ออก" อินเทอร์เน็ตได้แต่ "เข้า" จากอินเทอร์เน็ตไม่ได้ ใช้อะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">NAT Gateway + route 0.0.0.0/0 → NAT ใน route table ของ subnet นั้น</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. ต่างกันอย่างไรระหว่าง Security List กับ NSG ในแง่ขอบเขต?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Security List บังคับทุก VNIC ใน subnet; NSG เลือกเฉพาะ VNIC ที่ติด tag/อยู่ในกลุ่มได้ ข้าม subnet ใน VCN เดียวกันได้ เหมาะกับ least privilege</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. แอปเกมออนไลน์ที่ใช้ UDP และต้อง latency ต่ำที่สุด ควรวางหลัง LB แบบไหน?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Network Load Balancer (L3/L4) — Load Balancer (L7) รองรับเฉพาะ HTTP/HTTPS/TCP/SSL ที่ terminate ไม่ใช่ UDP</div></div>
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. ทราฟฟิก private subnet → Object Storage โดยไม่ผ่านเน็ต ต้องผ่าน gateway ใด?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Service Gateway (SGW) — ทางพิเศษไป Oracle Services Network บน backbone ของ Oracle</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/landing.htm" target="_blank" rel="noopener">OCI Networking — documentation</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/vcn.htm" target="_blank" rel="noopener">Virtual Cloud Networks (VCN)</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingVCNs.htm" target="_blank" rel="noopener">Subnets</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/securityrules.htm" target="_blank" rel="noopener">Security Lists และ NSG</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm" target="_blank" rel="noopener">Load Balancer</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/NetworkLoadBalancer/home.htm" target="_blank" rel="noopener">Network Load Balancer</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/fastconnect.htm" target="_blank" rel="noopener">FastConnect</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Network/Concepts/site-to-site-vpn.htm" target="_blank" rel="noopener">Site-to-Site VPN</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/DNS/home.htm" target="_blank" rel="noopener">DNS &amp; Traffic Management</a></li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="d2a-compute-cloud-native.html"><small>ก่อนหน้า</small>← 2.1 Compute &amp; Cloud Native</a>
+    <a href="d2c-storage-database.html" style="text-align:right"><small>ถัดไป</small>2.3 Storage &amp; Database →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ตรวจ CIDR/limits/ค่า default กับเอกสารทางการก่อนสอบ (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

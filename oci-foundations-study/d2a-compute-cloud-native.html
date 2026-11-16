@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2.1 Compute &amp; Cloud Native | OCI Foundations Study</title>
+<meta name="description" content="OCI Compute: VM vs Bare Metal, shapes (fixed/flexible), preemptible instances, Dedicated VM Host, images, boot volume, cloud-init, instance pools/autoscaling, Container Instances, OKE, Functions, OCIR และการเลือกใช้แต่ละบริการ">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1" aria-current="page"><span class="obj-dot"></span>D2 · Compute &amp; Cloud Native</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage &amp; Database</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security Model &amp; Services</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance &amp; Cost</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+    <div class="toc-title">ในหน้านี้</div>
+    <ol>
+      <li><a href="#why">ทำไมเรื่องนี้สำคัญ</a></li>
+      <li><a href="#vm-vs-bm">VM vs Bare Metal และ Shapes</a></li>
+      <li><a href="#preemptible">Preemptible Instances</a></li>
+      <li><a href="#images-boot">Images &amp; Boot Volume</a></li>
+      <li><a href="#cloudinit">Cloud-init &amp; Instance Configuration</a></li>
+      <li><a href="#pools-autoscale">Instance Pools &amp; Autoscaling</a></li>
+      <li><a href="#access">การเข้าถึง Instance</a></li>
+      <li><a href="#cloud-native">Cloud Native Services</a></li>
+      <li><a href="#decision-table">ตารางตัดสินใจ</a></li>
+      <li><a href="#exam-focus">Exam Focus</a></li>
+      <li><a href="#traps">Common Traps</a></li>
+      <li><a href="#scenario">Scenario</a></li>
+      <li><a href="#check">Check yourself</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › <span class="badge badge-d2">Domain 2</span> 2.1 Compute &amp; Cloud Native</nav>
+<article class="article">
+
+  <h1>2.1 Compute และ Cloud Native <span class="badge badge-d2">D2 · 50%</span></h1>
+  <p style="color:var(--muted)">อ่านประมาณ 45–60 นาที · objective 2.1 — "Compute" เป็นส่วนที่น้ำหนักมากสุดของข้อสอบ</p>
+
+  <label class="objective-check" style="border:1px dashed var(--border-strong);border-radius:var(--radius-s);margin:.5rem 0 1rem">
+    <input type="checkbox" data-objective-id="2.1"> ทำเครื่องหมายว่าอ่าน objective 2.1 จบแล้ว
+  </label>
+
+  <h2 id="why">Why it matters — ทำไมเรื่องนี้สำคัญ</h2>
+  <p>Compute (บริการคอมพิวต์) คือหัวใจของทุก workload บน cloud เกือบทุกสถาปัตยกรรมต้องเลือก "รันโค้ดที่ไหน" — ข้อสอบถามไม่ได้ว่า EC2 คู่แข่งคืออะไร แต่ถามว่า <em>"สถานการณ์นี้ควรใช้บริการไหน และเพราะอะไร"</em> ถ้าเข้าใจความต่างของ Compute / Container Instances / OKE / Functions คุณจะตัดโจทย์ออกได้ครึ่งหนึ่ง</p>
+  <div class="callout callout-tip"><span class="callout-title">อุปมา</span><br>
+  ลองคิดว่าการรัน workload คือการหารถขับ: <strong>Bare Metal</strong> = เช่ารถทั้งคันขับเอง (ได้ทั้งคัน ปรับแต่งได้หมด) · <strong>VM</strong> = เช่าห้องในรถตู้ร่วม (ถูกกว่า ยืดหยุ่น แต่ใช้ร่วมเครื่องกับคนอื่น) · <strong>Container Instances / OKE</strong> = เรียกเฉพาะตู้คอนเทนเนอร์ไปวาง ไม่ต้องยุ่งกับตัวรถ · <strong>Functions</strong> = เรียกมอเตอร์ไซค์วิ่งส่งทีละรอบ จ่ายเฉพาะตอนวิ่งจริง</div>
+
+  <h2 id="vm-vs-bm">Key concepts — VM vs Bare Metal และ Shapes</h2>
+
+  <h3>Compute มี 2 แบบหลัก</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th><th>Virtual Machine (VM)</th><th>Bare Metal (BM)</th></tr></thead>
+    <tbody>
+      <tr><td><b>คืออะไร</b></td><td>Instance ที่รันบน hypervisor แบบ multi-tenant (แชร์เครื่องจริงกับ VM อื่น)</td><td>ทั้งเซิร์ฟเวอร์จริงเครื่องหนึ่งเป็นของคุณเต็ม ๆ ไม่มี hypervisor คั่น</td></tr>
+      <tr><td><b>เหมาะกับ</b></td><td>งานทั่วไป เว็บแอป ไมโครเซอร์วิส ต้นทุนต่ำ</td><td>งานที่ต้องการ performance เต็มที่ / ต้องการเข้าถึง hardware โดยตรง (เช่น low-latency, licensing ที่ผูกกับ socket, workload เบา hypervisor ไม่ได้)</td></tr>
+      <tr><td><b>ข้อจำกัด</b></td><td>มี overhead ของ hypervisor (เล็กน้อย)</td><td>แพงกว่า, ได้เครื่องใหญ่เลย, เปลี่ยน shape ทีหลังไม่ได้ (ต้อง terminate + relaunch)</td></tr>
+      <tr><td><b>Boot time</b></td><td>เร็ว (นาที)</td><td>ช้ากว่า VM</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Shape = สูตรกำหนดขนาด instance</h3>
+  <p>Shape (รูปแบบขนาด) คือเทมเพลตที่กำหนด OCPU, memory, network bandwidth และจำนวน VNIC <em>1 OCPU บน x86 (AMD/Intel) = 2 vCPU; บน Ampere A1 = 1 core = 1 vCPU</em> (นี่คือจุดที่ข้อสอบชอบหลอก)</p>
+  <ul>
+    <li><strong>Fixed shape</strong> — ขนาดตายตัว เช่น <code>VM.Standard.E4.Flex</code> ไม่ใช่ fixed (ตัวนี้เป็น Flex) …ตัวอย่าง fixed เก่า ๆ เช่น <code>VM.Standard2.1</code>, <code>VM.Standard.E2.1.Micro</code> (Always Free: 1 OCPU / 1 GB)</li>
+    <li><strong>Flexible shape (Flex)</strong> — เลือกจำนวน OCPU และ memory เองอิสระ (memory ต่อ OCPU สูงสุดตามเอกสารปัจจุบัน; ขั้นต่ำ 1 GB ต่อ OCPU หรือ 1 GB แล้วแต่อะไรมากกว่า) ปรับ scale ภายหลังได้</li>
+    <li>ตระกูล CPU: <strong>AMD EPYC</strong> (E-series เช่น E4/E5/E6), <strong>Intel Xeon</strong> (Standard3/Standard4/Optimized3), <strong>Ampere Arm</strong> (A1/A2/A4 — ราคา/ประสิทธิภาพดี, ไม่รองรับ Windows)</li>
+    <li>GPU shapes: NVIDIA (P100, V100, A100, H100/H200, Blackwell) และ AMD MI300X สำหรับ AI/HPC</li>
+    <li><strong>VM.Standard.E2.1.Micro</strong> และ <strong>VM.Standard.A1.Flex</strong> (บางส่วน) เป็นสิทธิ์ <strong>Always Free</strong> — ตัวเลขโควตาเปลี่ยนได้เสมอ <a href="https://www.oracle.com/cloud/free/" target="_blank" rel="noopener">ตรวจสอบก่อนสอบ</a></li>
+  </ul>
+
+  <h3>Dedicated VM Host (DVH)</h3>
+  <p>เช่า "เครื่องจริงทั้งเครื่องแบบ dedicated" แต่รันเฉพาะ VM instances ของคุณเอง — ได้ isolation ระดับ hardware (เช่น ข้อกำหนด compliance/licensing) โดยยังได้ความยืดหยุ่นของ VM บนเครื่องนั้น จ่ายตามเครื่อง ไม่ใช่ราย instance</p>
+
+  <h2 id="preemptible">Preemptible Instances (Instance แบบถูกขัดจังหวะได้)</h2>
+  <ul>
+    <li>ราคาถูกกว่า on-demand มาก เหมาะกับ <strong>batch jobs, rendering, CI, fault-tolerant และ stateless workload</strong> ที่ทนต่อการถูก terminate ได้</li>
+    <li>Oracle สามารถ <strong>reclaim (ยึดคืน)</strong> instance ได้ทุกเมื่อเมื่อ capacity ต้องการ — ไม่มีการรับประกัน uptime แบบ SLA ปกติ</li>
+    <li>ถ้า workload คุณทน interrupt ไม่ได้ ห้ามใช้ preemptible</li>
+  </ul>
+
+  <h2 id="images-boot">Images และ Boot Volume</h2>
+  <ul>
+    <li><strong>Platform image</strong> — image ทางการของ Oracle (Oracle Linux, Ubuntu, Windows Server, CentOS ฯลฯ) แพตช์และพร้อมใช้</li>
+    <li><strong>Custom image</strong> — สร้างจาก instance ของคุณเอง ใช้ clone เครื่องที่ตั้งค่าไว้แล้ว (golden image)</li>
+    <li><strong>Community image</strong> — จากชุมชน (ไม่รับประกันจาก Oracle)</li>
+    <li><strong>Boot volume</strong> — block volume ที่เก็บ OS ตั้งต้น instance; ลบ instance แล้วเลือก "preserve boot volume" ได้ เพื่อ backup/clone/สร้าง instance ใหม่จาก boot volume เดิม</li>
+    <li>เป็น <strong>AD-specific resource</strong> (ผูกกับ AD เดียวกับ instance)</li>
+  </ul>
+
+  <h2 id="cloudinit">Cloud-init และ Instance Configuration</h2>
+  <ul>
+    <li><strong>cloud-init</strong> — กลไกมาตรฐานส่งสคริปต์/คอนฟิกตอน instance บูตครั้งแรก (ติดตั้ง package, เขียนไฟล์, ตั้ง user) — ทำให้ instance พร้อมใช้งานโดยไม่ต้อง SSH เข้าไปตั้งเอง</li>
+    <li><strong>Instance configuration</strong> — blueprint ที่เก็บ shape, image, VCN/subnet, SSH key, cloud-init ไว้เป็น template</li>
+    <li><strong>Instance pool</strong> — กลุ่ม instance ที่สร้างจาก configuration เดียวกัน (instance เหมือน ๆ กันหลายตัว)</li>
+  </ul>
+
+  <h2 id="pools-autoscale">Instance Pools และ Autoscaling</h2>
+  <ul>
+    <li><strong>Autoscaling configuration</strong> — ปรับจำนวน instance ใน pool อัตโนมัติตาม metric (เช่น CPU utilization หรือ custom metric) หรือแบบ schedule (เพิ่มตอนกลางวัน ลดตอนกลางคืน)</li>
+    <li><strong>Capacity type</strong>: capacity reserved / on-demand / preemptible (ตั้งได้ใน pool)</li>
+    <li><strong>Load balancer + instance pool + autoscaling</strong> เป็นชุดมาตรฐานสำหรับเว็บที่ทราฟฟิกแกว่ง</li>
+  </ul>
+
+  <h2 id="access">การเข้าถึง Instance</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>วิธี</th><th>ใช้เมื่อไร</th><th>หมายเหตุ</th></tr></thead>
+    <tbody>
+      <tr><td>SSH (port 22) ผ่าน public IP หรือผ่าน Bastion</td><td>เข้า Linux instance โดยตรง</td><td>ต้องมี subnet เปิดทางและ security list/NSG อนุญาต; ไม่ควรเปิด 22 สาธารณะ — ใช้ Bastion ดีกว่า</td></tr>
+      <tr><td>Bastion service</td><td>ทางเข้าทางการไปยัง private subnet แบบมี audit + จำกัดเวลา</td><td>ไม่ต้องมี jump box เอง; รองรับ SSH และ Windows RDP</td></tr>
+      <tr><td>Console Connection (serial console แบบ in-band)</td><td>กรณี instance เข้าไม่ได้ผ่าน network (เช่น firewall ผิด, รหัสผ่านหาย)</td><td>เข้าผ่าน web console ได้แม้ระบบปฏิบัติการมีปัญหา network</td></tr>
+      <tr><td>Instance principals</td><td>ให้ instance เรียก OCI API โดยไม่ต้องฝัง API key</td><td>ดูรายละเอียดในหน้า <a href="d3b-iam.html">IAM</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 id="cloud-native">Cloud Native Services บน OCI</h2>
+  <h3>Container Instances</h3>
+  <p>รัน container เดี่ยว ๆ แบบ serverless โดยไม่ต้องจัดการเซิร์ฟเวอร์/Kubernetes — เหมาะกับงานสั้น ๆ งาน batch ที่เป็น container หรือ microservice ที่ไม่อยากแบก cluster</p>
+
+  <h3>Oracle Kubernetes Engine (OKE)</h3>
+  <p>Managed Kubernetes — Oracle ดูแล control plane ให้ คุณเลือกชนิด node ได้:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>ชนิด node</th><th>ใครจัดการ</th><th>เหมาะกับ</th></tr></thead>
+    <tbody>
+      <tr><td><b>Managed nodes</b></td><td>Oracle สร้าง/แพตช์ node ให้จาก node pool image ทางการ</td><td>งานทั่วไป งาน production ส่วนใหญ่</td></tr>
+      <tr><td><b>Virtual nodes</b></td><td>serverless pods — ไม่เห็น VM เลย Oracle จัดการทุกอย่าง</td><td>ไม่อยากดูแล node เลย, isolation ต่อ pod, จ่ายตาม pod</td></tr>
+      <tr><td><b>Self-managed nodes</b></td><td>คุณเอา VM ของตัวเองมา join cluster</td><td>ต้องการ customization เต็มที่ (image พิเศษ, hardware เฉพาะ)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>OCIR (Oracle Cloud Infrastructure Registry)</h3>
+  <p>Container registry ส่วนตัวสำหรับเก็บ image (Docker/OCI image) ใช้ร่วมกับ OKE / Container Instances; รองรับทั้ง private/public repository</p>
+
+  <h3>Functions (Oracle Functions)</h3>
+  <p>บริการ serverless Functions as-a-Service บนพื้นฐาน Fn Project — deploy ฟังก์ชันแล้ว OCI ขยายจำนวนรันให้อัตโนมัติตาม event; จ่ายเฉพาะตอน execute; เหมาะกับ event handler, glue code, API เล็ก ๆ</p>
+
+  <h3>API Gateway</h3>
+  <p>ให้ HTTPS endpoint เดียวสำหรับรวมหลาย backend (Functions, HTTP services) — ทำ auth, rate limiting, request transformation ได้โดยไม่ต้องเขียนโค้ดเอง</p>
+
+  <h3>Events และ Notifications</h3>
+  <ul>
+    <li><strong>Events</strong> — event-driven: เมื่อมีเหตุการณ์ใน OCI (เช่น bucket ถูกเขียน object, instance หยุด) trigger action ไปยัง Functions / Streaming / Notifications ได้</li>
+    <li><strong>Notifications</strong> — ส่งข้อความไปยัง subscribers (email, SMS, HTTPS endpoint, Slack, PagerDuty ฯลฯ) ผ่าน <strong>topic</strong></li>
+  </ul>
+
+  <h3>Streaming</h3>
+  <p>Managed Kafka-compatible streaming platform สำหรับ high-volume telemetry/clickstream — แทนการรัน Kafka เอง</p>
+
+  <h3>Resource Manager</h3>
+  <p>บริการ managed <strong>Terraform</strong> — เก็บ stack (template) และ state ไว้ใน OCI, กด apply จาก Console ได้, จัดการ drift และทำซ้ำหลาย environment ได้ง่าย เหมาะกับ infrastructure-as-code โดยไม่ต้องติดตั้ง terraform เอง</p>
+
+  <h3>DevOps</h3>
+  <p>บริการ CI/CD ครบวงจร: build pipelines, deploy pipelines (rolling, blue-green, canary), เชื่อมกับ OKE / Compute ได้ตรง</p>
+
+  <h2 id="decision-table">ตารางตัดสินใจ — ควรใช้อะไรเมื่อไร</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>สถานการณ์</th><th>คำตอบที่น่าจะเป็น</th></tr></thead>
+    <tbody>
+      <tr><td>แอป legacy ที่ต้องการ Windows หรือ software ผูกกับ OS/socket licensing</td><td>Compute (VM หรือ Dedicated VM Host)</td></tr>
+      <tr><td>อยากได้ isolation ระดับ hardware โดยไม่ต้องดูแล OS ของ host</td><td>Dedicated VM Host</td></tr>
+      <tr><td>งาน batch ราคาถูกที่ทน interrupt ได้</td><td>Preemptible instances</td></tr>
+      <tr><td>รัน container งานสั้น ๆ ไม่อยากมี cluster</td><td>Container Instances</td></tr>
+      <tr><td>ไมโครเซอร์วิส 10+ ตัว ต้องการ orchestration, service discovery, scaling</td><td>OKE (Managed/Virtual nodes)</td></tr>
+      <tr><td>ไม่อยากดูแล node เลยสักตัว, จ่ายตาม pod</td><td>OKE Virtual Nodes</td></tr>
+      <tr><td>อยากได้ Kubernetes แต่ต้องใช้ image/kernel พิเศษ</td><td>OKE Self-managed nodes</td></tr>
+      <tr><td>ฟังก์ชันเล็ก ๆ trigger จาก event, จ่ายตาม invocation</td><td>Functions</td></tr>
+      <tr><td>อยากมี single HTTPS endpoint ที่ route ไป Functions/backend หลายตัว</td><td>API Gateway + Functions</td></tr>
+      <tr><td>อยาก "ถ้า X เกิดใน cloud ให้ทำ Y" แบบไม่มีเซิร์ฟเวอร์</td><td>Events (+ Functions/Notifications)</td></tr>
+      <tr><td>อยาก deploy infrastructure เดิมซ้ำหลาย environment ด้วย template</td><td>Resource Manager (Terraform)</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="diagram" role="img" aria-label="แผนภาพการเลือกบริการ compute ตามความต้องการ">
+    <svg viewBox="0 0 640 260" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+      <rect x="8" y="8" width="624" height="244" rx="10" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"/>
+      <text x="320" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="currentColor">ต้องการรันอะไร?</text>
+      <!-- row 1 -->
+      <rect x="30" y="52" width="180" height="46" rx="8" fill="#c74634" opacity="0.12" stroke="#c74634"/>
+      <text x="120" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">OS เต็มรูปแบบ / ซอฟต์แวร์เฉพาะ</text>
+      <text x="120" y="90" text-anchor="middle" font-size="11" fill="currentColor">VM / Bare Metal / DVH</text>
+      <rect x="235" y="52" width="180" height="46" rx="8" fill="#3f5f8a" opacity="0.12" stroke="#3f5f8a"/>
+      <text x="325" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Container หลายตัว orchestrated</text>
+      <text x="325" y="90" text-anchor="middle" font-size="11" fill="currentColor">OKE (Managed / Virtual nodes)</text>
+      <rect x="440" y="52" width="180" height="46" rx="8" fill="#0f6f6b" opacity="0.12" stroke="#0f6f6b"/>
+      <text x="530" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">Container ตัวเดียว/งานสั้น</text>
+      <text x="530" y="90" text-anchor="middle" font-size="11" fill="currentColor">Container Instances</text>
+      <!-- row 2 -->
+      <rect x="130" y="130" width="180" height="46" rx="8" fill="#7a6a1f" opacity="0.15" stroke="#7a6a1f"/>
+      <text x="220" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">โค้ดเล็ก trigger จาก event</text>
+      <text x="220" y="168" text-anchor="middle" font-size="11" fill="currentColor">Functions (serverless)</text>
+      <rect x="335" y="130" width="200" height="46" rx="8" fill="#c74634" opacity="0.08" stroke="#c74634" stroke-dasharray="5 4"/>
+      <text x="435" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">ต้องการทะเบียน container image?</text>
+      <text x="435" y="168" text-anchor="middle" font-size="11" fill="currentColor">OCIR (registry)</text>
+      <!-- arrows -->
+      <line x1="320" y1="40" x2="120" y2="52" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+      <line x1="320" y1="40" x2="325" y2="52" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+      <line x1="320" y1="40" x2="530" y2="52" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
+      <text x="320" y="228" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.75">ทุกตัว provision ผ่าน Console / CLI / SDK / Resource Manager (Terraform) ได้เหมือนกัน</text>
+    </svg>
+    <figcaption>ภาพรวมตัวเลือก compute บน OCI — ข้อสอบมักถาม "สถานการณ์ X ควรใช้ Y" ตามตารางนี้</figcaption>
+  </figure>
+
+  <h2 id="exam-focus">Exam Focus — สิ่งที่ข้อสอบชอบถาม</h2>
+  <div class="callout callout-exam"><span class="callout-title">ข้อสอบชอบถาม</span>
+    <ul>
+      <li><strong>1 OCPU = กี่ vCPU?</strong> → x86 = 2 vCPU, Arm A1 = 1 thread/core ต่อ OCPU (Arm A2/A4 = 2 cores ต่อ OCPU)</li>
+      <li>Flex shapes: เลือก OCPU และ memory เองได้ — เทียบกับ fixed shapes</li>
+      <li>Workload ทน interrupt ได้ → <strong>preemptible</strong>; ห้ามใช้กับงาน critical</li>
+      <li>ต้องการ hardware isolation แบบ managed → <strong>Dedicated VM Host</strong>; ต้องการเครื่องทั้งเครื่อง → <strong>Bare Metal</strong></li>
+      <li>instance เข้าไม่ได้แม้แต่ SSH → <strong>Console Connection</strong> (in-band serial)</li>
+      <li>รัน container ไม่มี cluster → <strong>Container Instances</strong>; ต้องการ orchestration → <strong>OKE</strong></li>
+      <li>OKE node แบบไหนที่ Oracle ดูแล OS ให้ → <strong>Managed nodes</strong>; pod แบบ serverless → <strong>Virtual nodes</strong></li>
+      <li>Terraform แบบ managed ใน OCI → <strong>Resource Manager</strong></li>
+      <li>Boot volume เป็น AD-specific — ย้าย instance ข้าม AD ต้องผ่าน image/backup</li>
+    </ul>
+  </div>
+
+  <h2 id="traps">Common Traps — จุดที่คนมักตอบผิด</h2>
+  <div class="callout callout-trap"><span class="callout-title">กับดัก</span>
+    <ul>
+      <li><strong>"Preemptible = cheaper SLA"</strong> — ผิด: preemptible คือ capacity ที่ Oracle reclaim ได้ทุกเมื่อ <em>ไม่มี SLA</em> ไม่ใช่แค่ราคาถูก</li>
+      <li><strong>"Dedicated VM Host = Bare Metal"</strong> — ผิด: DVH รัน VM หลายตัวของคุณบนเครื่อง dedicated (ยังมี hypervisor); Bare Metal ไม่มี hypervisor เลย</li>
+      <li><strong>"OKE Virtual nodes = VM ที่เล็กลง"</strong> — ผิด: virtual nodes คือ serverless pods; คุณไม่เห็นและไม่ต้องดูแล node ใด ๆ</li>
+      <li><strong>"Container Instances เหมาะกับ production ที่ scale หลายร้อย pod"</strong> — ควรเป็น OKE ถ้าต้องการ orchestration, service discovery, rolling deploy เต็มรูปแบบ</li>
+      <li><strong>"Boot volume backup ย้ายไป region อื่นได้ตรง ๆ"</strong> — ไม่ได้โดยตรง: ใช้ custom image (ข้าม region ผ่าน image copy) หรือ block volume backup cross-region replication</li>
+      <li><strong>"Arm shapes รัน Windows ได้"</strong> — ไม่ได้ ทั้ง A1/A4 ไม่รองรับ Windows</li>
+      <li><strong>"Autoscaling = เพิ่ม VM เรื่อย ๆ"</strong> — autoscaling ปรับ <em>เข้าและออก</em> ตาม policy (CPU, schedule, custom metrics)</li>
+    </ul>
+  </div>
+
+  <h2 id="scenario">Scenario — โจทย์สถานการณ์</h2>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 1</span><br>
+  บริษัทมี batch job แปลงภาพทุกคืน ทนการถูกหยุดกลางคันได้ และอยากลดต้นทุนให้มากที่สุด ควรใช้บริการใด?<br>
+  <strong>วิธีคิด:</strong> คีย์เวิร์ด "ทน interrupt ได้ + ลดต้นทุน" → <strong>Preemptible instances</strong> (หรือ instance pool แบบ preemptible + autoscaling) ไม่ใช่ Bare Metal ไม่ใช่ on-demand VM ปกติ</div>
+  <div class="callout callout-scenario"><span class="callout-title">Scenario 2</span><br>
+  ทีม dev มี microservices 12 ตัว ต้องการ rolling update, service discovery และ auto-scaling แต่ไม่อยากดูแล control plane ของ Kubernetes ควรเลือกอะไร?<br>
+  <strong>วิธีคิด:</strong> คีย์เวิร์ด "microservices + orchestration + ไม่อยากดูแล control plane" → <strong>OKE</strong> (Oracle ดูแล control plane ให้) ส่วน node เลือก Managed nodes ถ้าอยากให้ Oracle แพตช์ node ด้วย — ถ้าไม่อยากดู node เลยเลือก Virtual nodes</div>
+
+  <h2 id="check">Check yourself</h2>
+
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>1. 1 OCPU บน VM.Standard.E4.Flex (AMD) เท่ากับกี่ vCPU?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">2 vCPU — OCPU คือ physical core ของ AMD/Intel; 1 core = 2 threads (vCPU) จึงนับเป็น 2 vCPU ส่วน Ampere A1 นับ 1 OCPU = 1 core = 1 vCPU</div></div>
+
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>2. อยากให้ OCI จัดการ OS patch ของ worker node ใน Kubernetes ให้ เลือก node แบบไหน?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">OKE Managed nodes — Oracle สร้างและแพตช์ node จาก image ทางการให้ ต่างจาก Self-managed ที่คุณดูแลเอง และ Virtual nodes ที่ไม่มี node ให้เห็นเลย</div></div>
+
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>3. instance เข้าไม่ได้แม้แต่ SSH เพราะตั้ง security list ผิด ใช้ฟีเจอร์ใดเข้าเครื่องเพื่อแก้?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Console Connection — การเชื่อมต่อแบบ serial in-band ผ่าน Console โดยไม่ต้องพึ่ง network ของ instance</div></div>
+
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>4. ต้องการ deploy Terraform stack เดิมไปหลาย environment โดยไม่ต้องติดตั้ง terraform เอง ใช้อะไร?</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">Resource Manager — managed Terraform บน OCI เก็บ stack และ state ไว้ ทำงานจาก Console/CLI ได้เลย</div></div>
+
+  <div class="check-item"><button class="check-q" aria-expanded="false"><span>5. ข้อใด <u>ไม่ใช่</u> resource ระดับ AD? (boot volume / VCN / compute instance)</span><span class="check-toggle-hint">ดูเฉลย</span></button>
+    <div class="check-a">VCN เป็น regional resource (ครอบคลุมทุก AD ในภูมิภาค) ส่วน boot volume และ compute instance เป็น AD-specific</div></div>
+
+  <h2 id="sources">Sources</h2>
+  <ul>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Compute/home.htm" target="_blank" rel="noopener">OCI Compute — documentation</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Compute/References/computeshapes.htm" target="_blank" rel="noopener">Compute shapes — รายละเอียด OCPU/vCPU และตาราง shape</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/ContEng/home.htm" target="_blank" rel="noopener">Oracle Kubernetes Engine (OKE) — documentation</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Registry/home.htm" target="_blank" rel="noopener">Oracle Cloud Infrastructure Registry (OCIR)</a></li>
+    <li><a href="https://docs.oracle.com/en-us/iaas/Content/Functions/home.htm" target="_blank" rel="noopener">Functions</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/APIGateway/home.htm" target="_blank" rel="noopener">API Gateway</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Events/home.htm" target="_blank" rel="noopener">Events</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Notification/home.htm" target="_blank" rel="noopener">Notifications</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/Streaming/home.htm" target="_blank" rel="noopener">Streaming</a> · <a href="https://docs.oracle.com/en-us/iaas/Content/ResourceManager/home.htm" target="_blank" rel="noopener">Resource Manager</a></li>
+  </ul>
+
+  <nav class="prevnext" aria-label="ไปยังหน้าก่อนหน้า/ถัดไป">
+    <a href="index.html"><small>ก่อนหน้า</small>ภาพรวมข้อสอบ</a>
+    <a href="d2b-networking.html" style="text-align:right"><small>ถัดไป</small>2.2 Networking →</a>
+  </nav>
+</article>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ตัวเลข shape/โควตาอาจเปลี่ยนได้ — ตรวจสอบกับเอกสารทางการ (<a href="SOURCES.md">SOURCES.md</a>) ก่อนสอบ</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

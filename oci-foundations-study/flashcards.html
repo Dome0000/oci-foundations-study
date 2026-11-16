@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flashcards (Leitner) | OCI Foundations Study</title>
+<meta name="description" content="การ์ดทบทวนศัพท์ OCI 1Z0-1085-26 — ระบบ Leitner 5 กล่อง, พลิกการ์ดได้, กรองตามโดเมน">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="icon-btn menu-btn" data-drawer-toggle aria-label="เปิด/ปิดสารบัญ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+  </button>
+  <a class="brand" href="index.html"><span class="brand-mark">OCI</span><span class="brand-name">Foundations Study<small>1Z0-1085-26 · เตรียมสอบภาษาไทย</small></span></a>
+  <button class="search-btn" data-search-open aria-label="เปิดค้นหา">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+    <span class="search-label">ค้นหาทั้งเว็บ…</span><kbd>/</kbd>
+  </button>
+  <button class="icon-btn" data-theme-toggle aria-label="สลับโหมดสว่าง/มืด/ตามระบบ">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+  </button>
+</header>
+<div class="drawer-backdrop" aria-hidden="true"></div>
+
+<div class="layout">
+<aside class="sidebar" aria-label="สารบัญเว็บไซต์">
+  <nav>
+    <div class="toc-title">เริ่มต้น</div>
+    <ol><li><a href="index.html">ภาพรวมข้อสอบ</a></li></ol>
+    <div class="toc-title">เนื้อหาตามโดเมน</div>
+    <ol>
+      <li><a href="d1-getting-started.html" data-objective-link="1.1"><span class="obj-dot"></span>D1 · Getting Started</a></li>
+      <li><a href="d2a-compute-cloud-native.html" data-objective-link="2.1"><span class="obj-dot"></span>D2 · Compute</a></li>
+      <li><a href="d2b-networking.html" data-objective-link="2.2"><span class="obj-dot"></span>D2 · Networking</a></li>
+      <li><a href="d2c-storage-database.html" data-objective-link="2.3"><span class="obj-dot"></span>D2 · Storage</a></li>
+      <li><a href="d3a-shared-security-services.html" data-objective-link="3.2"><span class="obj-dot"></span>D3 · Security</a></li>
+      <li><a href="d3b-iam.html" data-objective-link="3.3"><span class="obj-dot"></span>D3 · IAM</a></li>
+      <li><a href="d4-governance-cost.html" data-objective-link="4.1"><span class="obj-dot"></span>D4 · Governance</a></li>
+    </ol>
+    <div class="toc-title">ฝึกและทบทวน</div>
+    <ol>
+      <li><a href="quiz.html">แบบฝึกหัด (Quiz)</a></li>
+      <li><a href="exam.html">จำลองสอบ</a></li>
+      <li><a href="flashcards.html" aria-current="page">Flashcards</a></li>
+      <li><a href="cheatsheet.html">Cheatsheet</a></li>
+      <li><a href="glossary.html">Glossary</a></li>
+    </ol>
+  </nav>
+</aside>
+
+<main class="content">
+<nav class="breadcrumb" aria-label="breadcrumb"><a href="index.html">หน้าแรก</a> › Flashcards</nav>
+<div class="quiz-shell">
+
+  <h1>Flashcards <span class="badge" style="background:var(--accent-soft);color:var(--accent-strong)"><span id="fc-total">0</span> ใบ · Leitner 5 กล่อง</span></h1>
+  <p style="color:var(--muted);font-size:.9rem">ตอบจำได้แล้ว = กล่องขยับขึ้น (ทบทวนห่างขึ้น) · ตอบไม่ได้ = กลับไปกล่อง 1 · กดการ์ดหรือ Enter/Space เพื่อพลิก</p>
+
+  <div id="fc-filters" role="group" aria-label="กรองตามโดเมน" style="margin-bottom:.35rem"></div>
+  <div id="fc-order" role="group" aria-label="ลำดับการทบทวน" style="margin-bottom:.5rem"></div>
+
+  <div id="leitner-stats" aria-label="การกระจายตัวของกล่อง" style="font-size:.85rem;color:var(--muted);margin-bottom:.25rem"></div>
+  <div class="q-palette" id="box-bars" style="margin-bottom:.75rem"></div>
+
+  <div class="flashcard" id="flashcard" role="button" tabindex="0" aria-label="พลิกการ์ด (Enter หรือ Space)">
+    <div class="flashcard-inner">
+      <div class="flashcard-face flashcard-front">
+        <span class="fc-label">คำถาม · <span id="fc-domain">D?</span></span>
+        <div id="fc-front" style="font-size:1.1rem;font-weight:600">…</div>
+        <span class="fc-label" style="margin-top:auto">แตะการ์ดเพื่อดูเฉลย</span>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <span class="fc-label">เฉลย</span>
+        <div id="fc-back">…</div>
+        <span class="fc-label" style="margin-top:auto">กล่อง <span id="fc-box">1</span>/5</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap">
+    <button class="btn" id="fc-wrong" type="button" style="border-color:var(--accent);color:var(--accent-strong)">ยังจำไม่ได้</button>
+    <button class="btn btn-primary" id="fc-right" type="button">จำได้แล้ว</button>
+    <button class="btn btn-ghost" id="fc-skip" type="button">ข้าม</button>
+  </div>
+  <p id="fc-counter" style="text-align:center;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:.5rem"></p>
+  <div style="text-align:center"><button class="btn btn-ghost btn-sm" id="fc-reset" type="button">รีเซ็ตกล่องทั้งหมด</button></div>
+
+</div>
+</main>
+</div>
+
+<footer class="footer">
+  <p><strong>สื่อการเรียนที่ไม่เป็นทางการ</strong> — ไม่เกี่ยวข้องหรือได้รับการรับรองจาก Oracle · ข้อมูลกล่องเก็บในเครื่องนี้เท่านั้น (<a href="SOURCES.md">SOURCES.md</a>)</p>
+</footer>
+
+<div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="ค้นหาทั้งเว็บ">
+  <div class="search-panel">
+    <input type="search" placeholder="ค้นหาหัวข้อ บริการ หรือศัพท์… (กด Esc เพื่อปิด)" aria-label="คำค้นหา" autocomplete="off">
+    <div class="search-results" role="listbox" aria-label="ผลการค้นหา"></div>
+  </div>
+</div>
+<script src="assets/js/flashcard-data.js"></script>
+<script src="assets/js/search-index.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var DATA = window.FLASHCARD_DATA || [];
+  var LEITNER_KEY = 'oci-study-leitner-v1';
+  var INTERVALS = [0, 1, 2, 4, 7, 14]; /* วัน: กล่อง 1 = ทบทวนได้ทันที … กล่อง 5 = ทุก 14 วัน */
+
+  var memory = {};
+  var storageOK = (function () {
+    try { window.localStorage.setItem('__t', '1'); window.localStorage.removeItem('__t'); return true; } catch (e) { return false; }
+  })();
+  function loadBoxes() {
+    try {
+      if (storageOK) {
+        var raw = window.localStorage.getItem(LEITNER_KEY);
+        return raw ? JSON.parse(raw) : {};
+      }
+      return memory;
+    } catch (e) { return {}; }
+  }
+  function saveBoxes(boxes) {
+    try {
+      if (storageOK) window.localStorage.setItem(LEITNER_KEY, JSON.stringify(boxes));
+      else memory = boxes;
+    } catch (e) { memory = boxes; }
+  }
+  function getBox(id) { var b = loadBoxes()[id]; return b && typeof b.box === 'number' ? b : { box: 1, last: null }; }
+  function setBox(id, box) {
+    var boxes = loadBoxes();
+    boxes[id] = { box: box, last: new Date().toISOString() };
+    saveBoxes(boxes);
+  }
+  function isDue(id) {
+    var b = getBox(id);
+    if (!b.last) return true;
+    var days = (Date.now() - new Date(b.last).getTime()) / 86400000;
+    return days >= INTERVALS[b.box];
+  }
+
+  var state = { domain: 'all', order: 'due', queue: [], index: 0, revealed: false, sessionCount: 0 };
+
+  function $(id) { return document.getElementById(id); }
+  function shuffle(arr) { var a = arr.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+  function visibleCards() {
+    var cards = DATA.filter(function (c) { return state.domain === 'all' || c.domain === state.domain; });
+    if (state.order === 'due') {
+      var due = cards.filter(function (c) { return isDue(c.id); });
+      if (due.length) cards = due;
+    }
+    return shuffle(cards);
+  }
+
+  function renderStats() {
+    var boxes = [0, 0, 0, 0, 0, 0];
+    DATA.forEach(function (c) { boxes[getBox(c.id).box]++; });
+    var dueCount = DATA.filter(function (c) { return isDue(c.id); }).length;
+    $('leitner-stats').textContent = 'กล่อง 1 (ทบทวนบ่อย): ' + boxes[1] + ' · กล่อง 2: ' + boxes[2] + ' · กล่อง 3: ' + boxes[3] + ' · กล่อง 4: ' + boxes[4] + ' · กล่อง 5 (จำได้แล้ว): ' + boxes[5] + ' · ถึงรอบทบทวน: ' + dueCount + ' ใบ';
+    var bar = $('box-bars');
+    bar.innerHTML = '';
+    for (var b = 1; b <= 5; b++) {
+      var pct = DATA.length ? Math.round((100 * boxes[b]) / DATA.length) : 0;
+      var div = document.createElement('div');
+      div.style.cssText = 'flex:1;min-width:80px';
+      div.innerHTML = '<div style="font-size:.75rem;margin-bottom:.15rem">กล่อง ' + b + ' · ' + boxes[b] + '</div><div class="progress"><span style="width:' + pct + '%"></span></div>';
+      bar.appendChild(div);
+    }
+  }
+
+  function renderCard() {
+    var card = state.queue[state.index];
+    state.revealed = false;
+    var fc = $('flashcard');
+    fc.classList.remove('flipped');
+    $('fc-domain').textContent = 'D' + card.domain;
+    $('fc-front').textContent = card.front;
+    $('fc-back').textContent = card.back;
+    $('fc-box').textContent = getBox(card.id).box;
+    $('fc-counter').textContent = 'ใบที่ ' + (state.sessionCount + 1) + ' · เหลือ ' + (state.queue.length - state.index - 1) + ' ใบในชุดนี้';
+  }
+
+  function nextCard() {
+    state.index++;
+    state.sessionCount++;
+    if (state.index >= state.queue.length) {
+      state.queue = visibleCards();
+      state.index = 0;
+      if (!state.queue.length) { window.ociToast('ไม่มีการ์ดในตัวกรองนี้'); return; }
+    }
+    renderCard();
+  }
+
+  function answer(known) {
+    var card = state.queue[state.index];
+    var b = getBox(card.id).box;
+    setBox(card.id, known ? Math.min(5, b + 1) : 1);
+    renderStats();
+    nextCard();
+  }
+
+  function buildChips(containerId, items, current, onPick) {
+    var box = $(containerId);
+    box.innerHTML = '';
+    items.forEach(function (item) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-sm' + (item.value === current ? ' btn-primary' : '');
+      btn.textContent = item.label;
+      btn.setAttribute('aria-pressed', item.value === current ? 'true' : 'false');
+      btn.addEventListener('click', function () { onPick(item.value); });
+      box.appendChild(btn);
+    });
+  }
+
+  function refreshFilters() {
+    buildChips('fc-filters', [
+      { value: 'all', label: 'ทุกโดเมน' },
+      { value: '1', label: 'D1' }, { value: '2', label: 'D2' }, { value: '3', label: 'D3' }, { value: '4', label: 'D4' }
+    ], state.domain, function (v) { state.domain = v; restart(); });
+    buildChips('fc-order', [
+      { value: 'due', label: 'ถึงรอบทบทวนก่อน' },
+      { value: 'all', label: 'สุ่มทั้งหมด' }
+    ], state.order, function (v) { state.order = v; restart(); });
+  }
+
+  function restart() {
+    state.queue = visibleCards();
+    state.index = 0;
+    state.sessionCount = 0;
+    if (!state.queue.length) { window.ociToast('ไม่มีการ์ดในชุดนี้'); return; }
+    refreshFilters();
+    renderCard();
+    renderStats();
+  }
+
+  $('fc-total').textContent = DATA.length;
+  var fc = $('flashcard');
+  function flip() {
+    state.revealed = !state.revealed;
+    fc.classList.toggle('flipped', state.revealed);
+  }
+  fc.addEventListener('click', flip);
+  fc.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
+  });
+  $('fc-right').addEventListener('click', function () { answer(true); });
+  $('fc-wrong').addEventListener('click', function () { answer(false); });
+  $('fc-skip').addEventListener('click', nextCard);
+  $('fc-reset').addEventListener('click', function () {
+    if (window.confirm('รีเซ็ตกล่อง Leitner ของการ์ดทุกใบ?')) { saveBoxes({}); renderStats(); window.ociToast('รีเซ็ตแล้ว'); }
+  });
+
+  state.queue = visibleCards();
+  refreshFilters();
+  renderCard();
+  renderStats();
+})();
+</script>
+</body>
+</html>
